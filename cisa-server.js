@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import listarSalas from "./routes/institucional/index.js";
 import listarHorarios from "./routes/institucional/index.js";
 import RegistrarTurno from "./routes/institucional/index.js";
+import LoginSap  from "./routes/login/index.js";
 import https from "https";
 import fs from "fs";
 import dotenv from 'dotenv'
@@ -29,9 +30,10 @@ const options = {
    ca  : fs.readFileSync("/etc/pki/SSL_cert/DigiCertCA.crt")
 };
 
-app.get('/listarSalas',listarSalas)
-app.get('/listarHorarios',listarHorarios)
+app.post('/listarSalas',listarSalas)
+app.post('/listarHorarios',listarHorarios)
 app.post('/RegistrarTurno',RegistrarTurno)
+app.post('/loginsap', LoginSap)
 
  https.createServer(options,app).listen(port, () => {
     console.log(`cisa listening on port ${port}`)

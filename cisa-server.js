@@ -35,7 +35,7 @@ app.post('/listarSalas',listarSalas)
 app.post('/listarHorarios',listarHorarios)
 app.post('/RegistrarTurno',RegistrarTurno)
 app.post('/loginsap', LoginSap)
-app.get('/usa/productList', GetProductsUsa)
+app.get('/usa/productId', GetProductsUsa)
 
  https.createServer(options,app).listen(port, () => {
     console.log(`cisa listening on port ${port}`)

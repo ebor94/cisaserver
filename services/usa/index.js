@@ -1,6 +1,6 @@
 import axios  from 'axios';
-export const GetProductsListUsa = () =>{
-
+import convert  from 'xml-js'
+export const GetProductsIdUsa = async () =>{
 
     let config = {
       method: 'get',
@@ -12,12 +12,15 @@ export const GetProductsListUsa = () =>{
       }
     };
     
-    axios.request(config)
+    const response = await axios.request(config)
     .then((response) => {
-      console.log(JSON.stringify(response.data));
+        let options = {ignoreComment: true, alwaysChildren: true};
+        const res  =convert.xml2js(response.data, options);
+        
+      return(res.elements[0].elements[0].elements);
     })
     .catch((error) => {
-      console.log(error);
+     return(error);
     });
-
+return response ;
 }

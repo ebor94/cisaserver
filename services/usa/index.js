@@ -37,17 +37,17 @@ export const GetInfoProduct = async(data) =>{
     }
   };
   
-  axios.request(config)
+  const response = await axios.request(config)
   .then((response) => {
     let options = {ignoreComment: true, alwaysChildren: true};
     const res  =convert.xml2js(response.data, options);
-    console.log(res);
+    return res;
   })
   .catch((error) => {
-    console.log(error);
+    return (error);
   });
   
-
+return response;
 
 
 }

@@ -5,6 +5,7 @@ import listarHorarios from "./routes/institucional/index.js";
 import RegistrarTurno from "./routes/institucional/index.js";
 import LoginSap  from "./routes/login/index.js";
 import GetProductsUsa from "./routes/usa/index.js" 
+import PutProductId from "./routes/usa/index.js" 
 import https from "https";
 import fs from "fs";
 import dotenv from 'dotenv'
@@ -36,6 +37,7 @@ app.post('/listarHorarios',listarHorarios)
 app.post('/RegistrarTurno',RegistrarTurno)
 app.post('/loginsap', LoginSap)
 app.get('/usa/productId', GetProductsUsa)
+app.put('/usa/PutProductId', PutProductId)
 
  https.createServer(options,app).listen(port, () => {
     console.log(`cisa listening on port ${port}`)

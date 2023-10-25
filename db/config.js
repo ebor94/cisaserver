@@ -13,3 +13,23 @@ export const config = {
         trustServerCertificate: true,
         }
 }
+
+
+export const configCeramiaUsa = {
+    host: process.env.HOSTCERAMIA,
+    user: process.env.USERDBCERAMIA,
+    password: process.env.PASSCERAMIA,    
+    database: process.env.DB_NAMECERAMIA,
+  
+}
+
+export const configCisa = {
+    host: process.env.HOSTCISA,
+    user: process.env.USERDBCISA,
+    password: process.env.PASSCISA,
+    database: process.env.DB_NAMECISA,
+  
+}
+
+
+

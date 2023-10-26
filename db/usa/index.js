@@ -1,5 +1,6 @@
 import {configCeramiaUsa, configCisa} from '../config.js';
 import mysql from 'mysql2';
+import  express  from "express";
 export const getProducts = async() =>{
     
     // create the pool
@@ -19,14 +20,12 @@ export const UpdateStock = async(id, quantity, reference)=>{
      const promisePool = pool.promise();
      // query database using promises
      const [rows,fields] = await promisePool.query(`update ceramiac_usa.ps9y_stock_available set  quantity = ${quantity} where id_product = ${id};`);
-    // console.log(fields,rows)
-    
+    // console.log(fields,rows)    
      return JSON.stringify(rows.info);
 }
 
 export const UpdateStockCisa = async(reference, quantity)=>{
-    const idCisa = await GetIdCisa(reference)
-    console.log(idCisa)
+    const idCisa = await  GetIdCisa(reference)
     // create the pool
     const pool = mysql.createPool(configCisa);
     // now get a Promise wrapped instance of that pool
@@ -37,14 +36,8 @@ export const UpdateStockCisa = async(reference, quantity)=>{
     return JSON.stringify(rows.info);
 }
 
-export const GetIdCisa = async(reference)=>{
-    // create the pool
-    const pool = mysql.createPool(configCisa);
-    // now get a Promise wrapped instance of that pool
-    const promisePool = pool.promise();
-    // query database using promises
-    const [rows,fields] = await promisePool.query(`select id_product from ps_product where reference = ${reference} order by id_product desc limit 1;`);
-    //console.log(fields,rows)
-    return rows.id_product;
-}
-
+async function GetIdCisa(reference) {
+    const pool = mysql.createPool(configCisa).promise();
+    const [rows] = await pool.query(`select id_product from ps_product where reference = ${reference} order by id_product desc limit 1;`)
+    return rows[0].id_product
+  }

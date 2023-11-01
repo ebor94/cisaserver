@@ -31,5 +31,13 @@ export const configCisa = {
   
 }
 
+export const configVselect = {
+    host: process.env.HOSTCISA,
+    user: process.env.USERDB_VSELECT,
+    password: process.env.PASS_VSELECT,
+    database: process.env.HOST_VSELECT,
+  
+}
+
 
 

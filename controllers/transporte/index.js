@@ -34,7 +34,9 @@ export const regVehiculo = async (data)=>{
     let CiudadPropietario   = data.CiudadPropietario;
     let TelViviend          = data.TelViviend;
 
-    const response = await RegistraVehiculo(tipo,
+  
+    let response;
+    const resData = await RegistraVehiculo(tipo,
         Placa,
         Marca,
         Modelo,
@@ -63,6 +65,12 @@ export const regVehiculo = async (data)=>{
         DirPropietario,
         CiudadPropietario,
         TelViviend)
+
+     if(resData[0].Placa === Placa){
+        response ="Exitoso"
+     }else{
+        response ="Error de Registro"
+     }   
 return  response;
 }
     

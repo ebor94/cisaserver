@@ -65,7 +65,7 @@ export const RegistraVehiculo = async (tipo,
             .input('TelVivienda',         sql.VarChar, TelVivienda)
           .execute('sp_TteTarjetaVehiculo')
        }).then(result => {
-           console.log(result.recordset)
+          // console.log(result)
            return result.recordset
        }).catch(err => {
            console.log(err)

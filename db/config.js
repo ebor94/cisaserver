@@ -31,13 +31,21 @@ export const configCisa = {
   
 }
 
+
+
 export const configVselect = {
-    host: process.env.HOSTCISA,
     user: process.env.USERDB_VSELECT,
     password: process.env.PASS_VSELECT,
-    database: process.env.HOST_VSELECT,
-  
+    server: process.env.HOST_VSELECT,
+    database: process.env.DB_NAME_VSELECT,
+     options: {
+        trustedConnection: true,
+        encrypt: true,
+        enableArithAbort: true,
+        trustServerCertificate: true,
+        }
 }
+
 
 
 

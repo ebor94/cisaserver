@@ -7,3 +7,6 @@ router.post('/transporte/regVehiculo', async (req,res) => {
     const response  = await regVehiculo(req.body);    
      res.send(response); 
    });
+
+
+   export default router

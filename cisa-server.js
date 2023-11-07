@@ -1,5 +1,6 @@
 import  Express  from "express";
 import bodyParser from "body-parser";
+import cors from "cors"
 import listarSalas from "./routes/institucional/index.js";
 import listarHorarios from "./routes/institucional/index.js";
 import RegistrarTurno from "./routes/institucional/index.js";
@@ -7,6 +8,8 @@ import LoginSap  from "./routes/login/index.js";
 import GetProductsUsa from "./routes/usa/index.js" ;
 import PutProductId from "./routes/usa/index.js" ;
 import RegVehiculo from "./routes/transporte/index.js";
+import GetInventory  from "./routes/clientes/inventario.js";
+import GetIdflujo from './routes/corporativo/porteria.js'
 import https from "https";
 import fs from "fs";
 import dotenv from 'dotenv'
@@ -14,7 +17,7 @@ dotenv.config()
 
 const app = Express();
 const port  = process.env.PORT || "3001"
-const domain = "ceramicaitalia.com"
+//const domain = "ceramicaitalia.com"
 app.use((req, res, next) => {
     // Dominio que tengan acceso 
        res.setHeader('Access-Control-Allow-Origin', "*");    
@@ -24,6 +27,7 @@ app.use((req, res, next) => {
        res.setHeader('Access-Control-Allow-Headers', '*');    
     next();
     })
+app.use(cors({origin: '*'}));    
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -40,6 +44,8 @@ app.post('/loginsap', LoginSap)
 app.get('/usa/productId', GetProductsUsa)
 app.put('/usa/PutProductId', PutProductId)
 app.post('/transporte/regVehiculo', RegVehiculo)
+app.post('/clientes/inventario', GetInventory)
+app.get('/corporativo/porteria/:id', GetIdflujo)
 
  https.createServer(options,app).listen(port, () => {
     console.log(`cisa listening on port ${port}`)

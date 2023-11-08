@@ -45,7 +45,7 @@ app.get('/usa/productId', GetProductsUsa)
 app.put('/usa/PutProductId', PutProductId)
 app.post('/transporte/regVehiculo', RegVehiculo)
 app.post('/clientes/inventario', GetInventory)
-app.get('/corporativo/porteria/:id', GetIdflujo)
+app.get('/corporativo/porteria/:id/:tipo', GetIdflujo)
 
  https.createServer(options,app).listen(port, () => {
     console.log(`cisa listening on port ${port}`)

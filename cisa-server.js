@@ -5,6 +5,7 @@ import listarSalas from "./routes/institucional/index.js";
 import listarHorarios from "./routes/institucional/index.js";
 import RegistrarTurno from "./routes/institucional/index.js";
 import LoginSap  from "./routes/login/index.js";
+import loginAd  from "./routes/login/index.js";
 import GetProductsUsa from "./routes/usa/index.js" ;
 import PutProductId from "./routes/usa/index.js" ;
 import RegVehiculo from "./routes/transporte/index.js";
@@ -41,11 +42,12 @@ app.post('/listarSalas',listarSalas)
 app.post('/listarHorarios',listarHorarios)
 app.post('/RegistrarTurno',RegistrarTurno)
 app.post('/loginsap', LoginSap)
+app.post('/loginAd/', loginAd)
 app.get('/usa/productId', GetProductsUsa)
 app.put('/usa/PutProductId', PutProductId)
 app.post('/transporte/regVehiculo', RegVehiculo)
 app.post('/clientes/inventario', GetInventory)
-app.get('/corporativo/porteria/:id/:tipo', GetIdflujo)
+app.get('/corporativo/porteria/:id', GetIdflujo)
 
  https.createServer(options,app).listen(port, () => {
     console.log(`cisa listening on port ${port}`)

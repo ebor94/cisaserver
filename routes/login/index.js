@@ -7,12 +7,11 @@ router.post('/LoginSap', async (req,res) => {
     res.send(response); 
   });
 
-router.post('/LoginDomain/', async  (req, res)=>{
-  const response  = await  LoginDomain(req.body);    
-    res.send(response); 
+router.post('/loginAd/', async  (req, res)=>{
+   await  LoginDomain(req, res);
+  //console.log(response)    
+  //  res.send(response); 
  
-  
-    
 })
 
 

@@ -30,9 +30,6 @@ export const configCisa = {
     database: process.env.DB_NAMECISA,
   
 }
-
-
-
 export const configVselect = {
     user: process.env.USERDB_VSELECT,
     password: process.env.PASS_VSELECT,
@@ -45,6 +42,21 @@ export const configVselect = {
         trustServerCertificate: true,
         }
 }
+export const configCisamyql = {
+    port: process.env.PORTFT,
+    host: process.env.HOSTFT,
+    user: process.env.USERDBFT,
+    password: process.env.PASSFT,    
+    database: process.env.DB_NAMEFT,
+  
+}
+
+
+
+
+
+
+
 
 
 

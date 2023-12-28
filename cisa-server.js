@@ -10,7 +10,8 @@ import GetProductsUsa from "./routes/usa/index.js" ;
 import PutProductId from "./routes/usa/index.js" ;
 import RegVehiculo from "./routes/transporte/index.js";
 import GetInventory  from "./routes/clientes/inventario.js";
-import GetIdflujo from './routes/corporativo/porteria.js'
+import GetIdflujo from './routes/corporativo/porteria.js';
+import GetFichaTecnica from "./routes/clientes/fichaTecnica.js";
 import https from "https";
 import fs from "fs";
 import dotenv from 'dotenv'
@@ -48,7 +49,7 @@ app.put('/usa/PutProductId', PutProductId)
 app.post('/transporte/regVehiculo', RegVehiculo)
 app.post('/clientes/inventario', GetInventory)
 app.get('/corporativo/porteria/:id', GetIdflujo)
-
+app.get('/clientes/ft/:codsap', GetFichaTecnica)
  https.createServer(options,app).listen(port, () => {
     console.log(`cisa listening on port ${port}`)
  }); 

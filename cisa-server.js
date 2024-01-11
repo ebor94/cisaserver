@@ -12,6 +12,7 @@ import RegVehiculo from "./routes/transporte/index.js";
 import GetInventory  from "./routes/clientes/inventario.js";
 import GetIdflujo from './routes/corporativo/porteria.js';
 import GetFichaTecnica from "./routes/clientes/fichaTecnica.js";
+import logLogin from "./routes/login/index.js";
 import https from "https";
 import fs from "fs";
 import dotenv from 'dotenv'
@@ -44,6 +45,7 @@ app.post('/listarHorarios',listarHorarios)
 app.post('/RegistrarTurno',RegistrarTurno)
 app.post('/loginsap', LoginSap)
 app.post('/loginAd/', loginAd)
+app.post('/logLogin/', logLogin)
 app.get('/usa/productId', GetProductsUsa)
 app.put('/usa/PutProductId', PutProductId)
 app.post('/transporte/regVehiculo', RegVehiculo)

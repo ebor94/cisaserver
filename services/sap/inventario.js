@@ -1,4 +1,6 @@
 import  axios from 'axios';
+import dotenv from 'dotenv'
+dotenv.config()
 
 
 export const getInventory = (BUSQUEDA,DTLUBICA,PARCENTRO,PARALMACEN,PARORGVTA, PARACANAL) =>{
@@ -15,11 +17,11 @@ export const getInventory = (BUSQUEDA,DTLUBICA,PARCENTRO,PARALMACEN,PARORGVTA, P
       let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'https://itaprd.ceramicaitalia.com:44301/sap/bc/rest/zmm_search_mate?sap-client=310',
+        url: process.env.GETINVENTORY_URL,
         headers: { 
           'Content-Type': 'application/json', 
-          'Authorization': 'Basic Ym9ydGVnYTpCb3J0ZWdhKzExMw==', 
-          'Cookie': 'SAP_SESSIONID_CSP_310=ef73BHI0kpjaVJf0xcGPVaW3iT96axHuhAM7CslkDKM%3d; sap-usercontext=sap-client=310'
+          'Authorization': process.env.GETINVENTORY_AUTORIZATION , 
+          'Cookie': process.env.GETINVENTORY_COOKIE
         },
         data : data
       };

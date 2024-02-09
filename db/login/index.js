@@ -1,13 +1,13 @@
 import sql from 'mssql'
 
-import {config} from '../db/config.js'
+import {configBot} from '../config.js'
 
 export const logAccesos = async (usuario, app)=>{
 
- const saveChat = sql.connect(config).then(pool => {   
+ const saveChat = sql.connect(configBot).then(pool => {   
     return pool.request()
         .input('pregunta', sql.VarChar, app)
-        //.input('respuesta', sql.VarChar, respuesta)
+        .input('respuesta', sql.VarChar, '')
         .input('usuario', sql.VarChar, usuario)
           .execute('italbotSaveChat')
     }).then(result => {

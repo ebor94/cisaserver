@@ -1,5 +1,5 @@
 import { validateDomain } from "../../services/Domain/index.js";
-import { logAccesos } from "../../db/login.js";
+import { logAccesos } from "../../db/login/index.js";
 
 
 

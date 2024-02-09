@@ -14,7 +14,7 @@ router.post('/loginAd/', async  (req, res)=>{
  
 })
 
-router.post('logLogin', async(req, res)=>{
+router.post('/logLogin/', async(req, res)=>{
   const response  = await logsLogin(req, res)
     res.send(response);
 })

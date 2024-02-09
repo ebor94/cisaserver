@@ -15,6 +15,20 @@ export const config = {
 }
 
 
+export const configBot = {
+    user: process.env.USERDBBOT,
+    password: process.env.PASSBOT,
+    server: process.env.HOSTBOT,
+    database: process.env.DB_NAMEBOT,
+     options: {
+        trustedConnection: true,
+        encrypt: true,
+        enableArithAbort: true,
+        trustServerCertificate: true,
+        }
+}
+
+
 export const configCeramiaUsa = {
     host: process.env.HOSTCERAMIA,
     user: process.env.USERDBCERAMIA,

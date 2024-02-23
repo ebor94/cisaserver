@@ -13,6 +13,7 @@ import GetInventory  from "./routes/clientes/inventario.js";
 import GetIdflujo from './routes/corporativo/porteria.js';
 import GetFichaTecnica from "./routes/clientes/fichaTecnica.js";
 import getDataSheetSap from "./routes/clientes/fichaTecnica.js";
+import GetPackingList from "./routes/producto/pack.js";
 //import GetBim from "./routes/clientes/bim.js";
 import logLogin from "./routes/login/index.js";
 import https from "https";
@@ -55,6 +56,7 @@ app.post('/clientes/inventario', GetInventory)
 app.get('/corporativo/porteria/:id', GetIdflujo)
 app.get('/clientes/ft/:codsap', GetFichaTecnica)
 app.get('/clientes/ftsap/:codsap', getDataSheetSap)
+app.get('/producto/pack/:codsap', GetPackingList)
 //app.get('/clientes/bim/:bandera', GetBim)
  https.createServer(options,app).listen(port, () => {
     console.log(`cisa listening on port ${port}`)

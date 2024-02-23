@@ -21,27 +21,22 @@ export const  getDataSheetSap = async(data)=>{
     let  texto =  await GetProductText(data,'S','GRUN','MATERIAL')
     let  solotexto =  texto[0].field2    
     let  infoproduct =  await GetInventory(dataprod)
-    let  ProductName = infoproduct[0].descripcion
+    let  productName = infoproduct[0].descripcion
     let response =  await GetDataSheetSap(data)
-    let InfProduct = [{caracteristica: 'Name', valor: ProductName}]
-    let arrayConcatenado = []
+    let InfProduct = [{caracteristica: 'Name', valor: productName}]
+    let arrayfichatecnica = []
     console.log(InfProduct)
    
     if (typeof solotexto !== 'undefined'){
         let cadena = JSON.stringify(solotexto).replace(/\\n\//g, "");
         let textjson = JSON.parse(cadena); 
         let objeto = JSON.parse(textjson);
-        arrayConcatenado = [...objeto, ...response, ...InfProduct];     
-        return  arrayConcatenado
+        arrayfichatecnica = [...objeto, ...response, ...InfProduct];     
+        return  arrayfichatecnica
         
     }else{
-         arrayConcatenado = [ ...response, ...InfProduct];  
-        return  arrayConcatenado 
+        arrayfichatecnica = [ ...response, ...InfProduct];  
+        return  arrayfichatecnica 
 
     }
-   
-   
-        
-    
-
 }

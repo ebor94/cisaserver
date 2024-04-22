@@ -13,11 +13,15 @@ router.get('/clientes/ft/:codsap', async(req,res)=>{
 });
 
 
-router.get('/clientes/ftsap/:codsap', async(req,res)=>{
+router.get('/clientes/ftsap/:codsap/:lang', async(req,res)=>{
     
     const codsap = req.params.codsap;
+    let lang = req.params.lang;
+    if(typeof lang == undefined){
+        lang = 'S'
+    }
     //console.log(codsap)
-     const response  = await getDataSheetSap(codsap)
+     const response  = await getDataSheetSap(codsap, lang)
      res.send(response); 
  });
 

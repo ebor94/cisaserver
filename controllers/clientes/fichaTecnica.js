@@ -9,7 +9,7 @@ return response;
 
 }
 
-export const  getDataSheetSap = async(data)=>{
+export const  getDataSheetSap = async(data,lang)=>{
     let dataprod = {
         "BUSQUEDA" : data,
         "DTLUBICA" : "W",
@@ -18,11 +18,11 @@ export const  getDataSheetSap = async(data)=>{
         "PARORGVTA" : "",
         "PARACANAL" : ""
     }
-    let  texto =  await GetProductText(data,'S','GRUN','MATERIAL')
+    let  texto =  await GetProductText(data,lang,'GRUN','MATERIAL')
     let  solotexto =  texto[0].field2    
     let  infoproduct =  await GetInventory(dataprod)
     let  productName = infoproduct[0].descripcion
-    let response =  await GetDataSheetSap(data)
+    let response =  await GetDataSheetSap(data, lang)
     let InfProduct = [{caracteristica: 'Name', valor: productName}]
     let arrayfichatecnica = []
     console.log(InfProduct)

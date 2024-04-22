@@ -2,11 +2,12 @@ import  axios from 'axios';
 import dotenv from 'dotenv'
 dotenv.config()
 
-export const GetDataSheetSap = (CODSAP) =>{
+export const GetDataSheetSap = (CODSAP,lang) =>{
     let clase = '001'
     let data = JSON.stringify({
         "vcodsap": CODSAP,
-        "vclase": clase
+        "vclase": clase,
+        "vlang" : lang
             });
       
       let config = {

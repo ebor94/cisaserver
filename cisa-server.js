@@ -17,6 +17,8 @@ import GetInvoiceController from "./routes/clientes/invoice.js";
 import GetPackingList from "./routes/producto/pack.js";
 //import GetBim from "./routes/clientes/bim.js";
 import logLogin from "./routes/login/index.js";
+import loginWm from "./routes/transporte/wm.js"
+
 import https from "https";
 import fs from "fs";
 import dotenv from 'dotenv'
@@ -59,6 +61,7 @@ app.get('/clientes/ft/:codsap', GetFichaTecnica)
 app.get('/clientes/ftsap/:codsap/:idioma', getDataSheetSap)
 app.get('/producto/pack/:codsap', GetPackingList)
 app.post('/clientes/invoice/', GetInvoiceController)
+app.post('/transporte/sesionwm', loginWm)
 //app.get('/clientes/bim/:bandera', GetBim)
  https.createServer(options,app).listen(port, () => {
     console.log(`cisa listening on port ${port}`)

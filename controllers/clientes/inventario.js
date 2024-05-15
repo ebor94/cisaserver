@@ -17,12 +17,12 @@ export const GetInventory = (data) => {
          if (product.tipomaterial == 'YRVS' || product.tipomaterial == 'YCRS') {
             product.fichatecnica = null;    
          }
-         if (product.tipomaterial == 'YRVP' || product.tipomaterial == 'YCRP' || product.tipomaterial == 'YRVR') {
-            let estatusFt = await ValidaFtRv(product.material);
-            if (estatusFt == false) {
-               product.fichatecnica = null;    
-            }
-         }
+         // if (product.tipomaterial == 'YRVP' || product.tipomaterial == 'YCRP' || product.tipomaterial == 'YRVR') {
+         //    let estatusFt = await ValidaFtRv(product.material);
+         //    if (estatusFt == false) {
+         //       product.fichatecnica = null;    
+         //    }
+         // }
          if (product.tipomaterial == 'HAWA') {
             const status = await validahawa(product)
             if(status == false){

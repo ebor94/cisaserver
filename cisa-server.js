@@ -18,6 +18,7 @@ import GetPackingList from "./routes/producto/pack.js";
 //import GetBim from "./routes/clientes/bim.js";
 import logLogin from "./routes/login/index.js";
 import loginWm from "./routes/transporte/wm.js"
+import sendMessage from "./routes/mensajeria/mensajeria.js"
 
 import https from "https";
 import fs from "fs";
@@ -39,6 +40,16 @@ app.use((req, res, next) => {
 app.use(cors({origin: '*'}));    
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+
+
+
+// Middleware para capturar y mostrar la IP
+app.use((req, res, next) => {
+  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  console.log(`IP: ${ip}`);
+  next();
+});
 
 const options = {
    key : fs.readFileSync("/etc/pki/SSL_cert/wildcard_ceramicaitalia_com.key"),
@@ -62,8 +73,10 @@ app.get('/clientes/ftsap/:codsap/:idioma', getDataSheetSap)
 app.get('/producto/pack/:codsap', GetPackingList)
 app.post('/clientes/invoice/', GetInvoiceController)
 app.post('/transporte/sesionwm', loginWm)
+app.post('/mensajeria',sendMessage)
 //app.get('/clientes/bim/:bandera', GetBim)
  https.createServer(options,app).listen(port, () => {
     console.log(`cisa listening on port ${port}`)
+    
  }); 
 

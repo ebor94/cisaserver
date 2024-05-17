@@ -1,22 +1,45 @@
 import {GetInvoice, GetInfoSeller} from "../../services/sap/invoice.js"
+import {GetPrice} from '../../services/sap/product.js'
 
 
 export   const GetInvoiceController = async (data) =>{
     let cte =  data.cte;    
     let invoice = await GetInvoice( data.LCODIGO, data.LTIPO, data.TPROCESO, data.PCODSOLICITANTE, data.PHANDLE, data.FECHAINI, data.FECHAFIN);  
      //console.log(cte,"---",invoice[0].solici)
-   
-    if(cte === invoice[0].solici){
+     let dataGetPrice = {
+        "KUNNR":"1093771589",
+        "MATNR":"",
+        "WERKS":"1100",
+        "LVTWEG":"60",
+        "VKBUR":"110",
+        "PRDESC":"ZYD1",
+        "VKORG":"1000",
+        "CANTI":"",
+        "UMVTA":"",
+        "FLAX":"Y",
+        "FECHA":"",
+        "MOTIVOP":"",
+        "MATNR_CHILD":""
+                }
+        const results = []; 
+        
+        for (const item of invoice) {
+            dataGetPrice.MATNR = "000000000000"+item.materi
+           // console.log(dataGetPrice)
+            const result = await GetPrice(dataGetPrice); 
+           // console.log(result)
+            item.pvp = result[0].prcted
+            results.push(item);
+          }
+
+    if(cte === results[0].solici){
         //console.log(cte,"******",invoice[0].solici)
-        let arrayinvoice = []
-        let infSeller = await GetInfoSeller("TELV_"+invoice[0].vended)
-        console.log(invoice[0].vended,"----",infSeller[0].valor)
-        invoice[0].telfvend = infSeller[0].valor;
-        //arrayinvoice = [...invoice[0], ...infSeller];   
-        return invoice ;
+        
+        let infSeller = await GetInfoSeller("TELV_"+results[0].vended)
+        results[0].telfvend = infSeller[0].valor;         
+        return results ;
     }else{
-       // console.log(cte,"++++++",invoice[0].solici)
-        return "";
+        return []
     }
 
 }

@@ -19,6 +19,7 @@ import GetPackingList from "./routes/producto/pack.js";
 import logLogin from "./routes/login/index.js";
 import loginWm from "./routes/transporte/wm.js"
 import sendMessage from "./routes/mensajeria/mensajeria.js"
+import GetPorductPrice from "./routes/producto/product.js"
 
 import https from "https";
 import fs from "fs";
@@ -74,6 +75,7 @@ app.get('/producto/pack/:codsap', GetPackingList)
 app.post('/clientes/invoice/', GetInvoiceController)
 app.post('/transporte/sesionwm', loginWm)
 app.post('/mensajeria',sendMessage)
+app.post('/producto/price',GetPorductPrice)
 //app.get('/clientes/bim/:bandera', GetBim)
  https.createServer(options,app).listen(port, () => {
     console.log(`cisa listening on port ${port}`)

@@ -1,5 +1,6 @@
-import {GetInvoice, GetInfoSeller} from "../../services/sap/invoice.js"
+import {GetInvoice, GetInfoSeller, GetHeadQuote, CreateOrderReference} from "../../services/sap/invoice.js"
 import {GetPrice} from '../../services/sap/product.js'
+
 
 
 export   const GetInvoiceController = async (data) =>{
@@ -33,13 +34,30 @@ export   const GetInvoiceController = async (data) =>{
           }
 
     if(cte === results[0].solici){
-        //console.log(cte,"******",invoice[0].solici)
+        console.log(cte,"******",invoice[0].solici)
         
         let infSeller = await GetInfoSeller("TELV_"+results[0].vended)
-        results[0].telfvend = infSeller[0].valor;         
+        results[0].telfvend = infSeller[0].valor;    
+        console.log(cte,"******", results[0].telfvend)     
         return results ;
     }else{
         return []
     }
+
+}
+
+
+export const GetQuoteHead = async (data) =>{
+
+    let quoteHead =  await GetHeadQuote(data);
+    return  quoteHead;
+}
+
+
+export const PostOrderReference = async(data)=>{
+    let parametros =  JSON.stringify(data);
+    let order =  await CreateOrderReference(parametros);
+    return order ;
+
 
 }

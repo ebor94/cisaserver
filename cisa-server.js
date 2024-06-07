@@ -6,6 +6,7 @@ import listarHorarios from "./routes/institucional/index.js";
 import RegistrarTurno from "./routes/institucional/index.js";
 import LoginSap  from "./routes/login/index.js";
 import loginAd  from "./routes/login/index.js";
+import GetZcisaparmetros  from "./routes/login/index.js";
 import GetProductsUsa from "./routes/usa/index.js" ;
 import PutProductId from "./routes/usa/index.js" ;
 import RegVehiculo from "./routes/transporte/index.js";
@@ -20,7 +21,8 @@ import logLogin from "./routes/login/index.js";
 import loginWm from "./routes/transporte/wm.js"
 import sendMessage from "./routes/mensajeria/mensajeria.js"
 import GetPorductPrice from "./routes/producto/product.js"
-
+ import GetQuoteHead   from "./routes/clientes/invoice.js";
+ import PostOrderReference from "./routes/clientes/invoice.js";
 import https from "https";
 import fs from "fs";
 import dotenv from 'dotenv'
@@ -64,6 +66,7 @@ app.post('/RegistrarTurno',RegistrarTurno)
 app.post('/loginsap', LoginSap)
 app.post('/loginAd/', loginAd)
 app.post('/logLogin/', logLogin)
+app.post('/zcisaparmetros/', GetZcisaparmetros)
 app.get('/usa/productId', GetProductsUsa)
 app.put('/usa/PutProductId', PutProductId)
 app.post('/transporte/regVehiculo', RegVehiculo)
@@ -76,6 +79,9 @@ app.post('/clientes/invoice/', GetInvoiceController)
 app.post('/transporte/sesionwm', loginWm)
 app.post('/mensajeria',sendMessage)
 app.post('/producto/price',GetPorductPrice)
+app.post('/clientes/quote/', GetQuoteHead)
+app.post('/clientes/order/', PostOrderReference)
+
 //app.get('/clientes/bim/:bandera', GetBim)
  https.createServer(options,app).listen(port, () => {
     console.log(`cisa listening on port ${port}`)

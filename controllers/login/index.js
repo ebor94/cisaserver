@@ -1,9 +1,30 @@
 import { validateDomain } from "../../services/Domain/index.js";
 import { logAccesos } from "../../db/login/index.js";
+import { generateToken, validateToken } from '../../services/jwt/index.js';
+import { loginSapService } from "../../services/sap/login.js";
+import { Zcisaparmetros } from "../../services/sap/parametros.js";
 
 
 
-export const LoginSap = (data) => {
+
+export const LoginSap = async (data) => {
+    let response = {}
+  const dataLogin =  await loginSapService(data)
+
+  if(!dataLogin.length){
+    response.succes = false;
+    response.token = null;
+    response.data = dataLogin
+    
+  }else{
+    let key = generateToken(data.password)
+    response.succes = true;
+    response.token = key;
+    response.data = dataLogin
+  }
+
+  return response
+    
 
 }
 
@@ -23,5 +44,12 @@ export const logsLogin = async (req) => {
     const response = await logAccesos(user, app)
 
     return response;
+}
+
+export const GetZcisaparmetros = async (req, res) =>{
+    let data =  req.body
+    const response =  await Zcisaparmetros(data)
+
+    return response
 }
 

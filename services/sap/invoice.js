@@ -70,3 +70,71 @@ export const GetInfoSeller = (seller) =>{
       return response;
 
 }
+
+
+export const GetHeadQuote = ({BANDERA, OFERTA,MARGENALIADO,MARGENINTERNO,TOKEN,RESPUESTAWP,USUARIOAPROB,FILTRO}) =>{
+  let data = JSON.stringify({
+    
+      "BANDERA":BANDERA,
+      "OFERTA":OFERTA,
+      "MARGENALIADO":MARGENALIADO,
+      "MARGENINTERNO":MARGENINTERNO,
+      "TOKEN":TOKEN,
+      "RESPUESTAWP":RESPUESTAWP,
+      "USUARIOAPROB":USUARIOAPROB,
+      "FILTRO":FILTRO
+      
+  });
+
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: process.env.GET_HEAD_QUOTE_URL,
+    headers: { 
+      'Content-Type': 'application/json', 
+      'Authorization': process.env.GETINVOICE_AUTORIZATION , 
+      'Cookie': process.env.GETINVOICE_COOKIE
+    },
+    data : data
+  };
+
+  const response =   axios.request(config)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        return JSON.stringify(error);
+      });
+
+      return response;
+  
+}
+
+export const CreateOrderReference = (data) => {
+
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: process.env.ORDER_QUOTE_URL,
+    headers: { 
+      'Content-Type': 'application/json', 
+      'Authorization': process.env.GETINVOICE_AUTORIZATION , 
+      'Cookie': process.env.GETINVOICE_COOKIE
+    },
+    data : data
+  };
+
+  const response =   axios.request(config)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        return JSON.stringify(error);
+      });
+
+      return response;
+
+
+
+
+}

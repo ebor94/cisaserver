@@ -6,7 +6,7 @@ import {GetPrice} from '../../services/sap/product.js'
 export   const GetInvoiceController = async (data) =>{
     let cte =  data.cte;    
     let invoice = await GetInvoice( data.LCODIGO, data.LTIPO, data.TPROCESO, data.PCODSOLICITANTE, data.PHANDLE, data.FECHAINI, data.FECHAFIN);  
-     //console.log(cte,"---",invoice[0].solici)
+     console.log(cte,"---",invoice[0])
      let dataGetPrice = {
         "KUNNR":"1093771589",
         "MATNR":"",
@@ -24,26 +24,32 @@ export   const GetInvoiceController = async (data) =>{
                 }
         const results = []; 
         
+        
         for (const item of invoice) {
             dataGetPrice.MATNR = "000000000000"+item.materi
            // console.log(dataGetPrice)
             const result = await GetPrice(dataGetPrice); 
-           // console.log(result)
+             //console.log(result)
             item.pvp = result[0].prcted
             results.push(item);
           }
 
+      console.log(invoice, results)    
+       
     if(cte === results[0].solici){
-        console.log(cte,"******",invoice[0].solici)
+        //console.log(cte,"******",invoice[0].solici)
         
         let infSeller = await GetInfoSeller("TELV_"+results[0].vended)
         results[0].telfvend = infSeller[0].valor;    
-        console.log(cte,"******", results[0].telfvend)     
-        return results ;
+       // console.log(cte,"******", results[0].telfvend)    
+      const  invoiceClear = removeDuplicatesByPosition(results) 
+        return invoiceClear ;
     }else{
         return []
     }
 
+    
+   
 }
 
 
@@ -61,3 +67,17 @@ export const PostOrderReference = async(data)=>{
 
 
 }
+
+
+function removeDuplicatesByPosition(arr) {
+    const seenPositions = new Set();
+    return arr.filter(item => {
+        if (seenPositions.has(item.posici)) {
+            return false;
+        } else {
+            seenPositions.add(item.posici);
+            return true;
+        }
+    });
+}
+

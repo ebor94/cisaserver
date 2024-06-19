@@ -58,9 +58,6 @@ const osInfo = {
 
 console.log(osInfo)
 
-
-
-
 // Middleware para capturar y mostrar la IP
 app.use((req, res, next) => {
   const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;

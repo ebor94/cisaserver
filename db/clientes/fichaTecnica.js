@@ -1,7 +1,7 @@
 import {configCisamyql} from '../config.js';
 import mysql from 'mysql2';
 export const GetFTecnica = async(codsap) =>{
-    console.log(codsap)
+    //console.log(codsap)
     // create the pool
     const pool = mysql.createPool(configCisamyql);
     // now get a Promise wrapped instance of that pool

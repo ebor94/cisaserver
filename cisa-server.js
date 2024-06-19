@@ -1,6 +1,9 @@
 import  Express  from "express";
 import bodyParser from "body-parser";
 import cors from "cors"
+import os  from "os";
+
+
 import listarSalas from "./routes/institucional/index.js";
 import listarHorarios from "./routes/institucional/index.js";
 import RegistrarTurno from "./routes/institucional/index.js";
@@ -21,8 +24,8 @@ import logLogin from "./routes/login/index.js";
 import loginWm from "./routes/transporte/wm.js"
 import sendMessage from "./routes/mensajeria/mensajeria.js"
 import GetPorductPrice from "./routes/producto/product.js"
- import GetQuoteHead   from "./routes/clientes/invoice.js";
- import PostOrderReference from "./routes/clientes/invoice.js";
+import GetQuoteHead   from "./routes/clientes/invoice.js";
+import PostOrderReference from "./routes/clientes/invoice.js";
 import https from "https";
 import fs from "fs";
 import dotenv from 'dotenv'
@@ -45,20 +48,27 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
+const osInfo = {
+   platform: os.platform(),
+   type: os.type(),
+   uptime: os.uptime(),
+   hostname: os.hostname(),
+   
+};
+
+console.log(osInfo)
+
+
 
 
 // Middleware para capturar y mostrar la IP
 app.use((req, res, next) => {
   const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-  console.log(`IP: ${ip}`);
+  console.log(`IP: ${ip}`);  
   next();
 });
 
-const options = {
-   key : fs.readFileSync("/etc/pki/SSL_cert/wildcard_ceramicaitalia_com.key"),
-   cert: fs.readFileSync("/etc/pki/SSL_cert/wildcard_ceramicaitalia_com.crt"),
-   ca  : fs.readFileSync("/etc/pki/SSL_cert/DigiCertCA.crt")
-};
+
 
 app.post('/listarSalas',listarSalas)
 app.post('/listarHorarios',listarHorarios)
@@ -83,8 +93,24 @@ app.post('/clientes/quote/', GetQuoteHead)
 app.post('/clientes/order/', PostOrderReference)
 
 //app.get('/clientes/bim/:bandera', GetBim)
+
+if (osInfo.platform === 'linux'){
+const options = {
+   key : fs.readFileSync("/etc/pki/SSL_cert/wildcard_ceramicaitalia_com.key"),
+   cert: fs.readFileSync("/etc/pki/SSL_cert/wildcard_ceramicaitalia_com.crt"),
+   ca  : fs.readFileSync("/etc/pki/SSL_cert/DigiCertCA.crt")
+};
  https.createServer(options,app).listen(port, () => {
     console.log(`cisa listening on port ${port}`)
     
  }); 
+
+}else{
+
+   https.createServer(app).listen(port, () => {
+      console.log(`cisa listening on port ${port}`)
+      
+   });
+   
+}
 

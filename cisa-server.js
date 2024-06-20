@@ -104,7 +104,7 @@ const options = {
 
 }else{
 
-   https.createServer(app).listen(port, () => {
+   app.listen(port, () => {
       console.log(`cisa listening on port ${port}`)
       
    });

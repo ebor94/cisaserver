@@ -86,9 +86,8 @@ app.use((req, res, next) => {
     // Dominio que tengan acceso 
        res.setHeader('Access-Control-Allow-Origin', "*");    
     // Metodos de solicitud que deseas permitir
-       res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');    
-    // Encabecedados que permites 
-       res.setHeader('Access-Control-Allow-Headers', '*');    
+       res.setHeader('Access-Control-Allow-Methods', 'GET, POST');    
+   
     next();
     })
 app.use(cors({origin: '*'}));    

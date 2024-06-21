@@ -2,6 +2,13 @@ import  Express  from "express";
 import bodyParser from "body-parser";
 import cors from "cors"
 import os  from "os";
+import https from "https";
+import fs from "fs";
+import dotenv from 'dotenv'
+dotenv.config()
+
+// import  IpFilter  from 'express-ipfilter';
+// import  IpDeniedError from 'express-ipfilter';
 
 
 import listarSalas from "./routes/institucional/index.js";
@@ -26,14 +33,29 @@ import sendMessage from "./routes/mensajeria/mensajeria.js"
 import GetPorductPrice from "./routes/producto/product.js"
 import GetQuoteHead   from "./routes/clientes/invoice.js";
 import PostOrderReference from "./routes/clientes/invoice.js";
-import https from "https";
-import fs from "fs";
-import dotenv from 'dotenv'
-dotenv.config()
+
+
+
 
 const app = Express();
 const port  = process.env.PORT
 //const domain = "ceramicaitalia.com"
+
+const ips = process.env.IP_RANGE
+
+// Configura el middleware de IpFilter
+// app.use(IpFilter(ips, { mode: 'allow' }));
+
+// // Manejo de errores de acceso denegado
+// app.use((err, req, res, next) => {
+//   if (err instanceof IpDeniedError) {
+//     res.status(403).send('Access denied');
+//   } else {
+//     next();
+//   }
+// })               
+
+
 app.use((req, res, next) => {
     // Dominio que tengan acceso 
        res.setHeader('Access-Control-Allow-Origin', "*");    
@@ -66,35 +88,35 @@ app.use((req, res, next) => {
 
 
 
-app.post('/listarSalas',listarSalas)
-app.post('/listarHorarios',listarHorarios)
-app.post('/RegistrarTurno',RegistrarTurno)
-app.post('/loginsap', LoginSap)
-app.post('/loginAd/', loginAd)
-app.post('/logLogin/', logLogin)
-app.post('/zcisaparmetros/', GetZcisaparmetros)
-app.get('/usa/productId', GetProductsUsa)
-app.put('/usa/PutProductId', PutProductId)
-app.post('/transporte/regVehiculo', RegVehiculo)
-app.post('/clientes/inventario', GetInventory)
-app.get('/corporativo/porteria/:id', GetIdflujo)
-app.get('/clientes/ft/:codsap', GetFichaTecnica)
-app.get('/clientes/ftsap/:codsap/:idioma', getDataSheetSap)
-app.get('/producto/pack/:codsap', GetPackingList)
-app.post('/clientes/invoice/', GetInvoiceController)
-app.post('/transporte/sesionwm', loginWm)
-app.post('/mensajeria',sendMessage)
-app.post('/producto/price',GetPorductPrice)
-app.post('/clientes/quote/', GetQuoteHead)
-app.post('/clientes/order/', PostOrderReference)
+app.post(process.env.RUTA_LISTAR_SALAS,listarSalas)
+app.post(process.env.RUTA_LISTAR_HORARIOS,listarHorarios)
+app.post(process.env.RUTA_REGISTRA_TURNOS,RegistrarTurno)
+app.post(process.env.RUTA_LOGIN_SAP, LoginSap)
+app.post(process.env.RUTA_LOGIN_AD, loginAd)
+app.post(process.env.RUTA_LOG_LOGIN, logLogin)
+app.post(process.env.RUTA_CISAPARMETROS, GetZcisaparmetros)
+app.get(process.env.RUTA_GET_PRODUCTS_USA, GetProductsUsa)
+app.put(process.env.RUTA_PUT_PRODUCT_ID, PutProductId)
+app.post(process.env.RUTA_REGISTRAR_VEHICULO , RegVehiculo)
+app.post(process.env.RUTA_GET_INVENTORY, GetInventory)
+app.get(process.env.RUTA_GET_ID_FLUJO , GetIdflujo)
+app.get(process.env.RUTA_GET_FICHA_TECNICA, GetFichaTecnica)
+app.get(process.env.RUTA_GET_FICHA_TECNICA_SAP, getDataSheetSap)
+app.get(process.env.RUTA_GET_PACKING_LIST, GetPackingList)
+app.post(process.env.RUTA_INVOICE , GetInvoiceController)
+app.post(process.env.RUTA_LOGINWM, loginWm)
+app.post(process.env.RUTA_MENSAJERIA,sendMessage)
+app.post(process.env.RUTA_PRODUCT_PRICE,GetPorductPrice)
+app.post(process.env.RUTA_HEAD_QUOTE, GetQuoteHead)
+app.post(process.env.RUTA_ORDER_REFERENCE , PostOrderReference)
 
 //app.get('/clientes/bim/:bandera', GetBim)
 
 if (osInfo.platform === 'linux'){
 const options = {
-   key : fs.readFileSync("/etc/pki/SSL_cert/wildcard_ceramicaitalia_com.key"),
-   cert: fs.readFileSync("/etc/pki/SSL_cert/wildcard_ceramicaitalia_com.crt"),
-   ca  : fs.readFileSync("/etc/pki/SSL_cert/DigiCertCA.crt")
+   key : fs.readFileSync(process.env.SSL_KEY),
+   cert: fs.readFileSync(process.env.SSL_CRT),
+   ca  : fs.readFileSync(process.env.SSL_CA)
 };
  https.createServer(options,app).listen(port, () => {
     console.log(`cisa listening on port ${port}`)

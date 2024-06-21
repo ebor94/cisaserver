@@ -1,22 +1,24 @@
 import  express  from "express";
 import  {HorarioListarSalas,HorarioRegistrarTurno,Horariomostrardisponible} from "../../controllers/institucional/index.js";
+import dotenv from 'dotenv'
+dotenv.config()
+
 const router = express.Router();
 
-router.post('/listarSalas', async (req,res) => {
+router.post(process.env.RUTA_LISTAR_SALAS, async (req,res) => {
    const response  = await HorarioListarSalas(req.body.bandera);    
     res.send(response); 
   });
 
-router.post('/listarHorarios/', async  (req, res)=>{
+router.post(process.env.RUTA_LISTAR_HORARIOS , async  (req, res)=>{
   const response  = await  Horariomostrardisponible(req.body);    
     res.send(response); 
  
-  
-    
+
 })
 
-router.post('/RegistrarTurno/', async  (req, res)=>{
-  console.log("route")
+router.post(process.env.RUTA_REGISTRA_TURNOS , async  (req, res)=>{
+
   const response  = await  HorarioRegistrarTurno(req.body);    
   res.send(response); 
     

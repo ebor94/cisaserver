@@ -1,13 +1,15 @@
 import  express  from "express";
 import  {GetIdProductsUsa, updateStock} from "../../controllers/usa/index.js";
+import dotenv from 'dotenv'
+dotenv.config()
 const router = express.Router();
 
-router.get('/usa/productId', async (req,res) => {
+router.get(process.env.RUTA_GET_PRODUCTS_USA, async (req,res) => {
    const response  = await GetIdProductsUsa();    
     res.send(response); 
   });
 
-router.put('/usa/PutProductId', async (req,res) => {
+router.put(process.env.RUTA_PUT_PRODUCT_ID, async (req,res) => {
     const response  = await updateStock(req.body);    
      res.send(response); 
    });  

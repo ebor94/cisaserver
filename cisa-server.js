@@ -32,7 +32,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 const app = Express();
-const port  = process.env.PORT || "3001"
+const port  = process.env.PORT
 //const domain = "ceramicaitalia.com"
 app.use((req, res, next) => {
     // Dominio que tengan acceso 

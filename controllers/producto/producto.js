@@ -1,4 +1,4 @@
-import {GetPrice} from '../../services/sap/product.js'
+import {GetPrice, SamplePortfolio} from '../../services/sap/product.js'
 
 
 export const GetPorductPrice = async (data) =>{
@@ -6,5 +6,11 @@ export const GetPorductPrice = async (data) =>{
 
     return priceList;
 
+
+}
+
+export const GetSamples = async(data) =>{
+    let sampleList = await SamplePortfolio(data);
+    return sampleList;
 
 }

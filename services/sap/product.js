@@ -75,3 +75,30 @@ let config = {
   return response;
 
 }
+
+export const SamplePortfolio = (bp) => {
+
+  let config = {
+    method: 'POST',
+    maxBodyLength: Infinity,
+    url: process.env.SAMPLES_URL,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': process.env.GETNAME_AUTORIZATION,
+      'Cookie': process.env.GETNAME_COOKIE
+    },
+    data: bp
+  };
+  const response = axios.request(config)
+    .then((response) => {
+      //console.log(response.data)
+      return response.data;
+    })
+    .catch((error) => {
+      return JSON.stringify(error);
+    });
+
+  return response;
+
+
+}

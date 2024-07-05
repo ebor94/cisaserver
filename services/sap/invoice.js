@@ -1,47 +1,47 @@
-import  axios from 'axios';
+import axios from 'axios';
 import dotenv from 'dotenv'
 dotenv.config()
 
 
-export  const GetInvoice = (LCODIGO,LTIPO,TPROCESO,PCODSOLICITANTE,PHANDLE,FECHAINI,FECHAFIN) =>{
+export const GetInvoice = (LCODIGO, LTIPO, TPROCESO, PCODSOLICITANTE, PHANDLE, FECHAINI, FECHAFIN) => {
 
-    let data = JSON.stringify({
-        "LCODIGO" : LCODIGO,
-        "LTIPO" : LTIPO,
-        "TPROCESO" : TPROCESO,
-        "PCODSOLICITANTE" : PCODSOLICITANTE,
-        "PHANDLE" : PHANDLE,
-        "FECHAINI" : FECHAINI,
-        "FECHAFIN" : FECHAFIN
-      });
+  let data = JSON.stringify({
+    "LCODIGO": LCODIGO,
+    "LTIPO": LTIPO,
+    "TPROCESO": TPROCESO,
+    "PCODSOLICITANTE": PCODSOLICITANTE,
+    "PHANDLE": PHANDLE,
+    "FECHAINI": FECHAINI,
+    "FECHAFIN": FECHAFIN
+  });
 
 
-      let config = {
-        method: 'post',
-        maxBodyLength: Infinity,
-        url: process.env.GETINVOICE_URL,
-        headers: { 
-          'Content-Type': 'application/json', 
-          'Authorization': process.env.GETINVOICE_AUTORIZATION , 
-          'Cookie': process.env.GETINVOICE_COOKIE
-        },
-        data : data
-      };
-      
-    const response =   axios.request(config)
-      .then((response) => {
-        return response.data;
-      })
-      .catch((error) => {
-        return JSON.stringify(error);
-      });
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: process.env.GETINVOICE_URL,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': process.env.GETINVOICE_AUTORIZATION,
+      'Cookie': process.env.GETINVOICE_COOKIE
+    },
+    data: data
+  };
 
-      return response;
+  const response = axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return JSON.stringify(error);
+    });
+
+  return response;
 
 }
 
 
-export const GetInfoSeller = (seller) =>{
+export const GetInfoSeller = (seller) => {
 
   let data = JSON.stringify({
     "PARAMETRO": seller
@@ -51,63 +51,63 @@ export const GetInfoSeller = (seller) =>{
     method: 'post',
     maxBodyLength: Infinity,
     url: process.env.GET_INFO_SELLER,
-    headers: { 
-      'Content-Type': 'application/json', 
-      'Authorization': process.env.GETINVOICE_AUTORIZATION , 
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': process.env.GETINVOICE_AUTORIZATION,
       'Cookie': process.env.GETINVOICE_COOKIE
     },
-    data : data
+    data: data
   };
 
-  const response =   axios.request(config)
-      .then((response) => {
-        return response.data;
-      })
-      .catch((error) => {
-        return JSON.stringify(error);
-      });
+  const response = axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return JSON.stringify(error);
+    });
 
-      return response;
+  return response;
 
 }
 
 
-export const GetHeadQuote = ({BANDERA, OFERTA,MARGENALIADO,MARGENINTERNO,TOKEN,RESPUESTAWP,USUARIOAPROB,FILTRO}) =>{
+export const GetHeadQuote = ({ BANDERA, OFERTA, MARGENALIADO, MARGENINTERNO, TOKEN, RESPUESTAWP, USUARIOAPROB, FILTRO }) => {
   let data = JSON.stringify({
-    
-      "BANDERA":BANDERA,
-      "OFERTA":OFERTA,
-      "MARGENALIADO":MARGENALIADO,
-      "MARGENINTERNO":MARGENINTERNO,
-      "TOKEN":TOKEN,
-      "RESPUESTAWP":RESPUESTAWP,
-      "USUARIOAPROB":USUARIOAPROB,
-      "FILTRO":FILTRO
-      
+
+    "BANDERA": BANDERA,
+    "OFERTA": OFERTA,
+    "MARGENALIADO": MARGENALIADO,
+    "MARGENINTERNO": MARGENINTERNO,
+    "TOKEN": TOKEN,
+    "RESPUESTAWP": RESPUESTAWP,
+    "USUARIOAPROB": USUARIOAPROB,
+    "FILTRO": FILTRO
+
   });
 
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
     url: process.env.GET_HEAD_QUOTE_URL,
-    headers: { 
-      'Content-Type': 'application/json', 
-      'Authorization': process.env.GETINVOICE_AUTORIZATION , 
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': process.env.GETINVOICE_AUTORIZATION,
       'Cookie': process.env.GETINVOICE_COOKIE
     },
-    data : data
+    data: data
   };
 
-  const response =   axios.request(config)
-      .then((response) => {
-        return response.data;
-      })
-      .catch((error) => {
-        return JSON.stringify(error);
-      });
+  const response = axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return JSON.stringify(error);
+    });
 
-      return response;
-  
+  return response;
+
 }
 
 export const CreateOrderReference = (data) => {
@@ -116,25 +116,144 @@ export const CreateOrderReference = (data) => {
     method: 'post',
     maxBodyLength: Infinity,
     url: process.env.ORDER_QUOTE_URL,
-    headers: { 
-      'Content-Type': 'application/json', 
-      'Authorization': process.env.GETINVOICE_AUTORIZATION , 
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': process.env.GETINVOICE_AUTORIZATION,
       'Cookie': process.env.GETINVOICE_COOKIE
     },
-    data : data
+    data: data
   };
 
-  const response =   axios.request(config)
-      .then((response) => {
-        return response.data;
-      })
-      .catch((error) => {
-        return JSON.stringify(error);
-      });
+  const response = axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return JSON.stringify(error);
+    });
 
-      return response;
+  return response;
+}
 
+export const CreateConsecutive = (data) => {
 
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: process.env.CONSECUTIVE_URL,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': process.env.GETINVOICE_AUTORIZATION,
+      'Cookie': process.env.GETINVOICE_COOKIE
+    },
+    data: data
+  };
 
+  const response = axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return JSON.stringify(error);
+    });
+
+  return response;
 
 }
+
+export const CreateDetail = (data) => {
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: process.env.CREATE_DETAIL_URL,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': process.env.GETINVOICE_AUTORIZATION,
+      'Cookie': process.env.GETINVOICE_COOKIE
+    },
+    data: data
+  };
+
+  const response = axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return JSON.stringify(error);
+    });
+
+  return response;
+}
+
+
+export const GetDetail = (data) => {
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: process.env.GET_DETAIL_URL,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': process.env.GETINVOICE_AUTORIZATION,
+      'Cookie': process.env.GETINVOICE_COOKIE
+    },
+    data: data
+  };
+
+  const response = axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return JSON.stringify(error);
+    });
+  return response;
+}
+
+export const DelPosDetail = (data) => {
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: process.env.GET_DETAIL_URL,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': process.env.FINISH_PROCESS_SALES_URL,
+      'Cookie': process.env.GETINVOICE_COOKIE
+    },
+    data: data
+  };
+
+  const response = axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return JSON.stringify(error);
+    });
+
+  return response;
+}
+
+export const FinishSales = (data) => {
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: process.env.GET_DETAIL_URL,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': process.env.FINISH_PROCESS_SALES_URL,
+      'Cookie': process.env.GETINVOICE_COOKIE
+    },
+    data: data
+  };
+
+  const response = axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return JSON.stringify(error);
+    });
+
+  return response;
+}
+

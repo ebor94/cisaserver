@@ -34,6 +34,11 @@ import GetPorductPrice from "./routes/producto/product.js"
 import GetSamples from "./routes/producto/product.js"
 import GetQuoteHead from "./routes/clientes/invoice.js";
 import PostOrderReference from "./routes/clientes/invoice.js";
+import CreateConsecutiveController from './routes/clientes/invoice.js'
+import CreateDetailController from './routes/clientes/invoice.js'
+import GetDetailController from './routes/clientes/invoice.js'
+import DelPosDetailController from './routes/clientes/invoice.js'
+import FinishSalesController from './routes/clientes/invoice.js'
 
 
 
@@ -107,6 +112,11 @@ app.post(process.env.RUTA_PRODUCT_PRICE, GetPorductPrice)
 app.post(process.env.RUTA_HEAD_QUOTE, GetQuoteHead)
 app.post(process.env.RUTA_ORDER_REFERENCE, PostOrderReference)
 app.post(process.env.RUTA_PRODUCT_SAMPLE, GetSamples)
+app.post(process.env.RUTA_CONSECUTIVE , CreateConsecutiveController)
+app.post(process.env.RUTA_CREATE_DETAIL , CreateDetailController)
+app.post(process.env.RUTA_GET_DETAIL , GetDetailController)
+app.post(process.env.RUTA_DEL_DETAIL , DelPosDetailController)
+app.post(process.env.RUTA_FINISH_SALE , FinishSalesController)
 //app.get('/clientes/bim/:bandera', GetBim)
 
 if (osInfo.platform === 'linux') {

@@ -39,6 +39,7 @@ import CreateDetailController from './routes/clientes/invoice.js'
 import GetDetailController from './routes/clientes/invoice.js'
 import DelPosDetailController from './routes/clientes/invoice.js'
 import FinishSalesController from './routes/clientes/invoice.js'
+import GetCentroCiudadController from './routes/clientes/invoice.js'
 
 
 
@@ -117,6 +118,7 @@ app.post(process.env.RUTA_CREATE_DETAIL , CreateDetailController)
 app.post(process.env.RUTA_GET_DETAIL , GetDetailController)
 app.post(process.env.RUTA_DEL_DETAIL , DelPosDetailController)
 app.post(process.env.RUTA_FINISH_SALE , FinishSalesController)
+app.post(process.env.RUTA_INFO_CIUDAD , GetCentroCiudadController)
 //app.get('/clientes/bim/:bandera', GetBim)
 
 if (osInfo.platform === 'linux') {

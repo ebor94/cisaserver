@@ -4,7 +4,8 @@ import { GetInvoiceController, GetQuoteHead, PostOrderReference ,
     CreateDetailController,
     GetDetailController,
     DelPosDetailController,
-    FinishSalesController} from "../../controllers/clientes/invoice.js";
+    FinishSalesController,
+    GetCentroCiudadController} from "../../controllers/clientes/invoice.js";
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -68,6 +69,13 @@ router.post(process.env.RUTA_HEAD_QUOTE, async(req,res)=>{
     const data = req.body;
     //console.log(codsap)
      const response  = await GetDetailController(data);
+     res.send(response); 
+ });
+
+ router.post(process.env.RUTA_INFO_CIUDAD , async(req,res)=>{    
+    const data = req.body;
+    //console.log(codsap)
+     const response  = await GetCentroCiudadController(data);
      res.send(response); 
  });
 

@@ -213,10 +213,10 @@ export const DelPosDetail = (data) => {
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: process.env.GET_DETAIL_URL,
+    url: process.env.FINISH_PROCESS_SALES_URL,
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': process.env.FINISH_PROCESS_SALES_URL,
+      'Authorization': process.env.GETINVOICE_AUTORIZATION,
       'Cookie': process.env.GETINVOICE_COOKIE
     },
     data: data
@@ -237,10 +237,10 @@ export const FinishSales = (data) => {
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: process.env.GET_DETAIL_URL,
+    url: process.env.FINISH_PROCESS_SALES_URL,
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': process.env.FINISH_PROCESS_SALES_URL,
+      'Authorization': process.env.GETINVOICE_AUTORIZATION,
       'Cookie': process.env.GETINVOICE_COOKIE
     },
     data: data
@@ -255,5 +255,32 @@ export const FinishSales = (data) => {
     });
 
   return response;
+}
+
+export const GetCentroCiudad = (data) => {
+
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: process.env.INFO_CIUDAD_URL,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': process.env.GETINVOICE_AUTORIZATION,
+      'Cookie': process.env.GETINVOICE_COOKIE
+    },
+    data: data
+  };
+
+  const response = axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return JSON.stringify(error);
+    });
+
+  return response;
+
+
 }
 

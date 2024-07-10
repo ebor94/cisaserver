@@ -106,7 +106,7 @@ export const FinishSalesController = async (data) => {
 }
 
 export const GetCentroCiudadController = async (data) => {
-    const response = await GetCentroCiudad();
+    const response = await GetCentroCiudad(data);
     return response;
 }
 

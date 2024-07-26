@@ -28,7 +28,9 @@ import GetInvoiceController from "./routes/clientes/invoice.js";
 import GetPackingList from "./routes/producto/pack.js";
 //import GetBim from "./routes/clientes/bim.js";
 import logLogin from "./routes/login/index.js";
-import loginWm from "./routes/transporte/wm.js"
+import  Kpi_Alistamiento from "./routes/transporte/wm.js"
+import   loginWm from "./routes/transporte/wm.js"
+ 
 import sendMessage from "./routes/mensajeria/mensajeria.js"
 import GetPorductPrice from "./routes/producto/product.js"
 import GetSamples from "./routes/producto/product.js"
@@ -108,6 +110,7 @@ app.get(process.env.RUTA_GET_FICHA_TECNICA, GetFichaTecnica)
 app.get(process.env.RUTA_GET_FICHA_TECNICA_SAP, getDataSheetSap)
 app.get(process.env.RUTA_GET_PACKING_LIST, GetPackingList)
 app.post(process.env.RUTA_INVOICE, GetInvoiceController)
+app.post(process.env.RUTA_KPI_ALISTAMIENTO, Kpi_Alistamiento)
 app.post(process.env.RUTA_LOGINWM, loginWm)
 app.post(process.env.RUTA_MENSAJERIA, sendMessage)
 app.post(process.env.RUTA_PRODUCT_PRICE, GetPorductPrice)

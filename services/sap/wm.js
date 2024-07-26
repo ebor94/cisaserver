@@ -30,3 +30,31 @@ export const loginWm = (usuario, contraseña, bandera) => {
 
     return response;    
 }
+
+
+export const wm_Kpi_Alistamiento = (data) =>{
+
+
+    let config = {
+        method: 'POST',
+        maxBodyLength: Infinity,
+        url: process.env.KPI_ALISTAMIENTO_URL,
+        headers: { 
+            'Content-Type': 'application/json', 
+            'Authorization': process.env.SESSIONWM_AUTORIZATION , 
+            'Cookie': process.env.SESSIONWM_COOKIE
+        },
+        data : data
+        };   
+        
+    const response =   axios.request(config)
+    .then((response) => {
+        return response.data;
+    })
+    .catch((error) => {
+        return JSON.stringify(error);
+    });
+
+    return response;    
+
+}

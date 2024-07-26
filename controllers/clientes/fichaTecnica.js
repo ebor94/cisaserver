@@ -2,6 +2,8 @@ import {GetFTecnica} from "../../db/clientes/fichaTecnica.js"
 import { GetInventory } from "../clientes/inventario.js"
 import {GetDataSheetSap, GetProductText} from "../../services/sap/fichatecnica.js"
 import {GetName} from "../../services/sap/product.js"
+import { SearchFileDrive } from "../../services/Gpc/fichatecnica.js"
+
 
 export const GetFichaTecnica = (data) => {
     let codsap = data;
@@ -44,4 +46,16 @@ export const  getDataSheetSap = async(data,lang)=>{
         return  arrayfichatecnica 
 
     }
+}
+
+export const GetDataSheetDrive = async(data)=>{
+    
+    try {
+       const resp = await SearchFileDrive(data)
+       return resp
+    } catch (error) {
+        throw error
+    }
+
+
 }

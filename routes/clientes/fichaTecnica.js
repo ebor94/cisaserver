@@ -1,7 +1,7 @@
 import express  from "express";
 import dotenv from 'dotenv'
 dotenv.config()
-import { GetFichaTecnica, getDataSheetSap} from "../../controllers/clientes/fichaTecnica.js";
+import { GetDataSheetDrive, GetFichaTecnica, getDataSheetSap} from "../../controllers/clientes/fichaTecnica.js";
 
 
 
@@ -25,6 +25,14 @@ router.get(process.env.RUTA_GET_FICHA_TECNICA_SAP , async(req,res)=>{
     }
     //console.log(codsap)
      const response  = await getDataSheetSap(codsap, lang)
+     res.send(response); 
+ });
+
+ router.get(process.env.RUTA_GET_FICHA_DRIVE, async(req,res)=>{
+    
+    const codsap = req.params.busqueda;
+     // console.log(codsap)
+     const response  = await GetDataSheetDrive(codsap)
      res.send(response); 
  });
 

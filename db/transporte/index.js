@@ -76,5 +76,22 @@ export const RegistraVehiculo = async (tipo,
    
    }
 
+export const listaEntregaUsuario = async(user)=>{
+
+    const listaEntrega =  sql.connect(configVselect).then(pool => {
+        return pool.request()
+        .input('usuario', sql.VarChar, user)
+        .execute('lista_Entrega_Usuario')
+      }) .then(result => {
+        // console.log(result)
+         return result.recordset
+     }).catch(err => {
+         //console.log(err)
+         return err
+     })
+
+     return listaEntrega;
+}
+
 
    

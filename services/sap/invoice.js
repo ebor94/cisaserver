@@ -280,7 +280,5 @@ export const GetCentroCiudad = (data) => {
     });
 
   return response;
-
-
 }
 

@@ -1,5 +1,5 @@
 
-import {RegistraVehiculo} from '../../db/transporte/index.js'
+import {listaEntregaUsuario, RegistraVehiculo} from '../../db/transporte/index.js'
 
 
 export const regVehiculo = async (data)=>{
@@ -73,5 +73,13 @@ export const regVehiculo = async (data)=>{
      }   
 return  response;
 }
+
+
+export const listaEntregasUsuario = async(data) =>{
+   let usuario = data.user;
+   const listaEntregas  = await listaEntregaUsuario(usuario);
+   const entregas = listaEntregas.map(order => order.ord_no);
+   return entregas;
+} 
     
     

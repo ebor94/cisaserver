@@ -29,8 +29,7 @@ import GetPackingList from "./routes/producto/pack.js";
 //import GetBim from "./routes/clientes/bim.js";
 import logLogin from "./routes/login/index.js";
 import  Kpi_Alistamiento from "./routes/transporte/wm.js"
-import   loginWm from "./routes/transporte/wm.js"
- 
+import   loginWm from "./routes/transporte/wm.js" 
 import sendMessage from "./routes/mensajeria/mensajeria.js"
 import GetPorductPrice from "./routes/producto/product.js"
 import GetSamples from "./routes/producto/product.js"
@@ -43,6 +42,7 @@ import DelPosDetailController from './routes/clientes/invoice.js'
 import FinishSalesController from './routes/clientes/invoice.js'
 import GetCentroCiudadController from './routes/clientes/invoice.js'
 import GetDataSheetDrive from './routes/clientes/fichaTecnica.js'
+import listaEntregasUsuario from './routes/transporte/index.js'
 
 
 
@@ -124,6 +124,7 @@ app.post(process.env.RUTA_DEL_DETAIL , DelPosDetailController)
 app.post(process.env.RUTA_FINISH_SALE , FinishSalesController)
 app.post(process.env.RUTA_INFO_CIUDAD , GetCentroCiudadController)
 app.get(process.env.RUTA_GET_FICHA_DRIVE,GetDataSheetDrive)
+app.post(process.env.RUTA_LISTA_ENTREGAS_ALISTAMIENTO, listaEntregasUsuario)
 //app.get('/clientes/bim/:bandera', GetBim)
 
 if (osInfo.platform === 'linux') {

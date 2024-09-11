@@ -168,28 +168,24 @@ export const getValidarTransportador_model = async(cc,tel,placa)=>{
      return infoTransportador;
 }   
 
-
-
-export const getValidarTransportador_model_ =  async(cc,tel,placa)=>{
-    //http://localhost:3000/transporte/validar_transportador/19481059/3106803818/BGF044
+/**
+ * Consultar cliente por numero de entrega
+ * @param - entrega: numero de entrega
+ */
+export const getInfoCliente_xEntrega_model = async(entrega)=>{
+    //console.log('en modelo', cc)
     
-        try {
-            // Conectar a la base de datos
-            const pool = await poolSQLServ;
-            
-            console.log('Conexión a la base de datos exitosa.');
-            //console.log(req.params.cc);
-           
-            // Puedes realizar una consulta de prueba aquí si lo deseas
-            let sql=`execute ValidarTransportador '${cc}','${ tel }','${ placa }'`
-    
-            let result = await pool.query(sql);
-            console.log('Resultado de prueba:', result.recordset);
-            return(result.recordset);
-            
-            // Cerrar la conexión, cerrar genera error, dejarla abierta
-            //pool.close();
-        } catch (err) {
-            console.error('Error de conexión:', err);
-        }
-    }   
+    const infoClinte =  sql.connect(configVselect).then(pool => {
+        return pool.request()
+        .input('TIPO', sql.VarChar, 'CLIENTE_X_ENTREGA')
+        .input('VALOR', sql.VarChar, entrega)
+        .execute('ConsultasTransportador')
+      }) .then(result => {
+        // console.log(result)
+         return result.recordset
+     }).catch(err => {
+         //console.log(err)
+         return err
+     })
+     return infoClinte;
+}   

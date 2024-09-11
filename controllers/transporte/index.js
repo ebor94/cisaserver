@@ -1,6 +1,7 @@
 
 import { listaEntregaUsuario, RegistraVehiculo} from '../../db/transporte/index.js'
 import { getDespTransportador_model, getInfoTransportador_model, getValidarTransportador_model } from '../../db/transporte/index.js'
+import { getInfoCliente_xEntrega_model } from '../../db/transporte/index.js'
 
 
 
@@ -123,6 +124,16 @@ export const getValidarTransportador =  async(cc,tel,placa)=>{
    //res.json(infoDespTransportador); //este no usar
    return infoTransportador;
 }   
+
+export const getInfoCliente_xEntrega =  async(entrega)=>{
+   const num_entrega = entrega;
+   
+   const infoCliente= await getInfoCliente_xEntrega_model(num_entrega)
+   //res.json(infoDespTransportador); //este no usar
+   return infoCliente;
+}   
+
+//RUTA_GET_CLIENTE_XENTREGA
 
 
 

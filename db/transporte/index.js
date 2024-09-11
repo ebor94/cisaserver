@@ -104,30 +104,6 @@ export const listaEntregaUsuario = async(user)=>{
 */
 //ejemplo consumo: http://localhost:3000/transporte/desp_transportador/19481059
 //export const getDespTransportador_model =  async(req,res)=>{
-
-/*
-    export const getDespTransportador_model_ =  async(cc)=>{
-        try {
-            // Conectar a la base de datos
-            const pool = await configVselect //poolSQLServ;
-            
-            console.log('Conexión a la base de datos exitosa.');
-            //console.log(req.params.cc);
-            let sql=`execute ConsultasTransportador 'ENTREGAS_X_CC', '${ cc }'`    //forma 1
-    
-            let result = await pool.query(sql);
-            //console.log('Resultado de prueba:', result.recordset);
-            //res.json(result.recordset);
-            return(result.recordset);
-            
-            // Cerrar la conexión, cerrar genera error, dejarla abierta
-            //pool.close();
-        } catch (err) {
-            console.error('Error de conexión:', err);
-            return err 
-        }
-    }   */
-
 export const getDespTransportador_model = async(cc)=>{
     //console.log('en modelo', cc)
     
@@ -143,7 +119,30 @@ export const getDespTransportador_model = async(cc)=>{
          //console.log(err)
          return err
      })
-
      return DespTransportador;
-     
 }   
+
+/***
+ * Consultar informacion general de un transportador
+ * @param - cc
+ */
+
+export const getInfoTransportador_model = async(cc)=>{
+    //console.log('en modelo', cc)
+    
+    const infoTransportador =  sql.connect(configVselect).then(pool => {
+        return pool.request()
+        .input('TIPO', sql.VarChar, 'TRANSPORTADOR_X_CC')
+        .input('VALOR', sql.VarChar, cc)
+        .execute('ConsultasTransportador')
+      }) .then(result => {
+        // console.log(result)
+         return result.recordset
+     }).catch(err => {
+         //console.log(err)
+         return err
+     })
+     return infoTransportador;
+}   
+
+

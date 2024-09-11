@@ -1,6 +1,6 @@
 
 import { listaEntregaUsuario, RegistraVehiculo} from '../../db/transporte/index.js'
-import { getDespTransportador_model } from '../../db/transporte/index.js'
+import { getDespTransportador_model, getInfoTransportador_model } from '../../db/transporte/index.js'
 
 
 
@@ -92,7 +92,6 @@ export const listaEntregasUsuario = async(data) =>{
  * Consultar un despacho con sus entregas por cc de transportador
  * @param - cc
 */
-
 export const getDespTransportador =  async(req)=>{
    //export const getDespTransportador =  async(req,res)=>{
    //consumo: http://localhost:3000/transporte/desp_transportador/19481059
@@ -102,7 +101,17 @@ export const getDespTransportador =  async(req)=>{
    const infoDespTransportador= await  getDespTransportador_model(cc)
    //res.json(infoDespTransportador);
    return infoDespTransportador;
-   
 }   
-    
-    
+
+/***
+ * Consultar informacion general de un transportador
+ * @param - cc
+ */
+export const getInfoTransportador =  async(req)=>{
+   const cc = req
+   const infoTransportador= await getInfoTransportador_model(cc)
+   //res.json(infoDespTransportador); //este no usar
+   return infoTransportador;
+}   
+
+

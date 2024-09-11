@@ -1,5 +1,8 @@
 import  express  from "express";
-import {getDespTransportador, listaEntregasUsuario, regVehiculo} from '../../controllers/transporte/index.js'
+import {listaEntregasUsuario, regVehiculo} from '../../controllers/transporte/index.js'
+import {getDespTransportador } from '../../controllers/transporte/index.js'
+import {getInfoTransportador } from '../../controllers/transporte/index.js'
+
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -34,6 +37,15 @@ router.get(process.env.RUTA_GET_DESPACHO_XCC, async (req,res) => {
   const response  = await getDespTransportador(cc);    
    res.send(response); 
  });   
+
+ 
+ router.get(process.env.RUTA_GET_INFOTRANSPORTADOR_XCC, async (req,res) => {
+  const cc = req.params.cc
+  //console.log(cc)
+  const response  = await getInfoTransportador(cc);    
+  res.send(response); 
+ });   
+
 
 
 

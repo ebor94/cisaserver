@@ -1,5 +1,7 @@
 
-import {listaEntregaUsuario, RegistraVehiculo} from '../../db/transporte/index.js'
+import { listaEntregaUsuario, RegistraVehiculo} from '../../db/transporte/index.js'
+import { getDespTransportador_model } from '../../db/transporte/index.js'
+
 
 
 export const regVehiculo = async (data)=>{
@@ -81,5 +83,26 @@ export const listaEntregasUsuario = async(data) =>{
    const entregas = listaEntregas.map(order => order.ord_no);
    return entregas;
 } 
+
+//------------------------------------------------------------------------------------------------------------------
+// Funciones usadas en app_despacho
+//------------------------------------------------------------------------------------------------------------------
+
+/***
+ * Consultar un despacho con sus entregas por cc de transportador
+ * @param - cc
+*/
+
+export const getDespTransportador =  async(req)=>{
+   //export const getDespTransportador =  async(req,res)=>{
+   //consumo: http://localhost:3000/transporte/desp_transportador/19481059
+   //console.log('en el controlador',req)
+   
+   const cc = req
+   const infoDespTransportador= await  getDespTransportador_model(cc)
+   //res.json(infoDespTransportador);
+   return infoDespTransportador;
+   
+}   
     
     

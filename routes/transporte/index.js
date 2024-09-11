@@ -1,5 +1,5 @@
 import  express  from "express";
-import {listaEntregasUsuario, regVehiculo} from '../../controllers/transporte/index.js'
+import {getDespTransportador, listaEntregasUsuario, regVehiculo} from '../../controllers/transporte/index.js'
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -15,8 +15,26 @@ router.post(process.env.RUTA_LISTA_ENTREGAS_ALISTAMIENTO, async (req,res) => {
      res.send(response); 
    });   
 
+//------------------------------------------------------------------------------------------------------------------
+// Funciones usadas en app_despacho
+//------------------------------------------------------------------------------------------------------------------
+
+/*
+router.get(process.env.RUTA_GET_ID_FLUJO, async(req,res)=>{
+  const id = req.params.id;
+
+   const response  = await getFlujo(id)
+   res.send(response); 
+});
+//router.get('/desp_transportador/:cc', getDespTransportador); //Consultar un despacho con sus entregas por cc de transportador por cc   
+*/
+router.get(process.env.RUTA_GET_DESPACHO_XCC, async (req,res) => {
+  const cc = req.params.cc
+  //console.log(cc)
+  const response  = await getDespTransportador(cc);    
+   res.send(response); 
+ });   
 
 
 
-
-   export default router
+export default router

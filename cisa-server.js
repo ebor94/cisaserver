@@ -43,8 +43,7 @@ import FinishSalesController from './routes/clientes/invoice.js'
 import GetCentroCiudadController from './routes/clientes/invoice.js'
 import GetDataSheetDrive from './routes/clientes/fichaTecnica.js'
 import listaEntregasUsuario from './routes/transporte/index.js'
-
-
+import getDespTransportador from './routes/transporte/index.js'
 
 
 const app = Express();
@@ -125,6 +124,8 @@ app.post(process.env.RUTA_FINISH_SALE , FinishSalesController)
 app.post(process.env.RUTA_INFO_CIUDAD , GetCentroCiudadController)
 app.get(process.env.RUTA_GET_FICHA_DRIVE,GetDataSheetDrive)
 app.post(process.env.RUTA_LISTA_ENTREGAS_ALISTAMIENTO, listaEntregasUsuario)
+
+app.get(process.env.RUTA_GET_DESPACHO_XCC,getDespTransportador)
 //app.get('/clientes/bim/:bandera', GetBim)
 
 if (osInfo.platform === 'linux') {

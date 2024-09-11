@@ -47,6 +47,8 @@ import listaEntregasUsuario from './routes/transporte/index.js'
 //App Despacho
 import getDespTransportador from './routes/transporte/index.js'
 import getInfoTransportador from './routes/transporte/index.js'
+import getValidarTransportador from './routes/transporte/index.js'
+
 
 //---------------------------------------------------------------
 
@@ -133,6 +135,8 @@ app.post(process.env.RUTA_LISTA_ENTREGAS_ALISTAMIENTO, listaEntregasUsuario)
 //appDespacho
 app.get(process.env.RUTA_GET_DESPACHO_XCC,getDespTransportador)
 app.get(process.env.RUTA_GET_INFOTRANSPORTADOR_XCC,getInfoTransportador)
+app.get(process.env.RUTA_GET_VALIDARTRANSPORTADOR,getValidarTransportador)
+
 //---------------------------------
 //app.get('/clientes/bim/:bandera', GetBim)
 

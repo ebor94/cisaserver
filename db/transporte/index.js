@@ -126,7 +126,6 @@ export const getDespTransportador_model = async(cc)=>{
  * Consultar informacion general de un transportador
  * @param - cc
  */
-
 export const getInfoTransportador_model = async(cc)=>{
     //console.log('en modelo', cc)
     
@@ -145,4 +144,52 @@ export const getInfoTransportador_model = async(cc)=>{
      return infoTransportador;
 }   
 
+/**
+ * Validar transportador
+ * @param - parametros de entrada: cc, tel, placa 
+ * @param - retorna: 
+ */
+export const getValidarTransportador_model = async(cc,tel,placa)=>{
+    //console.log('en modelo', cc)
+    
+    const infoTransportador =  sql.connect(configVselect).then(pool => {
+        return pool.request()
+        .input('cedula', sql.VarChar, cc)
+        .input('telefono', sql.VarChar, tel)
+        .input('placavehiculo', sql.VarChar, placa)
+        .execute('ValidarTransportador')
+      }) .then(result => {
+        // console.log(result)
+         return result.recordset
+     }).catch(err => {
+         //console.log(err)
+         return err
+     })
+     return infoTransportador;
+}   
 
+
+
+export const getValidarTransportador_model_ =  async(cc,tel,placa)=>{
+    //http://localhost:3000/transporte/validar_transportador/19481059/3106803818/BGF044
+    
+        try {
+            // Conectar a la base de datos
+            const pool = await poolSQLServ;
+            
+            console.log('Conexión a la base de datos exitosa.');
+            //console.log(req.params.cc);
+           
+            // Puedes realizar una consulta de prueba aquí si lo deseas
+            let sql=`execute ValidarTransportador '${cc}','${ tel }','${ placa }'`
+    
+            let result = await pool.query(sql);
+            console.log('Resultado de prueba:', result.recordset);
+            return(result.recordset);
+            
+            // Cerrar la conexión, cerrar genera error, dejarla abierta
+            //pool.close();
+        } catch (err) {
+            console.error('Error de conexión:', err);
+        }
+    }   

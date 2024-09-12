@@ -1,5 +1,7 @@
 import sql from 'mssql'
 import {configVselect} from '../config.js'
+import {configMSSQLServ_appdespacho} from '../config.js'
+//const configAppdespacho = configMSSQLServ_appdespacho;
 
 
 export const RegistraVehiculo = async (tipo,
@@ -189,3 +191,96 @@ export const getInfoCliente_xEntrega_model = async(entrega)=>{
      })
      return infoClinte;
 }   
+
+
+/**
+ * Consultar los documentos (foto) que se han subido a la bd, consulta por numero de entrega
+ * @param - de Entrada: entrega
+ * @param - de Salida: codDocEntrega,fkord_no,fkCodTipoConfEntrega,DesTipoConfEntrega,imagenBase64,	fechaActualizacion,
+ * @param - de Salida: latitude,longitude,documentoConfirmado,usuarioActualiza,	usuarioBD
+ */
+export const Consultar_documentoEntrega_model = async(entrega)=>{
+    console.log('en modelo', entrega)
+    
+    const docEntrega =  sql.connect(configMSSQLServ_appdespacho).then(pool => {
+        return pool.request()
+        .input('ord_no', sql.VarChar, '60607820')
+        .execute('Consultar_documentoEntrega')
+      }) .then(result => {
+         console.log('en result', result)
+         return result.recordset
+     }).catch(err => {
+         console.log(err)
+         return err
+     })
+     return docEntrega;
+}   
+
+
+
+/**
+ * Grabar los documentos (foto) en bd para confirmar la entrega
+ * @param - entrega, tipoDocumento, imgBase64, latitud, longitud, docConfirmado, usuario
+ * @param - de Salida: "resultado": "Registrado" o "resultado": "Actualizado"
+ */
+
+export const Grabar_documentoEntrega_model = async(req)=>{
+    const {entrega, tipoDocumento, imgBase64, latitud, longitud, docConfirmado, usuario } = req;
+    //console.log('en modelo', cc)
+    
+    const docEntrega =  sql.connect(configAppdespacho).then(pool => {
+        return pool.request()
+        .input('entrega', sql.VarChar, entrega)
+        .input('tipoDocumento', sql.VarChar, tipoDocumento)
+        .input('imgBase64', sql.VarChar, imgBase64)
+        .input('latitud', sql.VarChar, latitud)
+        .input('longitud', sql.VarChar, longitud)
+        .input('docConfirmado', sql.VarChar, docConfirmado)
+        .input('usuario', sql.VarChar, usuario)
+
+        .execute('app_Despacho.dbo.Grabar_DocumentoEntrega')
+      }) .then(result => {
+        // console.log(result)
+         return result.recordset
+     }).catch(err => {
+         //console.log(err)
+         return err
+     })
+     return docEntrega;
+}   
+
+export const postGrabar_documentoEntrega_model =  async(req)=>{
+        const {entrega, tipoDocumento, imgBase64, latitud, longitud, docConfirmado, usuario } = req;
+        console.log(entrega)
+        //return(req);
+        /*console.log(entrega)
+        res.json(req.body);*/
+        
+        try {
+            // Conectar a la base de datos
+            const pool = await poolSQLServ_appdespacho;
+            console.log('Conexión a la base de datos exitosa.');
+            
+            //sql = `execute app_Despacho.dbo.Grabar_DocumentoEntrega '60607894',1,@img, 7.886771,-72.496201,1,'flozano','appdespacho'`
+            let sql = `execute app_Despacho.dbo.Grabar_DocumentoEntrega '${ entrega }',${ tipoDocumento },'${ imgBase64 }', ${ latitud },${ longitud },${ docConfirmado },'${ usuario }','appdespacho'`
+            let result = await pool.query(sql);
+            //res.json(result.recordset);
+            return(result.recordset);
+            
+            // Cerrar la conexión, cerrar genera error, dejarla abierta
+            //pool.close();
+        } catch (err) {
+            console.error('Error de conexión:', err);
+        }
+        /*json para ingreso al Body
+            {
+                "entrega":"60607894",
+                "tipoDocumento":2,
+                "imgBase64":'string base64', 
+                "latitud":7.886771,, 
+                "longitud":-72.496201, 
+                "docConfirmado": 1, 
+                "usuario": 'flozano'
+              }
+        */
+    }

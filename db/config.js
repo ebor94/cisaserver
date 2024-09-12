@@ -65,6 +65,20 @@ export const configCisamyql = {
   
 }
 
+//objeto conexion a DB app_despacho
+export const configMSSQLServ_appdespacho = {
+    port :      process.env.DB_PORT_MSSQLSERV_APPDESPACHO,
+    user :      process.env.DB_USER_MSSQLSERV_APPDESPACHO,
+    password :  process.env.DB_PASSWORD_MSSQLSERV_APPDESPACHO,
+    server :      process.env.DB_HOST_MSSQLSERV_APPDESPACHO,
+    database :  process.env.DB_DATABASE_MSSQLSERV_APPDESPACHO,
+    options: {
+        trustedConnection: true,
+        encrypt: true,
+        enableArithAbort: true,
+        trustServerCertificate: true,
+        }
+}
 
 
 

@@ -6,6 +6,8 @@ import {getInfoTransportador } from '../../controllers/transporte/index.js'
 import {getValidarTransportador} from '../../controllers/transporte/index.js'
 import {getInfoCliente_xEntrega} from '../../controllers/transporte/index.js'
 import {getConsultar_documentoEntrega} from '../../controllers/transporte/index.js'
+import {postGrabar_documentoEntrega} from '../../controllers/transporte/index.js'
+
 
 //---
 import dotenv from 'dotenv'
@@ -65,13 +67,23 @@ router.get(process.env.RUTA_GET_DESPACHO_XCC, async (req,res) => {
   res.send(response); 
  });   
 
- router.get(process.env.RUTA_GET_DOCUMENT_XENTREGA, async (req,res) => {
+ //db app_despacho
+ router.get(process.env.RUTA_GET_DOCUMENTO_XENTREGA, async (req,res) => {
   const {entrega} = req.params
   //console.log(cc)
   const response  = await getConsultar_documentoEntrega(entrega);    
   res.send(response); 
  });   
 
+ //db app_despacho
+ router.get(process.env.RUTA_POST_GRABAR_DOCUMENTO_ENTREGA, async (req,res) => {
+  const {entrega, tipoDocumento, imgBase64, latitude, longitude, docConfirmado, usuario } = req.body;
+  
+  //const {entrega} = req.params
+  //console.log(cc)
+  const response  = await postGrabar_documentoEntrega({entrega, tipoDocumento, imgBase64, latitude, longitude, docConfirmado, usuario });    
+  res.send(response); 
+ });   
  
 
  

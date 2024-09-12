@@ -200,11 +200,11 @@ export const getInfoCliente_xEntrega_model = async(entrega)=>{
  * @param - de Salida: latitude,longitude,documentoConfirmado,usuarioActualiza,	usuarioBD
  */
 export const Consultar_documentoEntrega_model = async(entrega)=>{
-    console.log('en modelo', entrega)
+    //console.log('en modelo', entrega)
     
     const docEntrega =  sql.connect(configMSSQLServ_appdespacho).then(pool => {
         return pool.request()
-        .input('ord_no', sql.VarChar, '60607820')
+        .input('ord_no', sql.VarChar, entrega)
         .execute('Consultar_documentoEntrega')
       }) .then(result => {
          console.log('en result', result)
@@ -216,29 +216,26 @@ export const Consultar_documentoEntrega_model = async(entrega)=>{
      return docEntrega;
 }   
 
-
-
 /**
  * Grabar los documentos (foto) en bd para confirmar la entrega
- * @param - entrega, tipoDocumento, imgBase64, latitud, longitud, docConfirmado, usuario
+ * @param - entrega, tipoDocumento, imgBase64, latitude, longitude, docConfirmado, usuario
  * @param - de Salida: "resultado": "Registrado" o "resultado": "Actualizado"
  */
-
 export const Grabar_documentoEntrega_model = async(req)=>{
-    const {entrega, tipoDocumento, imgBase64, latitud, longitud, docConfirmado, usuario } = req;
+    const {entrega, tipoDocumento, imgBase64, latitude, longitude, docConfirmado, usuario } = req;
     //console.log('en modelo', cc)
     
-    const docEntrega =  sql.connect(configAppdespacho).then(pool => {
+    const docGrabado =  sql.connect(configMSSQLServ_appdespacho).then(pool => {
         return pool.request()
-        .input('entrega', sql.VarChar, entrega)
-        .input('tipoDocumento', sql.VarChar, tipoDocumento)
-        .input('imgBase64', sql.VarChar, imgBase64)
-        .input('latitud', sql.VarChar, latitud)
-        .input('longitud', sql.VarChar, longitud)
-        .input('docConfirmado', sql.VarChar, docConfirmado)
-        .input('usuario', sql.VarChar, usuario)
-
-        .execute('app_Despacho.dbo.Grabar_DocumentoEntrega')
+        .input('ord_no', sql.VarChar, entrega)
+        .input('CodTipoConfEntrega', sql.Int, tipoDocumento)
+        .input('imagen', sql.VarChar, imgBase64)
+        .input('latitude', sql.Decimal(9,6), latitude)
+        .input('longitude', sql.Decimal(9,6), longitude)
+        .input('documentoConfirmado', sql.Int, docConfirmado)
+        .input('usuarioActualiza', sql.VarChar, usuario)
+        .input('usuarioBD', sql.VarChar, 'appdespacho')
+        .execute('Grabar_DocumentoEntrega')
       }) .then(result => {
         // console.log(result)
          return result.recordset
@@ -246,41 +243,17 @@ export const Grabar_documentoEntrega_model = async(req)=>{
          //console.log(err)
          return err
      })
-     return docEntrega;
-}   
-
-export const postGrabar_documentoEntrega_model =  async(req)=>{
-        const {entrega, tipoDocumento, imgBase64, latitud, longitud, docConfirmado, usuario } = req;
-        console.log(entrega)
-        //return(req);
-        /*console.log(entrega)
-        res.json(req.body);*/
-        
-        try {
-            // Conectar a la base de datos
-            const pool = await poolSQLServ_appdespacho;
-            console.log('Conexión a la base de datos exitosa.');
-            
-            //sql = `execute app_Despacho.dbo.Grabar_DocumentoEntrega '60607894',1,@img, 7.886771,-72.496201,1,'flozano','appdespacho'`
-            let sql = `execute app_Despacho.dbo.Grabar_DocumentoEntrega '${ entrega }',${ tipoDocumento },'${ imgBase64 }', ${ latitud },${ longitud },${ docConfirmado },'${ usuario }','appdespacho'`
-            let result = await pool.query(sql);
-            //res.json(result.recordset);
-            return(result.recordset);
-            
-            // Cerrar la conexión, cerrar genera error, dejarla abierta
-            //pool.close();
-        } catch (err) {
-            console.error('Error de conexión:', err);
-        }
-        /*json para ingreso al Body
+     return docGrabado;
+     /*json para ingreso al Body
             {
                 "entrega":"60607894",
                 "tipoDocumento":2,
                 "imgBase64":'string base64', 
-                "latitud":7.886771,, 
-                "longitud":-72.496201, 
+                "latitude":7.886771,, 
+                "longitude":-72.496201, 
                 "docConfirmado": 1, 
                 "usuario": 'flozano'
               }
         */
-    }
+}   
+

@@ -3,10 +3,8 @@ import { listaEntregaUsuario, RegistraVehiculo} from '../../db/transporte/index.
 import { getDespTransportador_model, getInfoTransportador_model, getValidarTransportador_model } from '../../db/transporte/index.js'
 import { getInfoCliente_xEntrega_model } from '../../db/transporte/index.js'
 import { Consultar_documentoEntrega_model } from '../../db/transporte/index.js'
-
-
-
-
+import { Grabar_documentoEntrega_model } from '../../db/transporte/index.js'
+//-------------------------------------------
 export const regVehiculo = async (data)=>{
 
     let tipo                = data.tipo;
@@ -135,12 +133,21 @@ export const getInfoCliente_xEntrega =  async(entrega)=>{
    return infoCliente;
 }   
 
+//bd app_despacho
 export const getConsultar_documentoEntrega =  async(entrega)=>{
    const num_entrega = entrega;
    
    const infoCliente= await Consultar_documentoEntrega_model(num_entrega)
    //res.json(infoDespTransportador); //este no usar
    return infoCliente;
+}   
+//bd app_despacho
+export const postGrabar_documentoEntrega =  async(data)=>{
+   const {entrega, tipoDocumento, imgBase64, latitude, longitude, docConfirmado, usuario } = data;
+   //console.log('en controlador',data)
+   const estadoGrabar= await Grabar_documentoEntrega_model({entrega, tipoDocumento, imgBase64, latitude, longitude, docConfirmado, usuario })
+   //res.json(infoDespTransportador); //este no usar
+   return estadoGrabar;
 }   
 
 

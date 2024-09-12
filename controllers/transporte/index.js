@@ -1,7 +1,7 @@
 
 import { listaEntregaUsuario, RegistraVehiculo} from '../../db/transporte/index.js'
-import { getDespTransportador_model, getInfoTransportador_model, getValidarTransportador_model } from '../../db/transporte/index.js'
-import { getInfoCliente_xEntrega_model } from '../../db/transporte/index.js'
+import { DespTransportador_model, InfoTransportador_model, ValidarTransportador_model } from '../../db/transporte/index.js'
+import { InfoCliente_xEntrega_model } from '../../db/transporte/index.js'
 import { Consultar_documentoEntrega_model } from '../../db/transporte/index.js'
 import { Grabar_documentoEntrega_model } from '../../db/transporte/index.js'
 //-------------------------------------------
@@ -99,7 +99,7 @@ export const getDespTransportador =  async(req)=>{
    //console.log('en el controlador',req)
    
    const cc = req
-   const infoDespTransportador= await  getDespTransportador_model(cc)
+   const infoDespTransportador= await  DespTransportador_model(cc)
    //res.json(infoDespTransportador);
    return infoDespTransportador;
 }   
@@ -110,7 +110,7 @@ export const getDespTransportador =  async(req)=>{
  */
 export const getInfoTransportador =  async(req)=>{
    const cc = req
-   const infoTransportador= await getInfoTransportador_model(cc)
+   const infoTransportador= await InfoTransportador_model(cc)
    //res.json(infoDespTransportador); //este no usar
    return infoTransportador;
 }   
@@ -120,7 +120,7 @@ export const getValidarTransportador =  async(cc,tel,placa)=>{
    const telefono = tel;
    const placavehiculo = placa;
 
-   const infoTransportador= await getValidarTransportador_model(cedula,telefono,placavehiculo)
+   const infoTransportador= await ValidarTransportador_model(cedula,telefono,placavehiculo)
    //res.json(infoDespTransportador); //este no usar
    return infoTransportador;
 }   
@@ -128,7 +128,7 @@ export const getValidarTransportador =  async(cc,tel,placa)=>{
 export const getInfoCliente_xEntrega =  async(entrega)=>{
    const num_entrega = entrega;
    
-   const infoCliente= await getInfoCliente_xEntrega_model(num_entrega)
+   const infoCliente= await InfoCliente_xEntrega_model(num_entrega)
    //res.json(infoDespTransportador); //este no usar
    return infoCliente;
 }   

@@ -1,6 +1,6 @@
 import sql from 'mssql'
-import {configVselect} from '../config.js'
-import {configMSSQLServ_appdespacho} from '../config.js'
+import {configVselect, configMSSQLServ_appdespacho} from '../config.js'
+//import {configMSSQLServ_appdespacho} from '../config.js'
 //const configAppdespacho = configMSSQLServ_appdespacho;
 
 
@@ -68,7 +68,9 @@ export const RegistraVehiculo = async (tipo,
           .execute('sp_TteTarjetaVehiculo')
        }).then(result => {
           // console.log(result)
-           return result.recordset
+          let response = result.recordset
+          sql.close()   
+          return response
        }).catch(err => {
            console.log(err)
            return err
@@ -86,7 +88,9 @@ export const listaEntregaUsuario = async(user)=>{
         .execute('lista_Entrega_Usuario')
       }) .then(result => {
         // console.log(result)
-         return result.recordset
+        let response = result.recordset
+        sql.close()   
+        return response
      }).catch(err => {
          //console.log(err)
          return err
@@ -106,7 +110,7 @@ export const listaEntregaUsuario = async(user)=>{
 */
 //ejemplo consumo: http://localhost:3000/transporte/desp_transportador/19481059
 //export const getDespTransportador_model =  async(req,res)=>{
-export const getDespTransportador_model = async(cc)=>{
+export const DespTransportador_model = async(cc)=>{
     //console.log('en modelo', cc)
     
     const DespTransportador =  sql.connect(configVselect).then(pool => {
@@ -114,13 +118,18 @@ export const getDespTransportador_model = async(cc)=>{
         .input('TIPO', sql.VarChar, 'ENTREGAS_X_CC')
         .input('VALOR', sql.VarChar, cc)
         .execute('ConsultasTransportador')
+        
       }) .then(result => {
         // console.log(result)
-         return result.recordset
+        let response = result.recordset
+        sql.close()   
+        return response
+
      }).catch(err => {
-         //console.log(err)
+         console.log(err)
          return err
      })
+     //
      return DespTransportador;
 }   
 
@@ -128,7 +137,7 @@ export const getDespTransportador_model = async(cc)=>{
  * Consultar informacion general de un transportador
  * @param - cc
  */
-export const getInfoTransportador_model = async(cc)=>{
+export const InfoTransportador_model = async(cc)=>{
     //console.log('en modelo', cc)
     
     const infoTransportador =  sql.connect(configVselect).then(pool => {
@@ -138,7 +147,9 @@ export const getInfoTransportador_model = async(cc)=>{
         .execute('ConsultasTransportador')
       }) .then(result => {
         // console.log(result)
-         return result.recordset
+        let response = result.recordset
+        sql.close()   
+        return response
      }).catch(err => {
          //console.log(err)
          return err
@@ -151,7 +162,7 @@ export const getInfoTransportador_model = async(cc)=>{
  * @param - parametros de entrada: cc, tel, placa 
  * @param - retorna: 
  */
-export const getValidarTransportador_model = async(cc,tel,placa)=>{
+export const ValidarTransportador_model = async(cc,tel,placa)=>{
     //console.log('en modelo', cc)
     
     const infoTransportador =  sql.connect(configVselect).then(pool => {
@@ -162,7 +173,9 @@ export const getValidarTransportador_model = async(cc,tel,placa)=>{
         .execute('ValidarTransportador')
       }) .then(result => {
         // console.log(result)
-         return result.recordset
+        let response = result.recordset
+        sql.close()   
+        return response
      }).catch(err => {
          //console.log(err)
          return err
@@ -174,7 +187,7 @@ export const getValidarTransportador_model = async(cc,tel,placa)=>{
  * Consultar cliente por numero de entrega
  * @param - entrega: numero de entrega
  */
-export const getInfoCliente_xEntrega_model = async(entrega)=>{
+export const InfoCliente_xEntrega_model = async(entrega)=>{
     //console.log('en modelo', cc)
     
     const infoClinte =  sql.connect(configVselect).then(pool => {
@@ -184,7 +197,9 @@ export const getInfoCliente_xEntrega_model = async(entrega)=>{
         .execute('ConsultasTransportador')
       }) .then(result => {
         // console.log(result)
-         return result.recordset
+        let response = result.recordset
+        sql.close()   
+        return response
      }).catch(err => {
          //console.log(err)
          return err
@@ -207,10 +222,12 @@ export const Consultar_documentoEntrega_model = async(entrega)=>{
         .input('ord_no', sql.VarChar, entrega)
         .execute('Consultar_documentoEntrega')
       }) .then(result => {
-         console.log('en result', result)
-         return result.recordset
+         //console.log('en result', result)
+        let response = result.recordset
+        sql.close()   
+        return response
      }).catch(err => {
-         console.log(err)
+         //console.log(err)
          return err
      })
      return docEntrega;
@@ -238,7 +255,9 @@ export const Grabar_documentoEntrega_model = async(req)=>{
         .execute('Grabar_DocumentoEntrega')
       }) .then(result => {
         // console.log(result)
-         return result.recordset
+        let response = result.recordset
+        sql.close()   
+        return response
      }).catch(err => {
          //console.log(err)
          return err

@@ -1,7 +1,10 @@
 
-import {listaEntregaUsuario, RegistraVehiculo} from '../../db/transporte/index.js'
-
-
+import { listaEntregaUsuario, RegistraVehiculo} from '../../db/transporte/index.js'
+import { DespTransportador_model, InfoTransportador_model, ValidarTransportador_model } from '../../db/transporte/index.js'
+import { InfoCliente_xEntrega_model } from '../../db/transporte/index.js'
+import { Consultar_documentoEntrega_model } from '../../db/transporte/index.js'
+import { Grabar_documentoEntrega_model } from '../../db/transporte/index.js'
+//-------------------------------------------
 export const regVehiculo = async (data)=>{
 
     let tipo                = data.tipo;
@@ -81,5 +84,72 @@ export const listaEntregasUsuario = async(data) =>{
    const entregas = listaEntregas.map(order => order.ord_no);
    return entregas;
 } 
-    
-    
+
+//------------------------------------------------------------------------------------------------------------------
+// Funciones usadas en app_despacho
+//------------------------------------------------------------------------------------------------------------------
+
+/***
+ * Consultar un despacho con sus entregas por cc de transportador
+ * @param - cc
+*/
+export const getDespTransportador =  async(req)=>{
+   //export const getDespTransportador =  async(req,res)=>{
+   //consumo: http://localhost:3000/transporte/desp_transportador/19481059
+   //console.log('en el controlador',req)
+   
+   const cc = req
+   const infoDespTransportador= await  DespTransportador_model(cc)
+   //res.json(infoDespTransportador);
+   return infoDespTransportador;
+}   
+
+/***
+ * Consultar informacion general de un transportador
+ * @param - cc
+ */
+export const getInfoTransportador =  async(req)=>{
+   const cc = req
+   const infoTransportador= await InfoTransportador_model(cc)
+   //res.json(infoDespTransportador); //este no usar
+   return infoTransportador;
+}   
+
+export const getValidarTransportador =  async(cc,tel,placa)=>{
+   const cedula = cc;
+   const telefono = tel;
+   const placavehiculo = placa;
+
+   const infoTransportador= await ValidarTransportador_model(cedula,telefono,placavehiculo)
+   //res.json(infoDespTransportador); //este no usar
+   return infoTransportador;
+}   
+
+export const getInfoCliente_xEntrega =  async(entrega)=>{
+   const num_entrega = entrega;
+   
+   const infoCliente= await InfoCliente_xEntrega_model(num_entrega)
+   //res.json(infoDespTransportador); //este no usar
+   return infoCliente;
+}   
+
+//bd app_despacho
+export const getConsultar_documentoEntrega =  async(entrega)=>{
+   const num_entrega = entrega;
+   
+   const infoCliente= await Consultar_documentoEntrega_model(num_entrega)
+   //res.json(infoDespTransportador); //este no usar
+   return infoCliente;
+}   
+//bd app_despacho
+export const postGrabar_documentoEntrega =  async(data)=>{
+   const {entrega, tipoDocumento, imgBase64, latitude, longitude, docConfirmado, usuario } = data;
+   //console.log('en controlador',data)
+   const estadoGrabar= await Grabar_documentoEntrega_model({entrega, tipoDocumento, imgBase64, latitude, longitude, docConfirmado, usuario })
+   //res.json(infoDespTransportador); //este no usar
+   return estadoGrabar;
+}   
+
+
+
+

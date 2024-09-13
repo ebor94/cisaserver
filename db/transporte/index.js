@@ -1,5 +1,7 @@
 import sql from 'mssql'
-import {configVselect} from '../config.js'
+import {configVselect, configMSSQLServ_appdespacho} from '../config.js'
+//import {configMSSQLServ_appdespacho} from '../config.js'
+//const configAppdespacho = configMSSQLServ_appdespacho;
 
 
 export const RegistraVehiculo = async (tipo,
@@ -66,7 +68,9 @@ export const RegistraVehiculo = async (tipo,
           .execute('sp_TteTarjetaVehiculo')
        }).then(result => {
           // console.log(result)
-           return result.recordset
+          let response = result.recordset
+          sql.close()   
+          return response
        }).catch(err => {
            console.log(err)
            return err
@@ -84,7 +88,9 @@ export const listaEntregaUsuario = async(user)=>{
         .execute('lista_Entrega_Usuario')
       }) .then(result => {
         // console.log(result)
-         return result.recordset
+        let response = result.recordset
+        sql.close()   
+        return response
      }).catch(err => {
          //console.log(err)
          return err
@@ -94,4 +100,179 @@ export const listaEntregaUsuario = async(user)=>{
 }
 
 
-   
+//------------------------------------------------------------------------------------------------------------------
+// Funciones usadas en app_despacho
+//------------------------------------------------------------------------------------------------------------------
+
+/***
+ * Consultar un despacho con sus entregas por cc de transportador
+ * @param - cc
+*/
+//ejemplo consumo: http://localhost:3000/transporte/desp_transportador/19481059
+//export const getDespTransportador_model =  async(req,res)=>{
+export const DespTransportador_model = async(cc)=>{
+    //console.log('en modelo', cc)
+    
+    const DespTransportador =  sql.connect(configVselect).then(pool => {
+        return pool.request()
+        .input('TIPO', sql.VarChar, 'ENTREGAS_X_CC')
+        .input('VALOR', sql.VarChar, cc)
+        .execute('ConsultasTransportador')
+        
+      }) .then(result => {
+        // console.log(result)
+        let response = result.recordset
+        sql.close()   
+        return response
+
+     }).catch(err => {
+         console.log(err)
+         return err
+     })
+     //
+     return DespTransportador;
+}   
+
+/***
+ * Consultar informacion general de un transportador
+ * @param - cc
+ */
+export const InfoTransportador_model = async(cc)=>{
+    //console.log('en modelo', cc)
+    
+    const infoTransportador =  sql.connect(configVselect).then(pool => {
+        return pool.request()
+        .input('TIPO', sql.VarChar, 'TRANSPORTADOR_X_CC')
+        .input('VALOR', sql.VarChar, cc)
+        .execute('ConsultasTransportador')
+      }) .then(result => {
+        // console.log(result)
+        let response = result.recordset
+        sql.close()   
+        return response
+     }).catch(err => {
+         //console.log(err)
+         return err
+     })
+     return infoTransportador;
+}   
+
+/**
+ * Validar transportador
+ * @param - parametros de entrada: cc, tel, placa 
+ * @param - retorna: 
+ */
+export const ValidarTransportador_model = async(cc,tel,placa)=>{
+    //console.log('en modelo', cc)
+    
+    const infoTransportador =  sql.connect(configVselect).then(pool => {
+        return pool.request()
+        .input('cedula', sql.VarChar, cc)
+        .input('telefono', sql.VarChar, tel)
+        .input('placavehiculo', sql.VarChar, placa)
+        .execute('ValidarTransportador')
+      }) .then(result => {
+        // console.log(result)
+        let response = result.recordset
+        sql.close()   
+        return response
+     }).catch(err => {
+         //console.log(err)
+         return err
+     })
+     return infoTransportador;
+}   
+
+/**
+ * Consultar cliente por numero de entrega
+ * @param - entrega: numero de entrega
+ */
+export const InfoCliente_xEntrega_model = async(entrega)=>{
+    //console.log('en modelo', cc)
+    
+    const infoClinte =  sql.connect(configVselect).then(pool => {
+        return pool.request()
+        .input('TIPO', sql.VarChar, 'CLIENTE_X_ENTREGA')
+        .input('VALOR', sql.VarChar, entrega)
+        .execute('ConsultasTransportador')
+      }) .then(result => {
+        // console.log(result)
+        let response = result.recordset
+        sql.close()   
+        return response
+     }).catch(err => {
+         //console.log(err)
+         return err
+     })
+     return infoClinte;
+}   
+
+
+/**
+ * Consultar los documentos (foto) que se han subido a la bd, consulta por numero de entrega
+ * @param - de Entrada: entrega
+ * @param - de Salida: codDocEntrega,fkord_no,fkCodTipoConfEntrega,DesTipoConfEntrega,imagenBase64,	fechaActualizacion,
+ * @param - de Salida: latitude,longitude,documentoConfirmado,usuarioActualiza,	usuarioBD
+ */
+export const Consultar_documentoEntrega_model = async(entrega)=>{
+    //console.log('en modelo', entrega)
+    
+    const docEntrega =  sql.connect(configMSSQLServ_appdespacho).then(pool => {
+        return pool.request()
+        .input('ord_no', sql.VarChar, entrega)
+        .execute('Consultar_documentoEntrega')
+      }) .then(result => {
+         //console.log('en result', result)
+        let response = result.recordset
+        sql.close()   
+        return response
+     }).catch(err => {
+         //console.log(err)
+         return err
+     })
+     return docEntrega;
+}   
+
+/**
+ * Grabar los documentos (foto) en bd para confirmar la entrega
+ * @param - entrega, tipoDocumento, imgBase64, latitude, longitude, docConfirmado, usuario
+ * @param - de Salida: "resultado": "Registrado" o "resultado": "Actualizado"
+ */
+export const Grabar_documentoEntrega_model = async(req)=>{
+    const {entrega, tipoDocumento, imgBase64, latitude, longitude, docConfirmado, usuario } = req;
+    //console.log('en modelo', cc)
+    
+    const docGrabado =  sql.connect(configMSSQLServ_appdespacho).then(pool => {
+        return pool.request()
+        .input('ord_no', sql.VarChar, entrega)
+        .input('CodTipoConfEntrega', sql.Int, tipoDocumento)
+        .input('imagen', sql.VarChar, imgBase64)
+        .input('latitude', sql.Decimal(9,6), latitude)
+        .input('longitude', sql.Decimal(9,6), longitude)
+        .input('documentoConfirmado', sql.Int, docConfirmado)
+        .input('usuarioActualiza', sql.VarChar, usuario)
+        .input('usuarioBD', sql.VarChar, 'appdespacho')
+        .execute('Grabar_DocumentoEntrega')
+      }) .then(result => {
+        // console.log(result)
+        let response = result.recordset
+        sql.close()   
+        return response
+     }).catch(err => {
+         //console.log(err)
+         return err
+     })
+     return docGrabado;
+     /*json para ingreso al Body
+            {
+                "entrega":"60607894",
+                "tipoDocumento":2,
+                "imgBase64":'string base64', 
+                "latitude":7.886771,, 
+                "longitude":-72.496201, 
+                "docConfirmado": 1, 
+                "usuario": 'flozano'
+              }
+        */
+}   
+

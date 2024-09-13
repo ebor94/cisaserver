@@ -43,10 +43,20 @@ import FinishSalesController from './routes/clientes/invoice.js'
 import GetCentroCiudadController from './routes/clientes/invoice.js'
 import GetDataSheetDrive from './routes/clientes/fichaTecnica.js'
 import listaEntregasUsuario from './routes/transporte/index.js'
+<<<<<<< HEAD
 import listOtwithOrder from './routes/transporte/wm.js'
+=======
+//---------------------------------------------------------------
+//App Despacho
+import getDespTransportador from './routes/transporte/index.js'
+import getInfoTransportador from './routes/transporte/index.js'
+import getValidarTransportador from './routes/transporte/index.js'
+import getInfoCliente_xEntrega from './routes/transporte/index.js'
+import getConsultar_documentoEntrega from './routes/transporte/index.js'
+import postGrabar_documentoEntrega from './routes/transporte/index.js'
+>>>>>>> 94f2062638e50c54bc3c5a6f0b3720f0fa1ec8d2
 
-
-
+//---------------------------------------------------------------
 
 const app = Express();
 const port = process.env.PORT
@@ -126,7 +136,21 @@ app.post(process.env.RUTA_FINISH_SALE , FinishSalesController)
 app.post(process.env.RUTA_INFO_CIUDAD , GetCentroCiudadController)
 app.get(process.env.RUTA_GET_FICHA_DRIVE,GetDataSheetDrive)
 app.post(process.env.RUTA_LISTA_ENTREGAS_ALISTAMIENTO, listaEntregasUsuario)
+<<<<<<< HEAD
 app.post(process.env.RUTA_OT_DETAIL_ORDER,listOtwithOrder)
+=======
+
+//---------------------------------
+//appDespacho
+app.get(process.env.RUTA_GET_DESPACHO_XCC, getDespTransportador)
+app.get(process.env.RUTA_GET_INFOTRANSPORTADOR_XCC, getInfoTransportador)
+app.get(process.env.RUTA_GET_VALIDARTRANSPORTADOR, getValidarTransportador)
+app.get(process.env.RUTA_GET_CLIENTE_XENTREGA, getInfoCliente_xEntrega)
+app.get(process.env.RUTA_GET_DOCUMENTO_XENTREGA, getConsultar_documentoEntrega)
+app.get(process.env.RUTA_POST_GRABAR_DOCUMENTO_ENTREGA, postGrabar_documentoEntrega)
+
+//---------------------------------
+>>>>>>> 94f2062638e50c54bc3c5a6f0b3720f0fa1ec8d2
 //app.get('/clientes/bim/:bandera', GetBim)
 
 if (osInfo.platform === 'linux') {

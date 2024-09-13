@@ -12,7 +12,10 @@ export const logAccesos = async (usuario, app)=>{
           .execute('italbotSaveChat')
     }).then(result => {
         console.log(result.recordset[0].msj)
-        return result.recordset[0].msj
+        let response = result.recordset[0].msj
+        sql.close()   
+        return response
+       
     }).catch(err => {
         console.log(err)
         return err

@@ -8,8 +8,9 @@ export const getFlujoIngreso = async (id) =>{
              //.input('tipo',sql.VarChar, tipo) 
            .execute('porteria_listarfujo')
         }).then(result => {
-            console.log(result)
-            return result.recordset
+            let response = result.recordset
+        sql.close()   
+        return response
         }).catch(err => {
             console.log(err)
             return err

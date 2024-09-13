@@ -10,7 +10,9 @@ export const horarioListarSalas = async (data)=>{
        .execute('horariolistarsalas')
     }).then(result => {
         //console.log(result.recordset)
-        return result.recordset
+        let response = result.recordset
+        sql.close()   
+        return response
     }).catch(err => {
         console.log(err)
         return err
@@ -30,7 +32,10 @@ export const horariomostrardisponible =  async(sala, fecha) =>{
            .execute('horariomostrardisponible')
         }).then(result => {
            // console.log(result.recordset)
-            return result.recordset
+           let response = result.recordset
+           sql.close()   
+           return response
+         
         }).catch(err => {
             console.log(err)
             return err

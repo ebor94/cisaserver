@@ -38,6 +38,7 @@ router.get(process.env.RUTA_GET_ID_FLUJO, async(req,res)=>{
 });
 //router.get('/desp_transportador/:cc', getDespTransportador); //Consultar un despacho con sus entregas por cc de transportador por cc   
 */
+
 router.get(process.env.RUTA_GET_DESPACHO_XCC, async (req,res) => {
   const cc = req.params.cc
   //console.log(cc)

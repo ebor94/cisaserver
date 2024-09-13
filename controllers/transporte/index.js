@@ -81,6 +81,7 @@ return  response;
 export const listaEntregasUsuario = async(data) =>{
    let usuario = data.user;
    const listaEntregas  = await listaEntregaUsuario(usuario);
+   console.log(listaEntregas)
    const entregas = listaEntregas.map(order => order.ord_no);
    return entregas;
 } 

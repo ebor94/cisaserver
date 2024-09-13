@@ -58,3 +58,33 @@ export const wm_Kpi_Alistamiento = (data) =>{
     return response;    
 
 }
+
+export const wmGetOtOrder = (entrega, tipoInfo)=>{
+
+    let config = {
+        method: 'POST',
+        maxBodyLength: Infinity,
+        url: process.env.OT_ENTREGA_URL,
+        headers: { 
+            'Content-Type': 'application/json', 
+            'Authorization': process.env.SESSIONWM_AUTORIZATION , 
+            'Cookie': process.env.SESSIONWM_COOKIE
+        },
+        data : {
+            "NOENTREGA" : entrega,
+            "TIPOINFO": tipoInfo
+        }
+
+        };   
+        
+    const response =   axios.request(config)
+    .then((response) => {
+        return response.data;
+    })
+    .catch((error) => {
+        return JSON.stringify(error);
+    });
+
+    return response;  
+    
+}

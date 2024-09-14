@@ -144,7 +144,6 @@ export const getConsultar_documentoEntrega =  async(entrega)=>{
 //bd app_despacho
 export const postGrabar_documentoEntrega =  async(data)=>{
    const {entrega, tipoDocumento, imgBase64, latitude, longitude, docConfirmado, usuario } = data;
-   //console.log('en controlador',data)
    const estadoGrabar= await Grabar_documentoEntrega_model({entrega, tipoDocumento, imgBase64, latitude, longitude, docConfirmado, usuario })
    //res.json(infoDespTransportador); //este no usar
    return estadoGrabar;

@@ -76,17 +76,14 @@ router.get(process.env.RUTA_GET_DESPACHO_XCC, async (req,res) => {
  });   
 
  //db app_despacho
- router.get(process.env.RUTA_POST_GRABAR_DOCUMENTO_ENTREGA, async (req,res) => {
+ router.post(process.env.RUTA_POST_GRABAR_DOCUMENTO_ENTREGA, async (req,res) => {
   const {entrega, tipoDocumento, imgBase64, latitude, longitude, docConfirmado, usuario } = req.body;
-  
   //const {entrega} = req.params
-  //console.log(cc)
+  //console.log(req.body)
   const response  = await postGrabar_documentoEntrega({entrega, tipoDocumento, imgBase64, latitude, longitude, docConfirmado, usuario });    
+  //let response = 1
   res.send(response); 
  });   
  
-
- 
-
  
 export default router

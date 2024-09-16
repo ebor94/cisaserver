@@ -240,8 +240,7 @@ export const Consultar_documentoEntrega_model = async(entrega)=>{
  */
 export const Grabar_documentoEntrega_model = async(req)=>{
     const {entrega, tipoDocumento, imgBase64, latitude, longitude, docConfirmado, usuario } = req;
-    //console.log('en modelo', cc)
-    
+    //console.log('en grabar: ',req)
     const docGrabado =  sql.connect(configMSSQLServ_appdespacho).then(pool => {
         return pool.request()
         .input('ord_no', sql.VarChar, entrega)
@@ -254,7 +253,6 @@ export const Grabar_documentoEntrega_model = async(req)=>{
         .input('usuarioBD', sql.VarChar, 'appdespacho')
         .execute('Grabar_DocumentoEntrega')
       }) .then(result => {
-        // console.log(result)
         let response = result.recordset
         sql.close()   
         return response
@@ -262,7 +260,8 @@ export const Grabar_documentoEntrega_model = async(req)=>{
          //console.log(err)
          return err
      })
-     return docGrabado;
+         return docGrabado;
+
      /*json para ingreso al Body
             {
                 "entrega":"60607894",

@@ -4,6 +4,8 @@ import { DespTransportador_model, InfoTransportador_model, ValidarTransportador_
 import { InfoCliente_xEntrega_model } from '../../db/transporte/index.js'
 import { Consultar_documentoEntrega_model } from '../../db/transporte/index.js'
 import { Grabar_documentoEntrega_model } from '../../db/transporte/index.js'
+import { Lista_TiposNovedadDespacho_model } from '../../db/transporte/index.js'
+
 //-------------------------------------------
 export const regVehiculo = async (data)=>{
 
@@ -149,6 +151,15 @@ export const postGrabar_documentoEntrega =  async(data)=>{
    //res.json(infoDespTransportador); //este no usar
    return estadoGrabar;
 }   
+
+//bd app_despacho
+export const getLista_TiposNovedadDespacho =  async()=>{
+   //const {entrega, tipoDocumento, imgBase64, latitude, longitude, docConfirmado, usuario } = data;
+   const listTiposNov= await Lista_TiposNovedadDespacho_model()
+   //res.json(infoDespTransportador); //este no usar
+   return listTiposNov;
+}   
+
 
 
 

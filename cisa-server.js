@@ -55,6 +55,8 @@ import getValidarTransportador from './routes/transporte/index.js'
 import getInfoCliente_xEntrega from './routes/transporte/index.js'
 import getConsultar_documentoEntrega from './routes/transporte/index.js'
 import postGrabar_documentoEntrega from './routes/transporte/index.js'
+import getLista_TiposNovedadDespacho from './routes/transporte/index.js'
+
 
 //---------------------------------------------------------------
 
@@ -148,6 +150,7 @@ app.get(process.env.RUTA_GET_VALIDARTRANSPORTADOR, getValidarTransportador)
 app.get(process.env.RUTA_GET_CLIENTE_XENTREGA, getInfoCliente_xEntrega)
 app.get(process.env.RUTA_GET_DOCUMENTO_XENTREGA, getConsultar_documentoEntrega)
 app.post(process.env.RUTA_POST_GRABAR_DOCUMENTO_ENTREGA, postGrabar_documentoEntrega)
+app.get(process.env.RUTA_GET_LISTA_TIPOSNOVEDAD_DESPACHO, getLista_TiposNovedadDespacho)
 
 //---------------------------------
 //app.get('/clientes/bim/:bandera', GetBim)

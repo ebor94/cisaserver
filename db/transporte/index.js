@@ -275,3 +275,24 @@ export const Grabar_documentoEntrega_model = async(req)=>{
         */
 }   
 
+/**
+ * Listar  Tipos de Novedad en Despacho
+ * @param - de Entrada: 'vacio'
+ * @param - de Salida: CodTipoNovedadDesp,	DesTipoNovedadDesp,	fechasis
+ */
+export const Lista_TiposNovedadDespacho_model = async()=>{
+    
+    const listTiposNov =  sql.connect(configMSSQLServ_appdespacho).then(pool => {
+        return pool.request()
+        .execute('lista_TiposNovedadDespacho')
+      }) .then(result => {
+         //console.log('en result', result)
+        let response = result.recordset
+        sql.close()   
+        return response
+     }).catch(err => {
+         //console.log(err)
+         return err
+     })
+     return listTiposNov;
+}   

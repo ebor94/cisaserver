@@ -7,6 +7,8 @@ import {getValidarTransportador} from '../../controllers/transporte/index.js'
 import {getInfoCliente_xEntrega} from '../../controllers/transporte/index.js'
 import {getConsultar_documentoEntrega} from '../../controllers/transporte/index.js'
 import {postGrabar_documentoEntrega} from '../../controllers/transporte/index.js'
+import {getLista_TiposNovedadDespacho} from '../../controllers/transporte/index.js'
+
 
 
 //---
@@ -85,6 +87,15 @@ router.get(process.env.RUTA_GET_DESPACHO_XCC, async (req,res) => {
   //let response = 1
   res.send(response); 
  });   
+ 
+ //db app_despacho
+ router.get(process.env.RUTA_GET_LISTA_TIPOSNOVEDAD_DESPACHO, async (req,res) => {
+  //const {entrega} = req.params
+  //console.log(cc)
+  const response  = await getLista_TiposNovedadDespacho();    
+  res.send(response); 
+ });   
+
  
  
 export default router

@@ -86,9 +86,11 @@ app.use((req, res, next) => {
    next();
 })
 app.use(cors({ origin: '*' }));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({ extended: false })); //por defecto
+//app.use(bodyParser.json()); //por defecto
 
+app.use(bodyParser.urlencoded({limit: '5mb', extended: false })); // Ajuste del tamaño según sea necesario
+app.use(bodyParser.json({ limit: '5mb' })); // Ajuste del tamaño según sea necesario
 
 const osInfo = {
    platform: os.platform(),

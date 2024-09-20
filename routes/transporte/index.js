@@ -8,8 +8,7 @@ import {getInfoCliente_xEntrega} from '../../controllers/transporte/index.js'
 import {getConsultar_documentoEntrega} from '../../controllers/transporte/index.js'
 import {postGrabar_documentoEntrega} from '../../controllers/transporte/index.js'
 import {getLista_TiposNovedadDespacho} from '../../controllers/transporte/index.js'
-
-
+import {postGrabar_NovedadDespacho, postGrabar_ImagenNovedadDespacho } from '../../controllers/transporte/index.js'
 
 //---
 import dotenv from 'dotenv'
@@ -96,6 +95,23 @@ router.get(process.env.RUTA_GET_DESPACHO_XCC, async (req,res) => {
   res.send(response); 
  });   
 
- 
+ //db app_despacho
+ router.post(process.env.RUTA_POST_GRABAR_NOVEDAD_DESPACHO, async (req,res) => {
+  //const {despacho, TipoNovedadDesp, observacion, latitude, longitude, usuario } = req.body;
+  //const {entrega} = req.params
+  const response  =  await postGrabar_NovedadDespacho(req.body);    
+  //let response = 1
+  res.send(response); 
+ }); 
+
+ //db app_despacho
+ router.post(process.env.RUTA_POST_GRABAR_IMAGENNOVEDAD_DESPACHO, async (req,res) => {
+  //const {CodNovedadDesp, imgBase64, usuario } = req.body
+  //const {variable} = req.params //params cuando viene por get
+  const response =  await postGrabar_ImagenNovedadDespacho(req.body);    
+  //let response = 1
+  res.send(response); 
+ }); 
+
  
 export default router

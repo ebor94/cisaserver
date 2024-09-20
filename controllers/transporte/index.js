@@ -5,6 +5,7 @@ import { InfoCliente_xEntrega_model } from '../../db/transporte/index.js'
 import { Consultar_documentoEntrega_model } from '../../db/transporte/index.js'
 import { Grabar_documentoEntrega_model } from '../../db/transporte/index.js'
 import { Lista_TiposNovedadDespacho_model } from '../../db/transporte/index.js'
+import { Grabar_NovedadDespacho_model, Grabar_ImagenNovedadDespacho_model } from '../../db/transporte/index.js'
 
 //-------------------------------------------
 export const regVehiculo = async (data)=>{
@@ -160,6 +161,21 @@ export const getLista_TiposNovedadDespacho =  async()=>{
    return listTiposNov;
 }   
 
+//bd app_despacho
+export const postGrabar_NovedadDespacho =  async(data)=>{
+   let {despacho, TipoNovedadDesp, observacion, latitude, longitude, usuario } = data;
+   const estadoGrabar=  await Grabar_NovedadDespacho_model({despacho, TipoNovedadDesp, observacion, latitude, longitude, usuario })
+   //res.json(estadoGrabar); //este no usar
+   return estadoGrabar;
+} 
+
+//bd app_despacho
+export const postGrabar_ImagenNovedadDespacho =  async(data)=>{
+   const {CodNovedadDesp, imgBase64, usuario } = data;
+   const estadoGrabar= await Grabar_ImagenNovedadDespacho_model({CodNovedadDesp, imgBase64, usuario })
+   //res.json(infoDespTransportador); //este no usar
+   return estadoGrabar;
+} 
 
 
 

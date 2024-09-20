@@ -296,3 +296,81 @@ export const Lista_TiposNovedadDespacho_model = async()=>{
      })
      return listTiposNov;
 }   
+
+/**
+ * Grabar las novedades del despacho en tabla NovedadDespacho (inserta registro)  
+  * @param - de entrada: despacho, CodTipoNovedadDesp, observacion, latitude, longitude, usuarioActualiza
+ * @param - de Salida: "resultado": "Registrado", UltID insertado, Fecha, Hora
+ */
+export const Grabar_NovedadDespacho_model = async(data)=>{
+    const {despacho, TipoNovedadDesp, observacion, latitude, longitude, usuario } = data;
+    
+    const docGrabado =  sql.connect(configMSSQLServ_appdespacho).then(pool => {
+        return pool.request()
+        .input('orden_padre', sql.VarChar, despacho)
+        .input('CodTipoNovedadDesp', sql.Int, TipoNovedadDesp)
+        .input('observacion', sql.VarChar, observacion)
+        .input('latitude', sql.Decimal(9,6), latitude)
+        .input('longitude', sql.Decimal(9,6), longitude)
+        .input('usuarioActualiza', sql.VarChar, usuario)
+        .input('usuarioBD', sql.VarChar, 'appdespacho')
+        .execute('Grabar_NovedadDespacho')
+      }) .then(result => {
+        let response = result.recordset
+        sql.close()   
+        return response
+     }).catch(err => {
+         console.log(err)
+         return err
+     })
+    return docGrabado;
+
+     /*json para ingreso al Body
+        {
+            "despacho":"136969",
+            "TipoNovedadDesp":1,
+            "observacion":'string varchar(100)', 
+            "latitud":7.886771, 
+            "longitud":-72.496201, 
+            "usuario": 'flozano'
+          }
+    */
+}   
+
+
+/**
+ * Grabar imagen de Novedad Despacho
+ * @param - CodNovedadDesp, imgBase64, usuario
+ * @param - de Salida: "resultado": "Registrado", fecha, hora  
+ */
+export const Grabar_ImagenNovedadDespacho_model = async(data)=>{
+    const {CodNovedadDesp, imgBase64, usuario } = data;
+    //console.log('en grabar: ',data)
+    const docGrabado =  sql.connect(configMSSQLServ_appdespacho).then(pool => {
+        return pool.request()
+        .input('CodNovedadDesp', sql.Int, CodNovedadDesp)
+        .input('imagen', sql.VarChar, imgBase64)
+        .input('usuarioActualiza', sql.VarChar, usuario)
+        .input('usuarioBD', sql.VarChar, 'appdespacho')
+        .execute('Grabar_ImagenNovedadDespacho')
+      }) .then(result => {
+        let response = result.recordset
+        sql.close()   
+        return response
+     }).catch(err => {
+         //console.log(err)
+         return err
+     })
+         return docGrabado;
+
+     /*json para ingreso al Body
+        {
+            "CodNovedadDesp":"9",
+            "imgBase64":'string base64', 
+            "usuario": 'flozano'
+          }
+    */
+}   
+
+
+

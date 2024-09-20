@@ -147,7 +147,7 @@ export const getConsultar_documentoEntrega =  async(entrega)=>{
 }   
 //bd app_despacho
 export const postGrabar_documentoEntrega =  async(data)=>{
-   const {entrega, tipoDocumento, imgBase64, latitude, longitude, docConfirmado, usuario } = data;
+   let {entrega, tipoDocumento, imgBase64, latitude, longitude, docConfirmado, usuario } = data;
    const estadoGrabar= await Grabar_documentoEntrega_model({entrega, tipoDocumento, imgBase64, latitude, longitude, docConfirmado, usuario })
    //res.json(infoDespTransportador); //este no usar
    return estadoGrabar;
@@ -171,12 +171,8 @@ export const postGrabar_NovedadDespacho =  async(data)=>{
 
 //bd app_despacho
 export const postGrabar_ImagenNovedadDespacho =  async(data)=>{
-   const {CodNovedadDesp, imgBase64, usuario } = data;
+   let {CodNovedadDesp, imgBase64, usuario } = data;
    const estadoGrabar= await Grabar_ImagenNovedadDespacho_model({CodNovedadDesp, imgBase64, usuario })
    //res.json(infoDespTransportador); //este no usar
    return estadoGrabar;
 } 
-
-
-
-

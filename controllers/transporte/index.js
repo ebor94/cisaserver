@@ -6,6 +6,7 @@ import { Consultar_documentoEntrega_model } from '../../db/transporte/index.js'
 import { Grabar_documentoEntrega_model } from '../../db/transporte/index.js'
 import { Lista_TiposNovedadDespacho_model } from '../../db/transporte/index.js'
 import { Grabar_NovedadDespacho_model, Grabar_ImagenNovedadDespacho_model } from '../../db/transporte/index.js'
+import { Grabar_LocalizacionDespacho_model } from '../../db/transporte/index.js'
 
 //-------------------------------------------
 export const regVehiculo = async (data)=>{
@@ -176,3 +177,12 @@ export const postGrabar_ImagenNovedadDespacho =  async(data)=>{
    //res.json(infoDespTransportador); //este no usar
    return estadoGrabar;
 } 
+
+//bd app_despacho
+export const postGrabar_LocalizacionDespacho =  async(data)=>{
+   const {despacho, latitude, longitude, fechaDispositivo,  usuario } = data;
+   const estadoGrabar= await Grabar_LocalizacionDespacho_model({ despacho, latitude, longitude, fechaDispositivo,  usuario })
+   //res.json(infoDespTransportador); //este no usar
+   return estadoGrabar;
+} 
+

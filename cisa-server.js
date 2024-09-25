@@ -45,8 +45,6 @@ import GetDataSheetDrive from './routes/clientes/fichaTecnica.js'
 import listaEntregasUsuario from './routes/transporte/index.js'
 import listOtwithOrder from "./routes/transporte/wm.js" 
 
-
-
 //---------------------------------------------------------------
 //App Despacho
 import getDespTransportador from './routes/transporte/index.js'
@@ -55,6 +53,10 @@ import getValidarTransportador from './routes/transporte/index.js'
 import getInfoCliente_xEntrega from './routes/transporte/index.js'
 import getConsultar_documentoEntrega from './routes/transporte/index.js'
 import postGrabar_documentoEntrega from './routes/transporte/index.js'
+import getLista_TiposNovedadDespacho from './routes/transporte/index.js'
+import postGrabar_NovedadDespacho from './routes/transporte/index.js'
+import postGrabar_ImagenNovedadDespacho from './routes/transporte/index.js'
+import postGrabar_LocalizacionDespacho from './routes/transporte/index.js'
 
 //---------------------------------------------------------------
 
@@ -86,9 +88,11 @@ app.use((req, res, next) => {
    next();
 })
 app.use(cors({ origin: '*' }));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({ extended: false })); //por defecto
+//app.use(bodyParser.json()); //por defecto
 
+app.use(bodyParser.urlencoded({limit: '5mb', extended: false })); // Ajuste del tamaño según sea necesario
+app.use(bodyParser.json({ limit: '5mb' })); // Ajuste del tamaño según sea necesario
 
 const osInfo = {
    platform: os.platform(),
@@ -146,6 +150,14 @@ app.get(process.env.RUTA_GET_VALIDARTRANSPORTADOR, getValidarTransportador)
 app.get(process.env.RUTA_GET_CLIENTE_XENTREGA, getInfoCliente_xEntrega)
 app.get(process.env.RUTA_GET_DOCUMENTO_XENTREGA, getConsultar_documentoEntrega)
 app.post(process.env.RUTA_POST_GRABAR_DOCUMENTO_ENTREGA, postGrabar_documentoEntrega)
+app.get(process.env.RUTA_GET_LISTA_TIPOSNOVEDAD_DESPACHO, getLista_TiposNovedadDespacho)
+
+app.post(process.env.RUTA_POST_GRABAR_NOVEDAD_DESPACHO, postGrabar_NovedadDespacho)
+app.post(process.env.RUTA_POST_GRABAR_IMAGENNOVEDAD_DESPACHO, postGrabar_ImagenNovedadDespacho)
+app.post(process.env.RUTA_POST_GRABAR_LOCALIZACION_DESPACHO, postGrabar_LocalizacionDespacho)
+
+
+
 
 //---------------------------------
 //app.get('/clientes/bim/:bandera', GetBim)

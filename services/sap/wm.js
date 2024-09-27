@@ -88,3 +88,35 @@ export const wmGetOtOrder = (entrega, tipoInfo)=>{
     return response;  
     
 }
+
+export const wmLt22 = (alacenwm, tipoAlmacen, tablaMostrar)=>{
+
+    let config = {
+        method: 'POST',
+        maxBodyLength: Infinity,
+        url: process.env.LT22_URL,
+        headers: { 
+            'Content-Type': 'application/json', 
+            'Authorization': process.env.SESSIONWM_AUTORIZATION , 
+            'Cookie': process.env.SESSIONWM_COOKIE
+        },
+        data : {
+            "I_LGNUM": alacenwm,
+            "I_VLTYP": tipoAlmacen,
+            "TABLE_NAME": tablaMostrar
+            }
+
+        };   
+        
+    const response =   axios.request(config)
+    .then((response) => {
+        return response.data;
+    })
+    .catch((error) => {
+        return JSON.stringify(error);
+    });
+
+    return response;  
+    
+}
+

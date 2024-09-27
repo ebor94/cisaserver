@@ -1,4 +1,4 @@
-import {loginWm, wm_Kpi_Alistamiento, wmGetOtOrder} from '../../services/sap/wm.js'
+import {loginWm, wm_Kpi_Alistamiento, wmGetOtOrder, wmLt22} from '../../services/sap/wm.js'
 
 
  export  const  SessionWm = async ({usuario, contraseña, bandera})=>{
@@ -17,3 +17,18 @@ export const  listOtwithOrder = async ({noentrega, tipoInfo})=>{
     const response = await wmGetOtOrder(noentrega,tipoInfo)
        return response;
 }
+
+
+export const  listLt22 = async ({alacenwm, tipoAlmacen})=>{
+    
+    let  ltap = await wmLt22(alacenwm, tipoAlmacen, "LTAP");
+    let  body = await wmLt22(alacenwm, tipoAlmacen, "BODY");
+    ltap.forEach(itemLtap => {
+        let pallet = body.find(itemBody => itemBody.tanum === itemLtap.tanum);
+        if (pallet) {
+            itemLtap.consecutivo = pallet.consecutivo;
+        }
+    });
+     return ltap;
+}
+

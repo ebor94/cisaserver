@@ -27,6 +27,7 @@ export const  listLt22 = async ({alacenwm, tipoAlmacen})=>{
         let pallet = body.find(itemBody => itemBody.tanum === itemLtap.tanum);
         if (pallet) {
             itemLtap.consecutivo = pallet.consecutivo;
+            itemLtap.usuario = pallet.usuario;
         }
     });
      return ltap;

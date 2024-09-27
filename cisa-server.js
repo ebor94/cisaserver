@@ -44,6 +44,7 @@ import GetCentroCiudadController from './routes/clientes/invoice.js'
 import GetDataSheetDrive from './routes/clientes/fichaTecnica.js'
 import listaEntregasUsuario from './routes/transporte/index.js'
 import listOtwithOrder from "./routes/transporte/wm.js" 
+import listLt22  from "./routes/transporte/wm.js" 
 
 //---------------------------------------------------------------
 //App Despacho
@@ -141,6 +142,7 @@ app.post(process.env.RUTA_INFO_CIUDAD , GetCentroCiudadController)
 app.get(process.env.RUTA_GET_FICHA_DRIVE,GetDataSheetDrive)
 app.post(process.env.RUTA_LISTA_ENTREGAS_ALISTAMIENTO, listaEntregasUsuario)
 app.post(process.env.RUTA_OT_DETAIL_ORDER, listOtwithOrder)
+app.post(process.env.RUTA_LT22, listLt22)
 
 //---------------------------------
 //appDespacho
@@ -151,7 +153,6 @@ app.get(process.env.RUTA_GET_CLIENTE_XENTREGA, getInfoCliente_xEntrega)
 app.get(process.env.RUTA_GET_DOCUMENTO_XENTREGA, getConsultar_documentoEntrega)
 app.post(process.env.RUTA_POST_GRABAR_DOCUMENTO_ENTREGA, postGrabar_documentoEntrega)
 app.get(process.env.RUTA_GET_LISTA_TIPOSNOVEDAD_DESPACHO, getLista_TiposNovedadDespacho)
-
 app.post(process.env.RUTA_POST_GRABAR_NOVEDAD_DESPACHO, postGrabar_NovedadDespacho)
 app.post(process.env.RUTA_POST_GRABAR_IMAGENNOVEDAD_DESPACHO, postGrabar_ImagenNovedadDespacho)
 app.post(process.env.RUTA_POST_GRABAR_LOCALIZACION_DESPACHO, postGrabar_LocalizacionDespacho)

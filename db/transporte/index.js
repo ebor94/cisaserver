@@ -385,7 +385,7 @@ export const Grabar_LocalizacionDespacho_model = async(data)=>{
         .input('orden_padre', sql.VarChar, despacho)
         .input('latitude', sql.Decimal(9,6), latitude)
         .input('longitude', sql.Decimal(9,6), longitude)
-        .input('fechaDispositivo', sql.DateTime, fechaDispositivo)
+        .input('fechaDispositivo', sql.VarChar, fechaDispositivo)
         .input('usuarioActualiza', sql.VarChar, usuario)
         .input('usuarioBD', sql.VarChar, 'appdespacho')
         .execute('Grabar_LocalizacionDespacho')
@@ -409,40 +409,4 @@ export const Grabar_LocalizacionDespacho_model = async(data)=>{
           }
         */
 }   
-
-export const postGrabar_LocalizacionDespacho_model =  async(req)=>{
-    const {despacho, latitude, longitude, fechaDispositivo,  usuario } = req;
-
-    //console.log(entrega)
-    //return(req);
-    /*res.json(req.body);*/
-    
-    try {
-        // Conectar a la base de datos
-        const pool = await poolSQLServ_appdespacho;
-        console.log('Conexión a la base de datos exitosa.');
-        
-        let sql = `execute app_Despacho.dbo.Grabar_LocalizacionDespacho '${ despacho }',${ latitude },${ longitude }, '${ fechaDispositivo }', '${ usuario }','appdespacho'`
-        let result = await pool.query(sql);
-        //res.json(result.recordset);
-        let response = result.recordset
-        //pool.close()   
-        return response
-        //return(result.recordset);
-        
-        // Cerrar la conexión, cerrar genera error, dejarla abierta
-        //pool.close();
-    } catch (err) {
-        console.error('Error de conexión:', err);
-    }
-    /*json para ingreso al Body
-        {
-            "orden_padre":"136969",
-            "latitude": 7.886771,
-            "longitude": -72.496201, 
-            "fechaDispositivo":'2024-09-24 17:55:00'
-            "usuario": 'flozano'
-          }
-    */
-}
 

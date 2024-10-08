@@ -1,4 +1,4 @@
-import {loginWm, wm_Kpi_Alistamiento, wmGetOtOrder, wmLt22} from '../../services/sap/wm.js'
+import {loginWm, Wm_confirm_ot, wm_Kpi_Alistamiento, wmGetOtOrder, wmLt22} from '../../services/sap/wm.js'
 
 
  export  const  SessionWm = async ({usuario, contraseña, bandera})=>{
@@ -31,5 +31,12 @@ export const  listLt22 = async ({alacenwm, tipoAlmacen})=>{
         }
     });
      return ltap;
+}
+
+
+export const Confirm_Ot = async ({entrega, ot, posicion}) =>{
+    const response = await Wm_confirm_ot(entrega, ot, posicion)
+       return response;
+
 }
 

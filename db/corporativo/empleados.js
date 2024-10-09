@@ -31,3 +31,10 @@ export const closePool = async () => {
     pool = null;
   }
 };
+
+
+process.on('SIGINT', async () => {
+    console.log('Closing database connections...');
+    await closePool();
+    process.exit(0);
+  });

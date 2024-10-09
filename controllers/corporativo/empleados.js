@@ -1,4 +1,4 @@
-import { getEmpleadoDb, closePool } from "../../db/corporativo/empleados.js";
+import { getEmpleadoDb } from "../../db/corporativo/empleados.js";
 
 
 
@@ -6,7 +6,7 @@ import { getEmpleadoDb, closePool } from "../../db/corporativo/empleados.js";
 export const GetEmpleado = async (cc) => {
     try {
       const response = await getEmpleadoDb(cc);
-      await closePool(); 
+     
       if (!response || response.length === 0) {
         return {
           success: false,
@@ -32,3 +32,5 @@ export const GetEmpleado = async (cc) => {
     }
 
   }
+
+  

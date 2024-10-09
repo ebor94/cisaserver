@@ -84,7 +84,7 @@ export const RegistraVehiculo = async (tipo,
 
    async function getPool() {
      if (!poolx) {
-       poolx = await new sql.ConnectionPool(config).connect();
+       poolx = await new sql.ConnectionPool(configVselect).connect();
      }
      return poolx;
    }   

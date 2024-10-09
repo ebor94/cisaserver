@@ -1,12 +1,12 @@
 import sql from 'mssql'
 import {config} from '../config.js'
 
-export const getFlujoIngreso = async (id) =>{
-    const idflujo =  sql.connect(config).then(pool => {   
+export const getEmpleadoDb = async (cedula) =>{
+    const empleado =  sql.connect(config).then(pool => {   
         return pool.request()
-             .input('id',sql.VarChar, id) 
+             .input('cedula',sql.VarChar, cedula) 
              //.input('tipo',sql.VarChar, tipo) 
-           .execute('porteria_listarfujo')
+           .execute('ConsultaInfEmpleado ')
         }).then(result => {
             let response = result.recordset
         sql.close()   
@@ -15,5 +15,5 @@ export const getFlujoIngreso = async (id) =>{
             console.log(err)
             return err
         })
-    return idflujo
+    return empleado
 }

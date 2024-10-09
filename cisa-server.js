@@ -43,6 +43,7 @@ import listaEntregasUsuario from './routes/transporte/index.js'
 import listOtwithOrder from "./routes/transporte/wm.js" 
 import listLt22  from "./routes/transporte/wm.js" 
 import Confirm_Ot  from "./routes/transporte/wm.js"
+import GetEmpleado from './routes/corporativo/empleado.js';
 //---------------------------------------------------------------
 //App Despacho
 import getDespTransportador from './routes/transporte/index.js'
@@ -135,6 +136,7 @@ app.post(process.env.RUTA_LISTA_ENTREGAS_ALISTAMIENTO, listaEntregasUsuario)
 app.post(process.env.RUTA_OT_DETAIL_ORDER, listOtwithOrder)
 app.post(process.env.RUTA_LT22, listLt22)
 app.post(process.env.RUTA_CONFIRM_OT, Confirm_Ot)
+app.get(process.env.RUTA_GET_EMPLEADO, GetEmpleado)
 //---------------------------------
 //appDespacho
 app.get(process.env.RUTA_GET_DESPACHO_XCC, getDespTransportador)

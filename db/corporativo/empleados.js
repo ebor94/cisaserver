@@ -1,20 +1,33 @@
 import sql from 'mssql'
 import {config} from '../config.js'
 
-export const getEmpleadoDb = async (cedula) =>{
-    const empleado =  await sql.connect(config).then(pool => {   
-        return pool.request()
-             .input('cedula',sql.VarChar, cedula) 
-             //.input('tipo',sql.VarChar, tipo) 
-           .execute('ConsultaInfEmpleado ')
-        }).then(result => {
-            let response = result.recordset
-        sql.close()   
-        return response
-        }).catch(err => {
-            console.log(err)
-            sql.close()  
-            return err
-        })
-    return empleado
+let pool;
+
+async function getPool() {
+  if (!pool) {
+    pool = await new sql.ConnectionPool(config).connect();
+  }
+  return pool;
 }
+
+export const getEmpleadoDb = async (cedula) => {
+  try {
+    const pool = await getPool();
+    const result = await pool.request()
+      .input('cedula', sql.VarChar, cedula)
+      .execute('ConsultaInfEmpleado');
+    
+    return result.recordset;
+  } catch (err) {
+    console.error('Error en getEmpleadoDb:', err);
+    throw err;
+  }
+};
+
+// Función para cerrar la conexión cuando la aplicación se cierre
+export const closePool = async () => {
+  if (pool) {
+    await pool.close();
+    pool = null;
+  }
+};

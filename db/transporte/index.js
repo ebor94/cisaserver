@@ -80,24 +80,44 @@ export const RegistraVehiculo = async (tipo,
    
    }
 
+   let poolx;
+
+   async function getPool() {
+     if (!poolx) {
+       poolx = await new sql.ConnectionPool(config).connect();
+     }
+     return poolx;
+   }   
+
 export const listaEntregaUsuario = async(user)=>{
 
-    const listaEntrega =  sql.connect(configVselect).then(pool => {
-        return pool.request()
+    try {
+        const pool = await getPool();
+        const result = await pool.request()
         .input('usuario', sql.VarChar, user)
         .execute('lista_Entrega_Usuario')
-      }) .then(result => {
-        // console.log(result)
-        let response = result.recordset
-        sql.close()   
-        return response
-     }).catch(err => {
-         //console.log(err)
-         return err
-     })
+        
+        return result.recordset;
+      } catch (err) {
+        console.error('Error en listaEntregaUsuario:', err);
+        throw err;
+      }
+ }
 
-     return listaEntrega;
-}
+ // Función para cerrar la conexión cuando la aplicación se cierre
+export const closePool = async () => {
+    if (poolx) {
+      await poolx.close();
+      poolx = null;
+    }
+  };
+  
+  
+  process.on('SIGINT', async () => {
+      console.log('Closing database connections...');
+      await closePool();
+      process.exit(0);
+    });
 
 
 //------------------------------------------------------------------------------------------------------------------

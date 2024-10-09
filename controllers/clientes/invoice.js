@@ -33,7 +33,7 @@ export const GetInvoiceController = async (data) => {
     }
 
     //console.log(invoice, results)    
-    if (results[0].solici){
+    if (results[0]){
     if (cte === results[0].solici) {
         //console.log(cte,"******",invoice[0].solici)
 

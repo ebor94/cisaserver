@@ -23,7 +23,7 @@ export const loginSapService = async  ({usuario,codvend, password}) => {
         
     const response =  await  axios.request(config)
     .then((response) => {
-        console.log(response)
+       //console.log(response)
         if(response.statusCode == 500){
             response.data = []
         }

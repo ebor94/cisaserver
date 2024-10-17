@@ -5,6 +5,8 @@ import os from "os";
 import https from "https";
 import fs from "fs";
 import dotenv from 'dotenv'
+import swaggerUi from 'swagger-ui-express'
+import swaggerJsdoc from 'swagger-jsdoc'
 dotenv.config()
 // import  IpFilter  from 'express-ipfilter';
 // import  IpDeniedError from 'express-ipfilter';
@@ -71,7 +73,24 @@ const ips = process.env.IP_RANGE
 //   } else {
 //     next();
 //   }
-// })               
+// })   
+const swaggerOptions = {
+   definition: {
+     openapi: '3.0.0', // Versión de OpenAPI
+     info: {
+       title: 'Docs Server APIS lilix',
+       version: '1.0.0',
+       description: 'Docs Server APIS lilix',
+     },
+   }, 
+   apis: ['./routes/**/*.js'], // Archivos donde están los comentarios JSDoc
+};    
+// Crear la especificación Swagger
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
+
+// Rutas de Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
 app.use((req, res, next) => {
    // Dominio que tengan acceso 
    res.setHeader('Access-Control-Allow-Origin', "*");
@@ -161,11 +180,14 @@ if (osInfo.platform === 'linux') {
    };
    https.createServer(options, app).listen(port, () => {
       console.log(`cisa listening on port ${port}`)
+      console.log(`Documentación Swagger disponible en https://lili.ceramicaitalia.com:${port}/api-docs`);
    });
 
 } else {
    app.listen(port, () => {
       console.log(`cisa listening on port ${port}`)
+      console.log(`Documentación Swagger disponible en http://localhost:${port}/api-docs`);
+      
 
    });
 }

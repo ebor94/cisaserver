@@ -10,7 +10,9 @@ import { Zcisaparmetros } from "../../services/sap/parametros.js";
 export const LoginSap = async (data) => {
     let response = {}
   const dataLogin =  await loginSapService(data)
-
+  //EMPTY PAYLOAD
+  console.log(dataLogin)
+  //  console.log(dataLogin[0].message )
   if(!dataLogin.length){
     response.succes = false;
     response.token = null;
@@ -24,8 +26,6 @@ export const LoginSap = async (data) => {
   }
 
   return response
-    
-
 }
 
 

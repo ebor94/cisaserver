@@ -26,7 +26,7 @@ export const getInfoPlacaEmpl = async (placa) =>{
         };
   
       } catch (error) {
-        console.error("Error en getInfoPlaca:", error);
+        //console.error("Error en getInfoPlaca:", error);
         return {
           success: false,
           message: "Ocurrió un error al buscar el vehiculo",

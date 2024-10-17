@@ -14,6 +14,32 @@ export const config = {
         }
 }
 
+export const configLilix = {
+    user: process.env.USERDBLILIX,
+    password: process.env.PASSLILIX,
+    server: process.env.HOSTLILIX,
+    database: process.env.DB_NAMELILIX,
+     options: {
+        trustedConnection: true,
+        encrypt: true,
+        enableArithAbort: true,
+        trustServerCertificate: true,
+        }
+}
+
+export const configLilixSy = {
+    user: process.env.USERDBLILIX,
+    password: process.env.PASSLILIX,
+    server: process.env.HOSTLILIX,
+    database: process.env.DB_NAMELILIXSY,
+     options: {
+        trustedConnection: true,
+        encrypt: true,
+        enableArithAbort: true,
+        trustServerCertificate: true,
+        }
+}
+
 
 export const configBot = {
     user: process.env.USERDBBOT,

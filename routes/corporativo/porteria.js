@@ -16,7 +16,7 @@ router.get(process.env.RUTA_GET_ID_FLUJO, async(req,res)=>{
  * 
  * /corporativo/porteria/vehiculo/{placa}:
  *   get:
- *     summary: Get data employed of synergy sending cc 
+ *     summary: This API returns vehicle information based on its license plate, in accordance with the road liability policy.  
  *     tags:
  *       - Corporativo # Categoría o sección donde aparecerá esta ruta
  *     parameters:
@@ -35,10 +35,6 @@ router.get(process.env.RUTA_GET_ID_FLUJO, async(req,res)=>{
  *             schema:
  *               type: object
  *               properties:
- *                 cedula:
- *                   type: string
- *                 nombre:
- *                   type: string
  *                 success: 
  *                   type: boolean
  *                 message:
@@ -48,34 +44,34 @@ router.get(process.env.RUTA_GET_ID_FLUJO, async(req,res)=>{
  *                   items:
  *                      type: object
  *                      properties:
- *                          CodSynergy: 
- *                              type: number    
- *                          NombreEmpleado: 
+ *                          fullname: 
  *                              type: string    
- *                          CedulaEmpleado: 
+ *                          task: 
  *                              type: string    
- *                          TelCorpEmpleado: 
- *                              type: number    
- *                          CelCorpEmpleado: 
+ *                          Picture: 
+ *                              type: object  
+ *                              propieties:
+ *                                  type:
+ *                                     type: "Buffer"
+ *                                  data:
+ *                                     type: array
+ *                          placa: 
  *                              type: string    
- *                          EmailCorpEmpleado: 
+ *                          tipovehiculo: 
  *                              type: string    
- *                          Enfoque: 
+ *                          nacionalidad: 
  *                              type: string    
- *                          Cargo: 
+ *                          MSGVencimientoSOAT: 
  *                              type: string    
- *                          GrupoTrabajo: 
+ *                          MSGVencimientotecnicomecanica: 
  *                              type: string    
- *                          Funcion: 
+ *                          MSGVencimientolicencia: 
  *                              type: string    
- *                          Nivel: 
- *                              type: string    
- *                          JefeInmediato: 
- *                              type: string    
+ *                          falla: 
+ *                              type: string   
  */
 router.get(process.env.RUTA_GET_INFO_PLACA, async(req,res)=>{
-    const placa = req.params.placa;
-  
+    const placa = req.params.placa;  
      const response  = await getInfoPlacaEmpl(placa)
      res.send(response); 
  });

@@ -1,5 +1,5 @@
 import sql from 'mssql'
-import {config} from '../config.js'
+import {config, configLilix} from '../config.js'
 
 export const getFlujoIngreso = async (id) =>{
     const idflujo =  sql.connect(config).then(pool => {   
@@ -23,16 +23,17 @@ let pool;
 
 async function getPool() {
   if (!pool) {
-    pool = await new sql.ConnectionPool(config).connect();
+    pool = await new sql.ConnectionPool(configLilix).connect();
   }
   return pool;
 }
 
-export const getInfoPlaca = async (placa) => {
+export const getInfoPlaca = async (placa,) => {
   try {
     const pool = await getPool();
     const result = await pool.request()
       .input('placa', sql.VarChar, placa)
+      .input('usuario', sql.VarChar, '')
       .execute('ContralIngresovehiculos');
     
     return result.recordset;

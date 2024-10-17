@@ -46,6 +46,7 @@ import listOtwithOrder from "./routes/transporte/wm.js"
 import listLt22  from "./routes/transporte/wm.js" 
 import Confirm_Ot  from "./routes/transporte/wm.js"
 import GetEmpleado from './routes/corporativo/empleado.js';
+import GetInfoPlacaEmpl from './routes/corporativo/porteria.js';
 //---------------------------------------------------------------
 //App Despacho
 import getDespTransportador from './routes/transporte/index.js'
@@ -156,6 +157,7 @@ app.post(process.env.RUTA_OT_DETAIL_ORDER, listOtwithOrder)
 app.post(process.env.RUTA_LT22, listLt22)
 app.post(process.env.RUTA_CONFIRM_OT, Confirm_Ot)
 app.get(process.env.RUTA_GET_EMPLEADO, GetEmpleado)
+app.get(process.env.RUTA_GET_INFO_PLACA, GetInfoPlacaEmpl)
 //---------------------------------
 //appDespacho
 app.get(process.env.RUTA_GET_DESPACHO_XCC, getDespTransportador)
@@ -180,13 +182,13 @@ if (osInfo.platform === 'linux') {
    };
    https.createServer(options, app).listen(port, () => {
       console.log(`cisa listening on port ${port}`)
-      console.log(`Documentación Swagger disponible en https://lili.ceramicaitalia.com:${port}/api-docs`);
+      console.log(`Documentación Swagger disponible en https://lilix.ceramicaitalia.com:${port}/api-docs`);
    });
 
 } else {
    app.listen(port, () => {
       console.log(`cisa listening on port ${port}`)
-      console.log(`Documentación Swagger disponible en http://localhost:${port}/api-docs`);
+      console.log(`Documentación Swagger disponible en https://lilix.ceramicaitalia.com:${port}/api-docs`);
       
 
    });

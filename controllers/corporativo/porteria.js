@@ -11,10 +11,10 @@ export const getInfoPlacaEmpl = async (placa) =>{
     try {
         const response  = await getInfoPlaca(placa)
        
-        if (!response || response.length === 0) {
+        if (!response || response.length === 0 || response[0].placa === "Rojo\t|Placa No registrada") {
           return {
             success: false,
-            message: "No se encontró ningún empleado con esa cédula",
+            message: "No se encontró ningún vehiculo con esta placa",
             data: null
           };
         }

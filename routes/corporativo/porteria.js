@@ -83,7 +83,7 @@ router.get(process.env.RUTA_GET_ID_FLUJO, async(req,res)=>{
  *                          falla: 
  *                              type: string   
  */
-router.get(process.env.RUTA_GET_INFO_PLACA, validarRutaUsuario,async(req,res)=>{
+router.get(process.env.RUTA_GET_INFO_PLACA,async(req,res)=>{
     const placa = req.params.placa;  
     const response  = await getInfoPlacaEmpl(placa)
      res.send(response); 

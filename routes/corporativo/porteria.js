@@ -1,4 +1,5 @@
 import express  from "express";
+import {validarRutaUsuario} from "../../midleware/validaRuta.js"
 import { getFlujo , getInfoPlacaEmpl} from "../../controllers/corporativo/porteria.js";
 import dotenv from 'dotenv'
 dotenv.config()
@@ -25,6 +26,18 @@ router.get(process.env.RUTA_GET_ID_FLUJO, async(req,res)=>{
  *         required: true
  *         value: 'KEX-370'
  *         description: Placa del vehiculo
+ *         schema:
+ *           type: string
+ *       - in: header
+ *         name: user-id
+ *         required: true
+ *         description: ID del usuario autenticado
+ *         schema:
+ *           type: string
+ *       - in: header
+ *         name: app
+ *         required: true
+ *         description: Aplicacion a validar
  *         schema:
  *           type: string
  *     responses:
@@ -70,9 +83,9 @@ router.get(process.env.RUTA_GET_ID_FLUJO, async(req,res)=>{
  *                          falla: 
  *                              type: string   
  */
-router.get(process.env.RUTA_GET_INFO_PLACA, async(req,res)=>{
+router.get(process.env.RUTA_GET_INFO_PLACA, validarRutaUsuario,async(req,res)=>{
     const placa = req.params.placa;  
-     const response  = await getInfoPlacaEmpl(placa)
+    const response  = await getInfoPlacaEmpl(placa)
      res.send(response); 
  });
 export default router

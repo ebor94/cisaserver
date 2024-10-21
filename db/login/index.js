@@ -39,6 +39,7 @@ async function getPool() {
   return pool;
 }
 
+
 export const getInfoPlaca = async (placa,) => {
   try {
     const pool = await getPool();
@@ -50,9 +51,24 @@ export const getInfoPlaca = async (placa,) => {
     return result.recordset;
   } catch (err) {
     console.error('Error en getEmpleadoDb:', err);
+  }
+}
+export const verifyAcces = async (user, app) => {
+  try {
+    const pool = await getPool();
+    const result = await pool.request()
+      .input('USUARIO', sql.VarChar, user)
+      .input('aplicacion', sql.VarChar, app)
+      .execute('VALIDA_ACCESO_WEB_aC');
+    
+    return result.recordset;
+  } catch (err) {
+    console.error('Error en access:', err);
     throw err;
   }
 };
+
+
 
 // Función para cerrar la conexión cuando la aplicación se cierre
 export const closePool = async () => {

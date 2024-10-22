@@ -29,16 +29,24 @@ export const  getDataSheetSap = async(data,lang)=>{
     let response =  await GetDataSheetSap(data, lang)
     let InfProduct = [{caracteristica: 'NAME', valor: productName, idCaracteristica: 'NAME'}]
     let arrayfichatecnica = []
-    //console.log(infoproduct2)
+    //console.log("****************************************",solotexto)
    
     if (typeof solotexto !== 'undefined'){
         let cadena = JSON.stringify(solotexto).replace(/\\n\//g, "");
         let textjson = JSON.parse(cadena); 
+        let caracteristicas = [
+            'Statement',
+            'AreaInstalacion',
+            'Instruccionuso',
+            'lotefecha'
+        ];
         let objeto = JSON.parse(textjson);
-        objeto[0].idCaracteristica = 'Statement';
-        objeto[1].idCaracteristica = 'AreaInstalacion';
-        objeto[2].idCaracteristica = 'Instruccionuso';
-        objeto[3].idCaracteristica = 'lotefecha';
+        caracteristicas.forEach((caracteristica, index) => {
+            if (objeto[index]) {
+                objeto[index].idCaracteristica = caracteristica;
+            }
+        });
+      
        // console.log(objeto)
         arrayfichatecnica = [...objeto, ...response, ...InfProduct];     
         return  arrayfichatecnica

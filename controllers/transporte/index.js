@@ -8,6 +8,9 @@ import { Lista_TiposNovedadDespacho_model } from '../../db/transporte/index.js'
 import { Grabar_NovedadDespacho_model, Grabar_ImagenNovedadDespacho_model } from '../../db/transporte/index.js'
 import { Grabar_LocalizacionDespacho_model } from '../../db/transporte/index.js'
 
+import { ListaNovedadDespacho_xDespacho_model } from '../../db/transporte/index.js'
+
+
 //-------------------------------------------
 export const regVehiculo = async (data)=>{
 
@@ -164,8 +167,8 @@ export const getLista_TiposNovedadDespacho =  async()=>{
 
 //bd app_despacho
 export const postGrabar_NovedadDespacho =  async(data)=>{
-   let {despacho, TipoNovedadDesp, observacion, latitude, longitude, usuario } = data;
-   const estadoGrabar=  await Grabar_NovedadDespacho_model({despacho, TipoNovedadDesp, observacion, latitude, longitude, usuario })
+   let {despacho, TipoNovedadDesp, entrega, observacion, latitude, longitude, usuario } = data;
+   const estadoGrabar=  await Grabar_NovedadDespacho_model({despacho, TipoNovedadDesp, entrega, observacion, latitude, longitude, usuario })
    //res.json(estadoGrabar); //este no usar
    return estadoGrabar;
 } 
@@ -186,3 +189,11 @@ export const postGrabar_LocalizacionDespacho =  async(data)=>{
    return estadoGrabar;
 } 
 
+//--------------
+export const getListaNovedadDespacho_xDespacho =  async(despacho)=>{
+   const desp = despacho;
+
+   const listNovDesp= await ListaNovedadDespacho_xDespacho_model({desp})
+   //res.json(infoDespTransportador); //este no usar
+   return listNovDesp;
+}   

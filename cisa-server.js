@@ -56,6 +56,10 @@ import getLista_TiposNovedadDespacho from './routes/transporte/index.js'
 import postGrabar_NovedadDespacho from './routes/transporte/index.js'
 import postGrabar_ImagenNovedadDespacho from './routes/transporte/index.js'
 import postGrabar_LocalizacionDespacho from './routes/transporte/index.js'
+
+import getListaNovedadDespacho_xDespacho from './routes/transporte/index.js'
+
+
 //---------------------------------------------------------------
 const app = Express();
 const port = process.env.PORT
@@ -149,6 +153,9 @@ app.get(process.env.RUTA_GET_LISTA_TIPOSNOVEDAD_DESPACHO, getLista_TiposNovedadD
 app.post(process.env.RUTA_POST_GRABAR_NOVEDAD_DESPACHO, postGrabar_NovedadDespacho)
 app.post(process.env.RUTA_POST_GRABAR_IMAGENNOVEDAD_DESPACHO, postGrabar_ImagenNovedadDespacho)
 app.post(process.env.RUTA_POST_GRABAR_LOCALIZACION_DESPACHO, postGrabar_LocalizacionDespacho)
+
+app.get(process.env.RUTA_GET_LISTA_NOVEDADDESPACHO_XDESP, getListaNovedadDespacho_xDespacho)
+
 
 //---------------------------------
 //app.get('/clientes/bim/:bandera', GetBim)

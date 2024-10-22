@@ -11,6 +11,9 @@ import {getLista_TiposNovedadDespacho} from '../../controllers/transporte/index.
 import {postGrabar_NovedadDespacho, postGrabar_ImagenNovedadDespacho } from '../../controllers/transporte/index.js'
 import {postGrabar_LocalizacionDespacho } from '../../controllers/transporte/index.js'
 
+import {getListaNovedadDespacho_xDespacho } from '../../controllers/transporte/index.js'
+
+
 
 //---
 import dotenv from 'dotenv'
@@ -121,6 +124,17 @@ router.get(process.env.RUTA_GET_DESPACHO_XCC, async (req,res) => {
   //let response = 1
   res.send(response); 
  }); 
+ 
+ //---------------------
+ //db app_despacho
+
+router.get(process.env.RUTA_GET_LISTA_NOVEDADDESPACHO_XDESP, async (req,res) => {
+  const {despacho} = req.params
+  //console.log(cc)
+  const response  = await getListaNovedadDespacho_xDespacho(despacho);    
+  //const response = despacho;
+  res.send(response); 
+ });   
  
 
  

@@ -323,12 +323,13 @@ export const Lista_TiposNovedadDespacho_model = async()=>{
  * @param - de Salida: "resultado": "Registrado", UltID insertado, Fecha, Hora
  */
 export const Grabar_NovedadDespacho_model = async(data)=>{
-    const {despacho, TipoNovedadDesp, observacion, latitude, longitude, usuario } = data;
+    const {despacho, TipoNovedadDesp, entrega, observacion, latitude, longitude, usuario } = data;
     
     const docGrabado =  sql.connect(configMSSQLServ_appdespacho).then(pool => {
         return pool.request()
         .input('orden_padre', sql.VarChar, despacho)
         .input('CodTipoNovedadDesp', sql.Int, TipoNovedadDesp)
+        .input('ord_no', sql.VarChar, entrega)
         .input('observacion', sql.VarChar, observacion)
         .input('latitude', sql.Decimal(9,6), latitude)
         .input('longitude', sql.Decimal(9,6), longitude)
@@ -349,6 +350,7 @@ export const Grabar_NovedadDespacho_model = async(data)=>{
         {
             "despacho":"136969",
             "TipoNovedadDesp":1,
+            "entrega": "0",
             "observacion":'string varchar(100)', 
             "latitud":7.886771, 
             "longitud":-72.496201, 
@@ -430,3 +432,47 @@ export const Grabar_LocalizacionDespacho_model = async(data)=>{
         */
 }   
 
+/**
+ * consulta novedades del despacho por numero de despacho (por fkorden_padre)
+ * @param - despacho: numero de despacho
+ */
+export const ListaNovedadDespacho_xDespacho_model_mmmmm = async(despacho)=>{
+  //console.log('en modelo', cc)
+  //const listaNovDesp = despacho 
+  //console.log(despacho)
+  const listaNovDesp =  sql.connect(configMSSQLServ_appdespacho).then(pool => {
+      return pool.request()
+      .input('TIPO', sql.VarChar, 'NOVEDADES_X_DESP')
+      .input('VALOR', sql.VarChar, despacho)
+      .execute('Consultas_NovedadDespacho')
+    }) .then(result => {
+      // console.log(result)
+      let response = result.recordset
+      sql.close()   
+      return response
+   }).catch(err => {
+       //console.log(err)
+       return err
+   })
+   return listaNovDesp;
+}  
+
+export const ListaNovedadDespacho_xDespacho_model = async(entrega)=>{
+  //console.log('en modelo', cc)
+  
+  const infoClinte =  sql.connect(configVselect).then(pool => {
+      return pool.request()
+      .input('TIPO', sql.VarChar, 'NOVEDADES_X_DESP')
+      .input('VALOR', sql.VarChar, entrega)
+      .execute('Consultas_NovedadDespacho')
+    }) .then(result => {
+      // console.log(result)
+      let response = result.recordset
+      sql.close()   
+      return response
+   }).catch(err => {
+       //console.log(err)
+       return err
+   })
+   return infoClinte;
+}   

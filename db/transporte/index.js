@@ -436,14 +436,13 @@ export const Grabar_LocalizacionDespacho_model = async(data)=>{
  * consulta novedades del despacho por numero de despacho (por fkorden_padre)
  * @param - despacho: numero de despacho
  */
-export const ListaNovedadDespacho_xDespacho_model_mmmmm = async(despacho)=>{
-  //console.log('en modelo', cc)
-  //const listaNovDesp = despacho 
-  //console.log(despacho)
-  const listaNovDesp =  sql.connect(configMSSQLServ_appdespacho).then(pool => {
+export const Lista_NovedadDespacho_xDespacho_model = async(desp)=>{
+  //console.log('en modelo', desp)
+  
+  const listNovedades =  sql.connect(configMSSQLServ_appdespacho).then(pool => {
       return pool.request()
       .input('TIPO', sql.VarChar, 'NOVEDADES_X_DESP')
-      .input('VALOR', sql.VarChar, despacho)
+      .input('VALOR', sql.VarChar, desp)
       .execute('Consultas_NovedadDespacho')
     }) .then(result => {
       // console.log(result)
@@ -454,16 +453,44 @@ export const ListaNovedadDespacho_xDespacho_model_mmmmm = async(despacho)=>{
        //console.log(err)
        return err
    })
-   return listaNovDesp;
+   return listNovedades;
+}   
+
+/**
+ * consulta novedades del despacho mas el detalle por numero de despacho (por fkorden_padre)
+ * @param - despacho: numero de despacho
+ */
+export const Lista_NovedadDespachoDetalle_xDespacho_model = async(desp)=>{
+  //console.log('en modelo', desp)
+  
+  const listNovedadesDet =  sql.connect(configMSSQLServ_appdespacho).then(pool => {
+      return pool.request()
+      .input('TIPO', sql.VarChar, 'NOVEDADES_DETALLE_X_DESP')
+      .input('VALOR', sql.VarChar, desp)
+      .execute('Consultas_NovedadDespacho')
+    }) .then(result => {
+      // console.log(result)
+      let response = result.recordset
+      sql.close()   
+      return response
+   }).catch(err => {
+       //console.log(err)
+       return err
+   })
+   return listNovedadesDet;
 }  
 
-export const ListaNovedadDespacho_xDespacho_model = async(entrega)=>{
-  //console.log('en modelo', cc)
+/**
+ * consulta novedad y detalles de la novedad por codigo novedad_despacho (por CodNovedadDesp)
+ * @param - codNovDespacho: codigo novedad despacho
+ */
+export const Lista_DetalleNovedad_xCodNovedad_model = async(codNovDespacho)=>{
+  //console.log('en modelo', desp)
   
-  const infoClinte =  sql.connect(configVselect).then(pool => {
+  const listDetNovedad =  sql.connect(configMSSQLServ_appdespacho).then(pool => {
       return pool.request()
-      .input('TIPO', sql.VarChar, 'NOVEDADES_X_DESP')
-      .input('VALOR', sql.VarChar, entrega)
+      .input('TIPO', sql.VarChar, 'DETALLE_NOVEDAD_X_CODNOVEDAD')
+      .input('VALOR', sql.VarChar, codNovDespacho)
       .execute('Consultas_NovedadDespacho')
     }) .then(result => {
       // console.log(result)
@@ -474,5 +501,5 @@ export const ListaNovedadDespacho_xDespacho_model = async(entrega)=>{
        //console.log(err)
        return err
    })
-   return infoClinte;
-}   
+   return listDetNovedad;
+}  

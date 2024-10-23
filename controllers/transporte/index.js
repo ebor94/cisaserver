@@ -8,7 +8,9 @@ import { Lista_TiposNovedadDespacho_model } from '../../db/transporte/index.js'
 import { Grabar_NovedadDespacho_model, Grabar_ImagenNovedadDespacho_model } from '../../db/transporte/index.js'
 import { Grabar_LocalizacionDespacho_model } from '../../db/transporte/index.js'
 
-import { ListaNovedadDespacho_xDespacho_model } from '../../db/transporte/index.js'
+import { Lista_NovedadDespacho_xDespacho_model } from '../../db/transporte/index.js'
+import { Lista_NovedadDespachoDetalle_xDespacho_model } from '../../db/transporte/index.js'
+import { Lista_DetalleNovedad_xCodNovedad_model } from '../../db/transporte/index.js'
 
 
 //-------------------------------------------
@@ -190,10 +192,28 @@ export const postGrabar_LocalizacionDespacho =  async(data)=>{
 } 
 
 //--------------
-export const getListaNovedadDespacho_xDespacho =  async(despacho)=>{
+export const getLista_NovedadDespacho_xDespacho =  async(despacho)=>{
    const desp = despacho;
 
-   const listNovDesp= await ListaNovedadDespacho_xDespacho_model({desp})
+   const listNovDesp= await Lista_NovedadDespacho_xDespacho_model(desp)
    //res.json(infoDespTransportador); //este no usar
    return listNovDesp;
 }   
+//-------------
+export const getLista_NovedadDespachoDetalle_xDespacho =  async(despacho)=>{
+   const desp = despacho;
+
+   const listNovDesp= await Lista_NovedadDespachoDetalle_xDespacho_model(desp)
+   //res.json(infoDespTransportador); //este no usar
+   return listNovDesp;
+}   
+
+//-------------
+export const getLista_DetalleNovedad_xCodNovedad =  async(codNovDespacho)=>{
+   const codNovDesp = codNovDespacho;
+
+   const listDetNov= await Lista_DetalleNovedad_xCodNovedad_model(codNovDesp)
+   //res.json(infoDespTransportador); //este no usar
+   return listDetNov;
+}   
+

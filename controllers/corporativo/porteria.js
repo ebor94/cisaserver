@@ -44,7 +44,7 @@ export const recordPlateObservation = async (placa,observacion,usuario) => {
       return {
         success: false,
         message: "Ocurrió un error al buscar el vehiculo",
-        error: error.message
+        error: null
       };
     }
     return {

@@ -70,12 +70,14 @@ router.post(process.env.RUTA_PRODUCT_PRICE,  (req,res) => {
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 cedula:
- *                   type: string
- *                 nombre:
- *                   type: string
+*                   type: array
+*                   items:
+*                      type: object
+*                      properties:
+*                          werks: 
+*                              type: string    
+*                          cantidadTotal: 
+*                              type: number    
  */
   router.get(process.env.RUTA_GET_ROTURA,(req,res)=>{
     let centro = req.params.centro;
@@ -83,8 +85,7 @@ router.post(process.env.RUTA_PRODUCT_PRICE,  (req,res) => {
     let mov2 = req.params.mov2;
     let fechaini = req.params.fechaini;
     let fechafin = req.params.fechafin;
-
-   GetRoturaController(centro,mov1,mov2,fechaini,fechafin).then((response)=>{
+    GetRoturaController(centro,mov1,mov2,fechaini,fechafin).then((response)=>{
     res.send(response);
    }
   )

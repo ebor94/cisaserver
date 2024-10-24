@@ -1,3 +1,4 @@
+import { actionsTextSave } from "../../db/acciones/index.js";
 import { getFlujoIngreso, getInfoPlaca } from "../../db/corporativo/porteria.js"
 
 export const getFlujo = (id) =>{
@@ -34,7 +35,32 @@ export const getInfoPlacaEmpl = async (placa) =>{
         };
       
       }
-   
+}
+
+export const recordPlateObservation = async (placa,observacion,usuario) => {
+  try {
+    let  response = await actionsTextSave('PO', 'PO', placa, observacion, 'PO002', usuario);
+    if(!response || response.length === 0 ){
+      return {
+        success: false,
+        message: "Ocurrió un error al buscar el vehiculo",
+        error: error.message
+      };
+    }
+    return {
+      success: true,
+      message: "Registro Exitoso",
+      data: response
+    };
+    
+  } catch (error) {
+    return {
+      success: false,
+      message: "Ocurrió un error al registrar la novedad",
+      error: error.message
+    };
+  }
+ 
     
 }
 

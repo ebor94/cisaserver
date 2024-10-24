@@ -140,7 +140,7 @@ router.get(process.env.RUTA_GET_INFO_PLACA, validarRutaUsuario,async(req,res)=>{
  *                   items:
  *                     type: object
  *                     properties:
- *                       fullname:
+ *                       mensaje:
  *                         type: string    
  */
  router.post(process.env.RUTA_SAVE_NOVEDAD_PLACA, validarRutaUsuario,async(req,res)=>{

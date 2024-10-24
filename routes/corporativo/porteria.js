@@ -1,6 +1,6 @@
 import express  from "express";
 import {validarRutaUsuario} from "../../midleware/validaRuta.js"
-import { getFlujo , getInfoPlacaEmpl, recordPlateObservation} from "../../controllers/corporativo/porteria.js";
+import { getFlujo , getInfoPlacaEmpl, RecordPlateObservation} from "../../controllers/corporativo/porteria.js";
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -148,7 +148,7 @@ router.get(process.env.RUTA_GET_INFO_PLACA, validarRutaUsuario,async(req,res)=>{
     let placa = req.body.placa;
     let novedad = req.body.novedad;
     let userId = req.headers['user-id']
-    const response  = await recordPlateObservation(placa, novedad,userId)
+    const response  = await RecordPlateObservation(placa, novedad,userId)
      res.send(response); 
  });
 export default router

@@ -48,6 +48,7 @@ import Confirm_Ot  from "./routes/transporte/wm.js"
 import GetEmpleado from './routes/corporativo/empleado.js';
 import GetInfoPlacaEmpl from './routes/corporativo/porteria.js';
 import GetRoturaController from './routes/producto/product.js'
+import RecordPlateObservation from './routes/corporativo/porteria.js'
 //---------------------------------------------------------------
 //App Despacho
 import getDespTransportador from './routes/transporte/index.js'
@@ -160,6 +161,7 @@ app.post(process.env.RUTA_CONFIRM_OT, Confirm_Ot)
 app.get(process.env.RUTA_GET_EMPLEADO, GetEmpleado)
 app.get(process.env.RUTA_GET_INFO_PLACA, GetInfoPlacaEmpl)
 app.get(process.env.RUTA_GET_ROTURA,GetRoturaController)
+app.post(process.env.RUTA_SAVE_NOVEDAD_PLACA,RecordPlateObservation)
 //---------------------------------
 //appDespacho
 app.get(process.env.RUTA_GET_DESPACHO_XCC, getDespTransportador)

@@ -37,7 +37,7 @@ export const getInfoPlacaEmpl = async (placa) =>{
       }
 }
 
-export const recordPlateObservation = async (placa,observacion,usuario) => {
+export const RecordPlateObservation = async (placa,observacion,usuario) => {
   try {
     let  response = await actionsTextSave('PO', 'PO', placa, observacion, 'PO002', usuario);
     if(!response || response.length === 0 ){

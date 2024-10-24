@@ -89,15 +89,27 @@ router.get(process.env.RUTA_GET_INFO_PLACA, validarRutaUsuario,async(req,res)=>{
      res.send(response); 
  });
 
- /**
+/**
  * @swagger
- * 
+ *
  * /corporativo/porteria/vehiculo/novedad:
- *   get:
+ *   post:
  *     summary: register observation of a vehicle.  
  *     tags:
- *       - Corporativo # Categoría o sección donde aparecerá esta ruta
+ *       - Corporativo
  *     parameters:
+ *       - in: header
+ *         name: user-id
+ *         required: true
+ *         description: ID del usuario autenticado
+ *         schema:
+ *           type: string
+ *       - in: header
+ *         name: app
+ *         required: true
+ *         description: Aplicacion a validar
+ *         schema:
+ *           type: string
  *     requestBody:
  *       required: true
  *       content:
@@ -111,39 +123,26 @@ router.get(process.env.RUTA_GET_INFO_PLACA, validarRutaUsuario,async(req,res)=>{
  *               novedad:
  *                 type: string
  *                 example: "Vehiculo dejó luces encendidas"
- *       - in: header
- *         name: user-id
- *         required: true
- *         description: ID del usuario autenticado
- *         schema:
- *           type: string
- *       - in: header
- *         name: app
- *         required: true
- *         description: Aplicacion a validar
- *         schema:
- *           type: string
  *     responses:
  *       200:
- *         description: Data employed
+ *         description: succes observation
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 success: 
+ *                 success:
  *                   type: boolean
  *                 message:
  *                   type: string
  *                 data:
  *                   type: array
  *                   items:
- *                      type: object
- *                      properties:
- *                          fullname: 
- *                              type: string    
+ *                     type: object
+ *                     properties:
+ *                       fullname:
+ *                         type: string    
  */
-
  router.post(process.env.RUTA_SAVE_NOVEDAD_PLACA, validarRutaUsuario,async(req,res)=>{
     let placa = req.body.placa;
     let novedad = req.body.novedad;

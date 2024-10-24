@@ -188,7 +188,7 @@ if (osInfo.platform === 'linux') {
 } else {
    app.listen(port, () => {
       console.log(`cisa listening on port ${port}`)
-      console.log(`Documentación Swagger disponible en https://localhost:${port}/api-docs`);
+      console.log(`Documentación Swagger disponible en http://localhost:${port}/api-docs`);
       
 
    });

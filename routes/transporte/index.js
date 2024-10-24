@@ -192,7 +192,7 @@ router.get(process.env.RUTA_GET_DESPACHO_XCC, async (req,res) => {
  *                          JefeInmediato: 
  *                              type: string    
  */
-router.get(process.env.RUTA_GET_LISTA_NOVEDADDESPACHO_XDESP, async (req,res) => {
+router.get(process.env.RUTA_GET_LISTA_NOVDESP_XDESP, async (req,res) => {
   const {despacho} = req.params
   //console.log(cc)
   const response  = await getLista_NovedadDespacho_xDespacho(despacho);    
@@ -200,7 +200,7 @@ router.get(process.env.RUTA_GET_LISTA_NOVEDADDESPACHO_XDESP, async (req,res) => 
   res.send(response); 
  });   
  
- router.get(process.env.RUTA_GET_LISTA_NOVEDADDESPACHODET_XDESP, async (req,res) => {
+ router.get(process.env.RUTA_GET_LISTA_NOVDESPDET_XDESP, async (req,res) => {
   const {despacho} = req.params
   //console.log(cc)
   const response  = await getLista_NovedadDespachoDetalle_xDespacho(despacho);    
@@ -208,7 +208,7 @@ router.get(process.env.RUTA_GET_LISTA_NOVEDADDESPACHO_XDESP, async (req,res) => 
   res.send(response); 
  });   
  
- router.get(process.env.RUTA_GET_DETALLENOVEDAD_XCODNOVDESP, async (req,res) => {
+ router.get(process.env.RUTA_GET_DETALLE_NOVDESP_XCODNOVDESP, async (req,res) => {
   const {codnovdespacho} = req.params
   //console.log(cc)
   const response  = await getDetalleNovedad_xCodNovedad(codnovdespacho);    

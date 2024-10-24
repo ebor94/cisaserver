@@ -484,7 +484,7 @@ export const Lista_NovedadDespachoDetalle_xDespacho_model = async(desp)=>{
  * consulta novedad y detalles de la novedad por codigo novedad_despacho (por CodNovedadDesp)
  * @param - codNovDespacho: codigo novedad despacho
  */
-export const Lista_DetalleNovedad_xCodNovedad_model = async(codNovDespacho)=>{
+export const DetalleNovedad_xCodNovedad_model = async(codNovDespacho)=>{
   //console.log('en modelo', desp)
   
   const listDetNovedad =  sql.connect(configMSSQLServ_appdespacho).then(pool => {

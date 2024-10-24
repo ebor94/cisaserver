@@ -10,7 +10,7 @@ import { Grabar_LocalizacionDespacho_model } from '../../db/transporte/index.js'
 
 import { Lista_NovedadDespacho_xDespacho_model } from '../../db/transporte/index.js'
 import { Lista_NovedadDespachoDetalle_xDespacho_model } from '../../db/transporte/index.js'
-import { Lista_DetalleNovedad_xCodNovedad_model } from '../../db/transporte/index.js'
+import { DetalleNovedad_xCodNovedad_model } from '../../db/transporte/index.js'
 
 
 //-------------------------------------------
@@ -209,11 +209,11 @@ export const getLista_NovedadDespachoDetalle_xDespacho =  async(despacho)=>{
 }   
 
 //-------------
-export const getLista_DetalleNovedad_xCodNovedad =  async(codNovDespacho)=>{
+export const getDetalleNovedad_xCodNovedad =  async(codNovDespacho)=>{
    const codNovDesp = codNovDespacho;
 
-   const listDetNov= await Lista_DetalleNovedad_xCodNovedad_model(codNovDesp)
+   const DetNov= await DetalleNovedad_xCodNovedad_model(codNovDesp)
    //res.json(infoDespTransportador); //este no usar
-   return listDetNov;
+   return DetNov;
 }   
 

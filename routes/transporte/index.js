@@ -13,7 +13,7 @@ import {postGrabar_LocalizacionDespacho } from '../../controllers/transporte/ind
 
 import {getLista_NovedadDespacho_xDespacho } from '../../controllers/transporte/index.js'
 import {getLista_NovedadDespachoDetalle_xDespacho } from '../../controllers/transporte/index.js'
-import {getLista_DetalleNovedad_xCodNovedad } from '../../controllers/transporte/index.js'
+import {getDetalleNovedad_xCodNovedad } from '../../controllers/transporte/index.js'
 
 
 //---
@@ -208,10 +208,10 @@ router.get(process.env.RUTA_GET_LISTA_NOVEDADDESPACHO_XDESP, async (req,res) => 
   res.send(response); 
  });   
  
- router.get(process.env.RUTA_GET_LISTA_DETALLENOVEDAD_XCODNOVDESP, async (req,res) => {
+ router.get(process.env.RUTA_GET_DETALLENOVEDAD_XCODNOVDESP, async (req,res) => {
   const {codnovdespacho} = req.params
   //console.log(cc)
-  const response  = await getLista_DetalleNovedad_xCodNovedad(codnovdespacho);    
+  const response  = await getDetalleNovedad_xCodNovedad(codnovdespacho);    
   //const response = despacho;
   res.send(response); 
  }); 

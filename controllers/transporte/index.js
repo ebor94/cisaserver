@@ -12,6 +12,9 @@ import { Lista_NovedadDespacho_xDespacho_model } from '../../db/transporte/index
 import { Lista_NovedadDespachoDetalle_xDespacho_model } from '../../db/transporte/index.js'
 import { DetalleNovedad_xCodNovedad_model } from '../../db/transporte/index.js'
 
+import { Consultar_fechaServer_model } from '../../db/transporte/index.js'
+
+
 
 //-------------------------------------------
 export const regVehiculo = async (data)=>{
@@ -215,5 +218,13 @@ export const getDetalleNovedad_xCodNovedad =  async(codNovDespacho)=>{
    const DetNov= await DetalleNovedad_xCodNovedad_model(codNovDesp)
    //res.json(infoDespTransportador); //este no usar
    return DetNov;
-}   
+}
+//------------------
 
+export const getConsultar_fechaServer =  async(formato_fecha)=>{
+   const formato = formato_fecha;
+
+   const response= await Consultar_fechaServer_model(formato)
+   //res.json(infoDespTransportador); //este no usar
+   return response;
+}

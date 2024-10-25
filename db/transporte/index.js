@@ -503,3 +503,24 @@ export const DetalleNovedad_xCodNovedad_model = async(codNovDespacho)=>{
    })
    return listDetNovedad;
 }  
+
+/**
+ * Consultar fecha del servidor
+ * @param - formato: 'ANIO_MES_DIA_HORA_MIN_SEG' / 'ANIOMESDIA_HORAMINSEG'
+ */
+export const Consultar_fechaServer_model = async(formato)=>{
+  console.log(formato)  
+  const fecha =  sql.connect(configMSSQLServ_appdespacho).then(pool => {
+      return pool.request()
+      .input('formato', sql.VarChar, formato)
+      .execute('Consultas_Fecha')
+    }) .then(result => {
+      let response = result.recordset
+      sql.close()   
+      return response
+   }).catch(err => {
+       //console.log(err)
+       return err
+   })
+       return fecha;
+}   

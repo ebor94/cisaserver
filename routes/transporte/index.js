@@ -15,6 +15,8 @@ import {getLista_NovedadDespacho_xDespacho } from '../../controllers/transporte/
 import {getLista_NovedadDespachoDetalle_xDespacho } from '../../controllers/transporte/index.js'
 import {getDetalleNovedad_xCodNovedad } from '../../controllers/transporte/index.js'
 
+import {getConsultar_fechaServer } from '../../controllers/transporte/index.js'
+
 
 //---
 import dotenv from 'dotenv'
@@ -216,6 +218,14 @@ router.get(process.env.RUTA_GET_LISTA_NOVDESP_XDESP, async (req,res) => {
   res.send(response); 
  }); 
 
+ router.get(process.env.RUTA_GET_FECHASERV, async (req,res) => {
+  const {formato_fecha} = req.params
+  //console.log(cc)
+  const response  = await getConsultar_fechaServer(formato_fecha);    
+  //const response = despacho;
+  res.send(response); 
+ }); 
+ 
  
  
  

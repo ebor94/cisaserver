@@ -63,6 +63,9 @@ import postGrabar_LocalizacionDespacho from './routes/transporte/index.js'
 import getLista_NovedadDespacho_xDespacho from './routes/transporte/index.js'
 import getLista_NovedadDespachoDetalle_xDespacho from './routes/transporte/index.js'
 import getDetalleNovedad_xCodNovedad from './routes/transporte/index.js'
+import getConsultar_fechaServer from './routes/transporte/index.js';
+
+
 
 //---------------------------------------------------------------
 const app = Express();
@@ -179,6 +182,7 @@ app.post(process.env.RUTA_POST_GRABAR_LOCALIZACION_DESPACHO, postGrabar_Localiza
 app.get(process.env.RUTA_GET_LISTA_NOVDESP_XDESP, getLista_NovedadDespacho_xDespacho)
 app.get(process.env.RUTA_GET_LISTA_NOVDESPDET_XDESP, getLista_NovedadDespachoDetalle_xDespacho)
 app.get(process.env.RUTA_GET_DETALLE_NOVDESP_XCODNOVDESP, getDetalleNovedad_xCodNovedad)
+app.get(process.env.RUTA_GET_FECHASERV, getConsultar_fechaServer)
 
 
 

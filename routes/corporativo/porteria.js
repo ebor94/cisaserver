@@ -84,8 +84,9 @@ router.get(process.env.RUTA_GET_ID_FLUJO, async(req,res)=>{
  *                              type: string   
  */
 router.get(process.env.RUTA_GET_INFO_PLACA, validarRutaUsuario,async(req,res)=>{
-    const placa = req.params.placa;  
-    const response  = await getInfoPlacaEmpl(placa)
+    const placa = req.params.placa;
+    const user  = req.headers['user-id']; 
+    const response  = await getInfoPlacaEmpl(placa,user)
      res.send(response); 
  });
 

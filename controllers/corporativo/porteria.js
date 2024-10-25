@@ -7,10 +7,10 @@ export const getFlujo = (id) =>{
     return response;
 }
 
-export const getInfoPlacaEmpl = async (placa) =>{
+export const getInfoPlacaEmpl = async (placa,user) =>{
 
     try {
-        const response  = await getInfoPlaca(placa)
+        const response  = await getInfoPlaca(placa,user)
        
         if (!response || response.length === 0 || response[0].placa === "Rojo\t|Placa No registrada") {
           return {

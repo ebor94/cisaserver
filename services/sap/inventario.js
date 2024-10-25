@@ -38,11 +38,11 @@ export const getInventory = (BUSQUEDA,DTLUBICA,PARCENTRO,PARALMACEN,PARORGVTA, P
 
 }
 
-export const GetRotura = (centro, mov1, mov2, fechaini, fechafin) => {
+export const GetRotura = (centro, mov1, mov2, fechaini, fechafin,almacen) => {
   let config = {
     method: 'GET',
     maxBodyLength: Infinity,
-    url:  `${process.env.ZWS_MSEG_URL}?sap-client=310&centro=${centro}&tmov1=${mov1}&tmov2=${mov2}&fechaini=${fechaini}&fechafin=${fechafin}`,
+    url:  `${process.env.ZWS_MSEG_URL}?sap-client=310&centro=${centro}&tmov1=${mov1}&tmov2=${mov2}&fechaini=${fechaini}&fechafin=${fechafin}&almacen=${almacen}&`,
     headers: { 
       'Content-Type': 'application/json', 
       'Authorization': process.env.GETINVENTORY_AUTORIZATION , 

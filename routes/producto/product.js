@@ -23,7 +23,7 @@ router.post(process.env.RUTA_PRODUCT_PRICE,  (req,res) => {
 /**
  * @swagger
  * 
- * /producto/rotura/{centro}/{mov1}/{mov2}/{fechaini}/{fechafin}:
+ * /producto/rotura/{centro}/{mov1}/{mov2}/{fechaini}/{fechafin}/{almacen}:
  *   get:
  *     summary: Get indicator product break only warehouse and type transaction between date's
  *     tags:
@@ -64,6 +64,13 @@ router.post(process.env.RUTA_PRODUCT_PRICE,  (req,res) => {
  *         description: End Date
  *         schema:
  *           type: string
+  *       - in: path
+ *         name: almacen
+ *         required: true
+ *         value: '1101'
+ *         description: End warehouse
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
  *         description: return wareHouse and Quantity product break 
@@ -75,7 +82,9 @@ router.post(process.env.RUTA_PRODUCT_PRICE,  (req,res) => {
 *                      type: object
 *                      properties:
 *                          werks: 
-*                              type: string    
+*                              type: string
+*                          lgort:
+*                               type: string      
 *                          cantidadTotal: 
 *                              type: number    
  */
@@ -85,7 +94,8 @@ router.post(process.env.RUTA_PRODUCT_PRICE,  (req,res) => {
     let mov2 = req.params.mov2;
     let fechaini = req.params.fechaini;
     let fechafin = req.params.fechafin;
-    GetRoturaController(centro,mov1,mov2,fechaini,fechafin).then((response)=>{
+    let almacen = req.params.almacen;
+    GetRoturaController(centro,mov1,mov2,fechaini,fechafin,almacen).then((response)=>{
     res.send(response);
    }
   )

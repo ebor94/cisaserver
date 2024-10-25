@@ -16,7 +16,7 @@ export const GetSamples = async(data) =>{
 
 }
 
-export const GetRoturaController = async(centro,mov1,mov2,fechaini,fechafin,almacen) =>{
-    let indicadorRotura = await GetRotura(centro, mov1, mov2, fechaini, fechafin,almacen);
+export const GetRoturaController = async(centro,mov1,mov2,fechaini,fechafin) =>{
+    let indicadorRotura = await GetRotura(centro, mov1, mov2, fechaini, fechafin);
     return indicadorRotura;
 }

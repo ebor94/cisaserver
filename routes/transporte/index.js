@@ -16,6 +16,8 @@ import {getLista_NovedadDespachoDetalle_xDespacho } from '../../controllers/tran
 import {getDetalleNovedad_xCodNovedad } from '../../controllers/transporte/index.js'
 
 import {getConsultar_fechaServer } from '../../controllers/transporte/index.js'
+import {putActualizar_EstadoEntrega } from '../../controllers/transporte/index.js'
+
 
 
 //---
@@ -226,8 +228,14 @@ router.get(process.env.RUTA_GET_LISTA_NOVDESP_XDESP, async (req,res) => {
   res.send(response); 
  }); 
  
- 
- 
+ //en cisa_web_tte
+ router.put(process.env.RUTA_PUT_ACTUALIZAR_ENTREGA, async (req,res) => {
+  console.log(req.body)
+  const response  = await putActualizar_EstadoEntrega(req.body);    
+  //const response = despacho;
+  res.send(response); 
+ }); 
+
  
 
 export default router

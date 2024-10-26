@@ -524,3 +524,48 @@ export const Consultar_fechaServer_model = async(formato)=>{
    })
        return fecha;
 }   
+
+/**
+ * Actualizar estado de la entrega
+ * @param - anio,mes,dia,hora -> obligatorios
+ * @param - estado,comportamiento,observaciones -> se pueden dejar en ""
+ */
+export const Actualizar_EstadoEntrega_model = async(data)=>{
+  const {entrega,anio,mes,dia,hora,estado,comportamiento,observaciones } = data;
+   
+  const EntregaActualizada =  sql.connect(configVselect).then(pool => {
+    return pool.request()
+      .input('ORD_NO', sql.VarChar, entrega)
+      .input('ANO', sql.VarChar, anio)
+      .input('MES', sql.VarChar, mes)
+      .input('DIA', sql.VarChar, dia)
+      .input('HORA', sql.VarChar, hora)
+      .input('ESTADO', sql.VarChar, estado)
+      .input('COMPORTAMIENTO', sql.VarChar, comportamiento)
+      .input('OBSERVACIONES', sql.VarChar, observaciones)
+      .execute('TTE_GRABA_INF_PEDIDO')
+    }) .then(result => {
+      let response = result.recordset
+      sql.close()   
+      return response
+    }).catch(err => {
+       //console.log(err)
+       return err
+    })
+    return EntregaActualizada;
+
+   /*
+   url: http://localhost:3001/transporte/actualizar_estadoentrega
+   json para ingreso al Body
+      {
+      "entrega":"60617193",
+      "anio": "2024",
+      "mes": "10", 
+      "dia":"26",
+      "hora": "9",
+      "estado": "",
+      "comportamiento": "",
+      "observaciones": ""
+      }
+      */
+}   

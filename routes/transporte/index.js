@@ -11,7 +11,12 @@ import {getLista_TiposNovedadDespacho} from '../../controllers/transporte/index.
 import {postGrabar_NovedadDespacho, postGrabar_ImagenNovedadDespacho } from '../../controllers/transporte/index.js'
 import {postGrabar_LocalizacionDespacho } from '../../controllers/transporte/index.js'
 
-import {getListaNovedadDespacho_xDespacho } from '../../controllers/transporte/index.js'
+import {getLista_NovedadDespacho_xDespacho } from '../../controllers/transporte/index.js'
+import {getLista_NovedadDespachoDetalle_xDespacho } from '../../controllers/transporte/index.js'
+import {getDetalleNovedad_xCodNovedad } from '../../controllers/transporte/index.js'
+
+import {getConsultar_fechaServer } from '../../controllers/transporte/index.js'
+import {putActualizar_EstadoEntrega } from '../../controllers/transporte/index.js'
 
 
 
@@ -128,14 +133,108 @@ router.get(process.env.RUTA_GET_DESPACHO_XCC, async (req,res) => {
  //---------------------
  //db app_despacho
 
-router.get(process.env.RUTA_GET_LISTA_NOVEDADDESPACHO_XDESP, async (req,res) => {
+
+ /**
+ * @swagger
+ * 
+ * /transporte/lista_novedaddespacho/{despacho}:
+ *   get:
+ *     summary: Get data employed of synergy sending cc 
+ *     tags:
+ *       - APP Despacho # Categoría o sección donde aparecerá esta ruta
+ *     parameters:
+ *       - in: path
+ *         despacho: despacho
+ *         required: true
+ *         value: '137899'
+ *         description: numero de despacho
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Data employed
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 cedula:
+ *                   type: string
+ *                 nombre:
+ *                   type: string
+ *                 success: 
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                      type: object
+ *                      properties:
+ *                          CodSynergy: 
+ *                              type: number    
+ *                          NombreEmpleado: 
+ *                              type: string    
+ *                          CedulaEmpleado: 
+ *                              type: string    
+ *                          TelCorpEmpleado: 
+ *                              type: number    
+ *                          CelCorpEmpleado: 
+ *                              type: string    
+ *                          EmailCorpEmpleado: 
+ *                              type: string    
+ *                          Enfoque: 
+ *                              type: string    
+ *                          Cargo: 
+ *                              type: string    
+ *                          GrupoTrabajo: 
+ *                              type: string    
+ *                          Funcion: 
+ *                              type: string    
+ *                          Nivel: 
+ *                              type: string    
+ *                          JefeInmediato: 
+ *                              type: string    
+ */
+router.get(process.env.RUTA_GET_LISTA_NOVDESP_XDESP, async (req,res) => {
   const {despacho} = req.params
   //console.log(cc)
-  const response  = await getListaNovedadDespacho_xDespacho(despacho);    
+  const response  = await getLista_NovedadDespacho_xDespacho(despacho);    
   //const response = despacho;
   res.send(response); 
  });   
  
+ router.get(process.env.RUTA_GET_LISTA_NOVDESPDET_XDESP, async (req,res) => {
+  const {despacho} = req.params
+  //console.log(cc)
+  const response  = await getLista_NovedadDespachoDetalle_xDespacho(despacho);    
+  //const response = despacho;
+  res.send(response); 
+ });   
+ 
+ router.get(process.env.RUTA_GET_DETALLE_NOVDESP_XCODNOVDESP, async (req,res) => {
+  const {codnovdespacho} = req.params
+  //console.log(cc)
+  const response  = await getDetalleNovedad_xCodNovedad(codnovdespacho);    
+  //const response = despacho;
+  res.send(response); 
+ }); 
+
+ router.get(process.env.RUTA_GET_FECHASERV, async (req,res) => {
+  const {formato_fecha} = req.params
+  //console.log(cc)
+  const response  = await getConsultar_fechaServer(formato_fecha);    
+  //const response = despacho;
+  res.send(response); 
+ }); 
+ 
+ //en cisa_web_tte
+ router.put(process.env.RUTA_PUT_ACTUALIZAR_ENTREGA, async (req,res) => {
+  console.log(req.body)
+  const response  = await putActualizar_EstadoEntrega(req.body);    
+  //const response = despacho;
+  res.send(response); 
+ }); 
 
  
 

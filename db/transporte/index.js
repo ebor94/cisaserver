@@ -436,14 +436,13 @@ export const Grabar_LocalizacionDespacho_model = async(data)=>{
  * consulta novedades del despacho por numero de despacho (por fkorden_padre)
  * @param - despacho: numero de despacho
  */
-export const ListaNovedadDespacho_xDespacho_model_mmmmm = async(despacho)=>{
-  //console.log('en modelo', cc)
-  //const listaNovDesp = despacho 
-  //console.log(despacho)
-  const listaNovDesp =  sql.connect(configMSSQLServ_appdespacho).then(pool => {
+export const Lista_NovedadDespacho_xDespacho_model = async(desp)=>{
+  //console.log('en modelo', desp)
+  
+  const listNovedades =  sql.connect(configMSSQLServ_appdespacho).then(pool => {
       return pool.request()
       .input('TIPO', sql.VarChar, 'NOVEDADES_X_DESP')
-      .input('VALOR', sql.VarChar, despacho)
+      .input('VALOR', sql.VarChar, desp)
       .execute('Consultas_NovedadDespacho')
     }) .then(result => {
       // console.log(result)
@@ -454,16 +453,44 @@ export const ListaNovedadDespacho_xDespacho_model_mmmmm = async(despacho)=>{
        //console.log(err)
        return err
    })
-   return listaNovDesp;
+   return listNovedades;
+}   
+
+/**
+ * consulta novedades del despacho mas el detalle por numero de despacho (por fkorden_padre)
+ * @param - despacho: numero de despacho
+ */
+export const Lista_NovedadDespachoDetalle_xDespacho_model = async(desp)=>{
+  //console.log('en modelo', desp)
+  
+  const listNovedadesDet =  sql.connect(configMSSQLServ_appdespacho).then(pool => {
+      return pool.request()
+      .input('TIPO', sql.VarChar, 'NOVEDADES_DETALLE_X_DESP')
+      .input('VALOR', sql.VarChar, desp)
+      .execute('Consultas_NovedadDespacho')
+    }) .then(result => {
+      // console.log(result)
+      let response = result.recordset
+      sql.close()   
+      return response
+   }).catch(err => {
+       //console.log(err)
+       return err
+   })
+   return listNovedadesDet;
 }  
 
-export const ListaNovedadDespacho_xDespacho_model = async(entrega)=>{
-  //console.log('en modelo', cc)
+/**
+ * consulta novedad y detalles de la novedad por codigo novedad_despacho (por CodNovedadDesp)
+ * @param - codNovDespacho: codigo novedad despacho
+ */
+export const DetalleNovedad_xCodNovedad_model = async(codNovDespacho)=>{
+  //console.log('en modelo', desp)
   
-  const infoClinte =  sql.connect(configVselect).then(pool => {
+  const listDetNovedad =  sql.connect(configMSSQLServ_appdespacho).then(pool => {
       return pool.request()
-      .input('TIPO', sql.VarChar, 'NOVEDADES_X_DESP')
-      .input('VALOR', sql.VarChar, entrega)
+      .input('TIPO', sql.VarChar, 'DETALLE_NOVEDAD_X_CODNOVEDAD')
+      .input('VALOR', sql.VarChar, codNovDespacho)
       .execute('Consultas_NovedadDespacho')
     }) .then(result => {
       // console.log(result)
@@ -474,5 +501,71 @@ export const ListaNovedadDespacho_xDespacho_model = async(entrega)=>{
        //console.log(err)
        return err
    })
-   return infoClinte;
+   return listDetNovedad;
+}  
+
+/**
+ * Consultar fecha del servidor
+ * @param - formato: 'ANIO_MES_DIA_HORA_MIN_SEG' / 'ANIOMESDIA_HORAMINSEG'
+ */
+export const Consultar_fechaServer_model = async(formato)=>{
+  console.log(formato)  
+  const fecha =  sql.connect(configMSSQLServ_appdespacho).then(pool => {
+      return pool.request()
+      .input('formato', sql.VarChar, formato)
+      .execute('Consultas_Fecha')
+    }) .then(result => {
+      let response = result.recordset
+      sql.close()   
+      return response
+   }).catch(err => {
+       //console.log(err)
+       return err
+   })
+       return fecha;
+}   
+
+/**
+ * Actualizar estado de la entrega
+ * @param - anio,mes,dia,hora -> obligatorios
+ * @param - estado,comportamiento,observaciones -> se pueden dejar en ""
+ */
+export const Actualizar_EstadoEntrega_model = async(data)=>{
+  const {entrega,anio,mes,dia,hora,estado,comportamiento,observaciones } = data;
+   
+  const EntregaActualizada =  sql.connect(configVselect).then(pool => {
+    return pool.request()
+      .input('ORD_NO', sql.VarChar, entrega)
+      .input('ANO', sql.VarChar, anio)
+      .input('MES', sql.VarChar, mes)
+      .input('DIA', sql.VarChar, dia)
+      .input('HORA', sql.VarChar, hora)
+      .input('ESTADO', sql.VarChar, estado)
+      .input('COMPORTAMIENTO', sql.VarChar, comportamiento)
+      .input('OBSERVACIONES', sql.VarChar, observaciones)
+      .execute('TTE_GRABA_INF_PEDIDO')
+    }) .then(result => {
+      let response = result.recordset
+      sql.close()   
+      return response
+    }).catch(err => {
+       //console.log(err)
+       return err
+    })
+    return EntregaActualizada;
+
+   /*
+   url: http://localhost:3001/transporte/actualizar_estadoentrega
+   json para ingreso al Body
+      {
+      "entrega":"60617193",
+      "anio": "2024",
+      "mes": "10", 
+      "dia":"26",
+      "hora": "9",
+      "estado": "",
+      "comportamiento": "",
+      "observaciones": ""
+      }
+      */
 }   

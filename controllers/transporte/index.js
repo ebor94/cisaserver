@@ -8,7 +8,14 @@ import { Lista_TiposNovedadDespacho_model } from '../../db/transporte/index.js'
 import { Grabar_NovedadDespacho_model, Grabar_ImagenNovedadDespacho_model } from '../../db/transporte/index.js'
 import { Grabar_LocalizacionDespacho_model } from '../../db/transporte/index.js'
 
-import { ListaNovedadDespacho_xDespacho_model } from '../../db/transporte/index.js'
+import { Lista_NovedadDespacho_xDespacho_model } from '../../db/transporte/index.js'
+import { Lista_NovedadDespachoDetalle_xDespacho_model } from '../../db/transporte/index.js'
+import { DetalleNovedad_xCodNovedad_model } from '../../db/transporte/index.js'
+
+import { Consultar_fechaServer_model } from '../../db/transporte/index.js'
+import { Actualizar_EstadoEntrega_model } from '../../db/transporte/index.js'
+
+
 
 
 //-------------------------------------------
@@ -190,10 +197,47 @@ export const postGrabar_LocalizacionDespacho =  async(data)=>{
 } 
 
 //--------------
-export const getListaNovedadDespacho_xDespacho =  async(despacho)=>{
+//bd app_despacho
+export const getLista_NovedadDespacho_xDespacho =  async(despacho)=>{
    const desp = despacho;
 
-   const listNovDesp= await ListaNovedadDespacho_xDespacho_model({desp})
+   const listNovDesp= await Lista_NovedadDespacho_xDespacho_model(desp)
    //res.json(infoDespTransportador); //este no usar
    return listNovDesp;
 }   
+//-------------
+//bd app_despacho
+export const getLista_NovedadDespachoDetalle_xDespacho =  async(despacho)=>{
+   const desp = despacho;
+
+   const listNovDesp= await Lista_NovedadDespachoDetalle_xDespacho_model(desp)
+   //res.json(infoDespTransportador); //este no usar
+   return listNovDesp;
+}   
+
+//-------------
+//bd app_despacho
+export const getDetalleNovedad_xCodNovedad =  async(codNovDespacho)=>{
+   const codNovDesp = codNovDespacho;
+
+   const DetNov= await DetalleNovedad_xCodNovedad_model(codNovDesp)
+   //res.json(infoDespTransportador); //este no usar
+   return DetNov;
+}
+//------------------
+//bd app_despacho
+export const getConsultar_fechaServer =  async(formato_fecha)=>{
+   const formato = formato_fecha;
+
+   const response= await Consultar_fechaServer_model(formato)
+   //res.json(infoDespTransportador); //este no usar
+   return response;
+}
+//bd cisa_web_tte
+export const putActualizar_EstadoEntrega =  async(data)=>{
+   const {entrega,anio,mes,dia,hora,estado,comportamiento,observaciones } = data;
+   const response= await Actualizar_EstadoEntrega_model({ entrega,anio,mes,dia,hora,estado,comportamiento,observaciones })
+   //res.json(infoDespTransportador); //este no usar
+   return response;
+} 
+

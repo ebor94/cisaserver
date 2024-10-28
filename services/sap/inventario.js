@@ -38,3 +38,27 @@ export const getInventory = (BUSQUEDA,DTLUBICA,PARCENTRO,PARALMACEN,PARORGVTA, P
 
 }
 
+export const GetRotura = (centro, mov1, mov2, fechaini, fechafin) => {
+  let config = {
+    method: 'GET',
+    maxBodyLength: Infinity,
+    url:  `${process.env.ZWS_MSEG_URL}?sap-client=310&centro=${centro}&tmov1=${mov1}&tmov2=${mov2}&fechaini=${fechaini}&fechafin=${fechafin}&`,
+    headers: { 
+      'Content-Type': 'application/json', 
+      'Authorization': process.env.GETINVENTORY_AUTORIZATION , 
+      'Cookie': process.env.GETINVENTORY_COOKIE
+    }
+  };
+
+  const response =   axios.request(config)
+  .then((response) => {
+    return response.data;
+  })
+  .catch((error) => {
+    return JSON.stringify(error);
+  });
+
+  return response;
+
+}
+

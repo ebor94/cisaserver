@@ -28,12 +28,12 @@ async function getPool() {
   return pool;
 }
 
-export const getInfoPlaca = async (placa,) => {
+export const getInfoPlaca = async (placa,user) => {
   try {
     const pool = await getPool();
     const result = await pool.request()
       .input('placa', sql.VarChar, placa)
-      .input('usuario', sql.VarChar, '')
+      .input('usuario', sql.VarChar, user)
       .execute('ContralIngresovehiculos');
     
     return result.recordset;

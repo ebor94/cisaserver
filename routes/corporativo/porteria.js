@@ -1,6 +1,6 @@
 import express  from "express";
 import {validarRutaUsuario} from "../../midleware/validaRuta.js"
-import { getFlujo , getInfoPlacaEmpl} from "../../controllers/corporativo/porteria.js";
+import { getFlujo , getInfoPlacaEmpl, RecordPlateObservation} from "../../controllers/corporativo/porteria.js";
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -84,8 +84,71 @@ router.get(process.env.RUTA_GET_ID_FLUJO, async(req,res)=>{
  *                              type: string   
  */
 router.get(process.env.RUTA_GET_INFO_PLACA, validarRutaUsuario,async(req,res)=>{
-    const placa = req.params.placa;  
-    const response  = await getInfoPlacaEmpl(placa)
+    const placa = req.params.placa;
+    const user  = req.headers['user-id']; 
+    const response  = await getInfoPlacaEmpl(placa,user)
+     res.send(response); 
+ });
+
+/**
+ * @swagger
+ *
+ * /corporativo/porteria/vehiculo/novedad:
+ *   post:
+ *     summary: register observation of a vehicle.  
+ *     tags:
+ *       - Corporativo
+ *     parameters:
+ *       - in: header
+ *         name: user-id
+ *         required: true
+ *         description: ID del usuario autenticado
+ *         schema:
+ *           type: string
+ *       - in: header
+ *         name: app
+ *         required: true
+ *         description: Aplicacion a validar
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               placa:
+ *                 type: string
+ *                 example: GAZ70W
+ *               novedad:
+ *                 type: string
+ *                 example: "Vehiculo dejó luces encendidas"
+ *     responses:
+ *       200:
+ *         description: succes observation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       mensaje:
+ *                         type: string    
+ */
+ router.post(process.env.RUTA_SAVE_NOVEDAD_PLACA, validarRutaUsuario,async(req,res)=>{
+    let placa = req.body.placa;
+    let novedad = req.body.novedad;
+    let userId = req.headers['user-id']
+    const response  = await RecordPlateObservation(placa, novedad,userId)
      res.send(response); 
  });
 export default router

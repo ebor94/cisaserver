@@ -47,6 +47,8 @@ import listLt22  from "./routes/transporte/wm.js"
 import Confirm_Ot  from "./routes/transporte/wm.js"
 import GetEmpleado from './routes/corporativo/empleado.js';
 import GetInfoPlacaEmpl from './routes/corporativo/porteria.js';
+import GetRoturaController from './routes/producto/product.js'
+import RecordPlateObservation from './routes/corporativo/porteria.js'
 //---------------------------------------------------------------
 //App Despacho
 import getDespTransportador from './routes/transporte/index.js'
@@ -162,6 +164,8 @@ app.post(process.env.RUTA_LT22, listLt22)
 app.post(process.env.RUTA_CONFIRM_OT, Confirm_Ot)
 app.get(process.env.RUTA_GET_EMPLEADO, GetEmpleado)
 app.get(process.env.RUTA_GET_INFO_PLACA, GetInfoPlacaEmpl)
+app.get(process.env.RUTA_GET_ROTURA,GetRoturaController)
+app.post(process.env.RUTA_SAVE_NOVEDAD_PLACA,RecordPlateObservation)
 //---------------------------------
 //appDespacho
 app.get(process.env.RUTA_GET_DESPACHO_XCC, getDespTransportador)
@@ -195,7 +199,7 @@ if (osInfo.platform === 'linux') {
 } else {
    app.listen(port, () => {
       console.log(`cisa listening on port ${port}`)
-      console.log(`Documentación Swagger disponible en https://localhost:${port}/api-docs`);
+      console.log(`Documentación Swagger disponible en http://localhost:${port}/api-docs`);
       
 
    });

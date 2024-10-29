@@ -509,7 +509,7 @@ export const DetalleNovedad_xCodNovedad_model = async(codNovDespacho)=>{
  * @param - formato: 'ANIO_MES_DIA_HORA_MIN_SEG' / 'ANIOMESDIA_HORAMINSEG'
  */
 export const Consultar_fechaServer_model = async(formato)=>{
-  console.log(formato)  
+  //console.log(formato)  
   const fecha =  sql.connect(configMSSQLServ_appdespacho).then(pool => {
       return pool.request()
       .input('formato', sql.VarChar, formato)
@@ -531,8 +531,8 @@ export const Consultar_fechaServer_model = async(formato)=>{
  * @param - estado,comportamiento,observaciones -> se pueden dejar en ""
  */
 export const Actualizar_EstadoEntrega_model = async(data)=>{
-  const {entrega,anio,mes,dia,hora,estado,comportamiento,observaciones } = data;
-   
+  const {entrega,anio,mes,dia,hora,estado,comportamiento,observaciones,devolver_valores } = data;
+  console.log(data) 
   const EntregaActualizada =  sql.connect(configVselect).then(pool => {
     return pool.request()
       .input('ORD_NO', sql.VarChar, entrega)
@@ -543,6 +543,7 @@ export const Actualizar_EstadoEntrega_model = async(data)=>{
       .input('ESTADO', sql.VarChar, estado)
       .input('COMPORTAMIENTO', sql.VarChar, comportamiento)
       .input('OBSERVACIONES', sql.VarChar, observaciones)
+      .input('devolver_valores', sql.VarChar, devolver_valores)
       .execute('TTE_GRABA_INF_PEDIDO')
     }) .then(result => {
       let response = result.recordset

@@ -30,6 +30,7 @@ import logLogin from "./routes/login/index.js";
 import  Kpi_Alistamiento from "./routes/transporte/wm.js"
 import   loginWm from "./routes/transporte/wm.js" 
 import sendMessage from "./routes/mensajeria/mensajeria.js"
+import sendMessageChatGoogle from "./routes/mensajeria/mensajeria.js"
 import GetPorductPrice from "./routes/producto/product.js"
 import GetSamples from "./routes/producto/product.js"
 import GetQuoteHead from "./routes/clientes/invoice.js";
@@ -153,6 +154,7 @@ app.post(process.env.RUTA_INVOICE, GetInvoiceController)
 app.post(process.env.RUTA_KPI_ALISTAMIENTO, Kpi_Alistamiento)
 app.post(process.env.RUTA_LOGINWM, loginWm)
 app.post(process.env.RUTA_MENSAJERIA, sendMessage)
+app.post(process.env.RUTA_MENSAJERIA_GOOLGE, sendMessageChatGoogle)
 app.post(process.env.RUTA_PRODUCT_PRICE, GetPorductPrice)
 app.post(process.env.RUTA_HEAD_QUOTE, GetQuoteHead)
 app.post(process.env.RUTA_ORDER_REFERENCE, PostOrderReference)

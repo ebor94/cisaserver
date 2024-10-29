@@ -3,3 +3,8 @@ node_modules
 .vscode
 key
 Gpc
+
+# Expo
+.expo/
+dist/
+web-build/

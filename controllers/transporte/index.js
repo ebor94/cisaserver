@@ -235,8 +235,8 @@ export const getConsultar_fechaServer =  async(formato_fecha)=>{
 }
 //bd cisa_web_tte
 export const putActualizar_EstadoEntrega =  async(data)=>{
-   const {entrega,anio,mes,dia,hora,estado,comportamiento,observaciones } = data;
-   const response= await Actualizar_EstadoEntrega_model({ entrega,anio,mes,dia,hora,estado,comportamiento,observaciones })
+   const {entrega,anio,mes,dia,hora,estado,comportamiento,observaciones,devolver_valores } = data;
+   const response= await Actualizar_EstadoEntrega_model({ entrega,anio,mes,dia,hora,estado,comportamiento,observaciones,devolver_valores })
    //res.json(infoDespTransportador); //este no usar
    return response;
 } 

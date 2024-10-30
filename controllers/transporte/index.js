@@ -96,8 +96,25 @@ export const listaEntregasUsuario = async(data) =>{
    let usuario = data.user;
    const listaEntregas  = await listaEntregaUsuario(usuario);
    //console.log(listaEntregas)
-   const entregas = listaEntregas.map(order => order.ord_no);
-   return listaEntregas;
+   const entregas = listaEntregas.reduce((acc, item) =>{
+      if (!acc[item.Despacho_no]) {
+         acc[item.Despacho_no] = {
+             Despacho_no: item.Despacho_no,
+             ordenes: [],
+             Fecha_Requerida: item.Fecha_Requerida,
+             
+
+         };
+     }
+     
+     // Agregamos el ord_no al array de ordenes
+     acc[item.Despacho_no].ordenes.push({entrega : item.ord_no, accion : item.Accion});
+     
+     return acc;
+
+   },{});
+   const depachoEntregas = Object.values(entregas);
+   return depachoEntregas;
 } 
 
 //------------------------------------------------------------------------------------------------------------------

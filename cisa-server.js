@@ -68,7 +68,12 @@ import getLista_NovedadDespachoDetalle_xDespacho from './routes/transporte/index
 import getDetalleNovedad_xCodNovedad from './routes/transporte/index.js'
 import getConsultar_fechaServer from './routes/transporte/index.js';
 import putActualizar_EstadoEntrega from './routes/transporte/index.js';
-
+import actions_Text_Save from './routes/transporte/index.js';
+import Save_Actions_Value from './routes/transporte/index.js';
+import Save_Actions_Date from './routes/transporte/index.js';
+import Save_Actions_Employee from './routes/transporte/index.js';
+import Save_Actions_List_Value from './routes/transporte/index.js';
+import Save_Actions_List_every_Value from './routes/transporte/index.js';
 
 
 
@@ -164,6 +169,14 @@ app.get(process.env.RUTA_GET_EMPLEADO, GetEmpleado)
 app.get(process.env.RUTA_GET_INFO_PLACA, GetInfoPlacaEmpl)
 app.get(process.env.RUTA_GET_ROTURA,GetRoturaController)
 app.post(process.env.RUTA_SAVE_NOVEDAD_PLACA,RecordPlateObservation)
+app.post(process.env.RUTA_ACTIONS_TEXT_SAVE, actions_Text_Save )      
+app.post(process.env.RUTA_ACTIONS_VALUE, Save_Actions_Value)        
+app.post(process.env.RUTA_ACTIONS_DATE, Save_Actions_Date )        
+app.post(process.env.RUTA_SAVE_ACTIONS_EMPLOYEE , Save_Actions_Employee )  
+app.post(process.env.RUTA_SAVE_ACTIONS_LIST_VALUE , Save_Actions_List_Value )
+app.post(process.env.RUTA_ACTIONS_LIST_EVERY_VALUE, Save_Actions_List_every_Value )
+
+
 //---------------------------------
 //appDespacho
 app.get(process.env.RUTA_GET_DESPACHO_XCC, getDespTransportador)
@@ -176,18 +189,12 @@ app.get(process.env.RUTA_GET_LISTA_TIPOSNOVEDAD_DESPACHO, getLista_TiposNovedadD
 app.post(process.env.RUTA_POST_GRABAR_NOVEDAD_DESPACHO, postGrabar_NovedadDespacho)
 app.post(process.env.RUTA_POST_GRABAR_IMAGENNOVEDAD_DESPACHO, postGrabar_ImagenNovedadDespacho)
 app.post(process.env.RUTA_POST_GRABAR_LOCALIZACION_DESPACHO, postGrabar_LocalizacionDespacho)
-
 app.get(process.env.RUTA_GET_LISTA_NOVDESP_XDESP, getLista_NovedadDespacho_xDespacho)
 app.get(process.env.RUTA_GET_LISTA_NOVDESPDET_XDESP, getLista_NovedadDespachoDetalle_xDespacho)
 app.get(process.env.RUTA_GET_DETALLE_NOVDESP_XCODNOVDESP, getDetalleNovedad_xCodNovedad)
 app.get(process.env.RUTA_GET_FECHASERV, getConsultar_fechaServer)
 app.put(process.env.RUTA_PUT_ACTUALIZAR_ENTREGA, putActualizar_EstadoEntrega)
-
-
-
-
 //---------------------------------
-//app.get('/clientes/bim/:bandera', GetBim)
 
 if (osInfo.platform === 'linux') {
    const options = {

@@ -173,9 +173,7 @@ router.get(process.env.RUTA_GET_LISTA_NOVDESPDET_XDESP, async (req, res) => {
   res.send(response);
 });
 
-router.get(
-  process.env.RUTA_GET_DETALLE_NOVDESP_XCODNOVDESP,
-  async (req, res) => {
+router.get(process.env.RUTA_GET_DETALLE_NOVDESP_XCODNOVDESP,async (req, res) => {
     const { codnovdespacho } = req.params;
     const response = await getDetalleNovedad_xCodNovedad(codnovdespacho);
     res.send(response);
@@ -194,29 +192,29 @@ router.put(process.env.RUTA_PUT_ACTUALIZAR_ENTREGA, async (req, res) => {
   res.send(response);
 });
 
-router.post(process.env.RUTA_HORA_INICIO_ALISTAMIENTO, async (req, res) => {
+router.post(process.env.RUTA_ACTIONS_TEXT_SAVE, async (req, res) => {
   const response = await actions_Text_Save(req, res);
   res.send(response);
 });
 
-router.post(process.env.RUTA_HORA_FIN_ALISTAMIENTO, async (req, res) => {
+router.post(process.env.RUTA_ACTIONS_VALUE, async (req, res) => {
   const response = await Save_Actions_Value(req, res);
   res.send(response);
 });
 
-router.post(process.env.RUTA_HORA_FIN_ALISTAMIENTO, async (req, res) => {
+router.post(process.env.RUTA_ACTIONS_DATE, async (req, res) => {
   const response = await Save_Actions_Date(req, res);
   res.send(response);
 });
-router.post(process.env.RUTA_HORA_FIN_ALISTAMIENTO, async (req, res) => {
+router.post(process.env.RUTA_SAVE_ACTIONS_EMPLOYEE, async (req, res) => {
   const response = await Save_Actions_Employee(req, res);
   res.send(response);
 });
-router.post(process.env.RUTA_HORA_FIN_ALISTAMIENTO, async (req, res) => {
+router.post(process.env.RUTA_SAVE_ACTIONS_LIST_VALUE, async (req, res) => {
   const response = await Save_Actions_List_Value(req, res);
   res.send(response);
 });
-router.post(process.env.RUTA_HORA_FIN_ALISTAMIENTO, async (req, res) => {
+router.post(process.env.RUTA_ACTIONS_LIST_EVERY_VALUE, async (req, res) => {
   const response = await Save_Actions_List_every_Value(req, res);
   res.send(response);
 });

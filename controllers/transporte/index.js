@@ -262,12 +262,62 @@ export const putActualizar_EstadoEntrega =  async(data)=>{
 export const HoraInicioAlistamiento = async(data) => {
    const {codDestinatario,codTipoDoc,docNo,fecha,accion,usuario} = data
    fecha = new Date().toISOString();
-   const response = Save_Action_Date(codDestinatario,codTipoDoc,docNo,fecha,accion,usuario);
-   return response;
+   try {
+       const response = await  Save_Action_Date(codDestinatario,codTipoDoc,docNo,fecha,accion,usuario);
+     
+      if (!response || response.length === 0) {
+        return {
+          success: false,
+          message: "registro fallido",
+          data: null
+        };
+      }
+  
+      return {
+        success: true,
+        message: "registro exitoso",
+        data: response
+      };
+
+    } catch (error) {
+      //console.error("Error en getInfoPlaca:", error);
+      return {
+        success: false,
+        message: "Ocurrió un error al registrar",
+        error: error.message
+      };
+    
+    }
+
+
 }
 export const HoraFinAlistamiento = async(data) => {
    const {codDestinatario,codTipoDoc,docNo,fecha,accion,usuario} = data
    fecha = new Date().toISOString();
-   const response = Save_Action_Date(codDestinatario,codTipoDoc,docNo,fecha,accion,usuario);
-   return response;
+   try {
+      const response = await  Save_Action_Date(codDestinatario,codTipoDoc,docNo,fecha,accion,usuario);
+    
+     if (!response || response.length === 0) {
+       return {
+         success: false,
+         message: "registro fallido",
+         data: null
+       };
+     }
+ 
+     return {
+       success: true,
+       message: "registro exitoso",
+       data: response
+     };
+
+   } catch (error) {
+     //console.error("Error en getInfoPlaca:", error);
+     return {
+       success: false,
+       message: "Ocurrió un error al registrar",
+       error: error.message
+     };
+   
+   }
 }

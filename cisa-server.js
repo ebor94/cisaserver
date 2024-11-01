@@ -77,17 +77,7 @@ const app = Express();
 const port = process.env.PORT
 //const domain = "ceramicaitalia.com"
 const ips = process.env.IP_RANGE
-// Configura el middleware de IpFilter
-// app.use(IpFilter(ips, { mode: 'allow' }));
-
-// // Manejo de errores de acceso denegado
-// app.use((err, req, res, next) => {
-//   if (err instanceof IpDeniedError) {
-//     res.status(403).send('Access denied');
-//   } else {
-//     next();
-//   }
-// })   
+  
 const swaggerOptions = {
    definition: {
      openapi: '3.0.0', // Versión de OpenAPI

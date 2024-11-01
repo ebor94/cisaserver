@@ -1,5 +1,5 @@
 
-import { Save_Action_Date } from '../../db/acciones/index.js'
+import { actionsTextSave, Save_Action_Date,  Save_Action_Employee, Save_Action_List_every_Value, Save_Action_List_Value, Save_Action_Value } from '../../db/acciones/index.js'
 import { listaEntregaUsuario, RegistraVehiculo} from '../../db/transporte/index.js'
 import { DespTransportador_model, InfoTransportador_model, ValidarTransportador_model } from '../../db/transporte/index.js'
 import { InfoCliente_xEntrega_model } from '../../db/transporte/index.js'
@@ -259,42 +259,71 @@ export const putActualizar_EstadoEntrega =  async(data)=>{
    return response;
 } 
 
-export const HoraInicioAlistamiento = async(data) => {
-   const {codDestinatario,codTipoDoc,docNo,fecha,accion,usuario} = data
-   fecha = new Date().toISOString();
-   try {
-       const response = await  Save_Action_Date(codDestinatario,codTipoDoc,docNo,fecha,accion,usuario);
-     
-      if (!response || response.length === 0) {
-        return {
-          success: false,
-          message: "registro fallido",
-          data: null
-        };
-      }
-  
-      return {
-        success: true,
-        message: "registro exitoso",
-        data: response
-      };
 
-    } catch (error) {
-      //console.error("Error en getInfoPlaca:", error);
-      return {
-        success: false,
-        message: "Ocurrió un error al registrar",
-        error: error.message
-      };
+export const actions_Text_Save  = async (data) => {
+   const {codDestinatario,codTipoDoc,docNo,texto,accion,usuario} = data
+    try {
+      const response = await  actionsTextSave(codDestinatario,codTipoDoc,docNo,texto,accion,usuario);
     
-    }
+     if (!response || response.length === 0) {
+       return {
+         success: false,
+         message: "registro fallido",
+         data: null
+       };
+     }
+ 
+     return {
+       success: true,
+       message: "registro exitoso",
+       data: response
+     };
 
-
+   } catch (error) {
+     //console.error("Error en getInfoPlaca:", error);
+     return {
+       success: false,
+       message: "Ocurrió un error al registrar",
+       error: error.message
+     };
+   
+   }
+   
 }
-export const HoraFinAlistamiento = async(data) => {
+export const Save_Actions_Value   = async (data) => {
+   const {codDestinatario,codTipoDoc,docNo,txtValor,accion,usuario} = data
+    try {
+      const response = await  Save_Action_Value(codDestinatario,codTipoDoc,docNo,txtValor,accion,usuario);
+    
+     if (!response || response.length === 0) {
+       return {
+         success: false,
+         message: "registro fallido",
+         data: null
+       };
+     }
+ 
+     return {
+       success: true,
+       message: "registro exitoso",
+       data: response
+     };
+
+   } catch (error) {
+     //console.error("Error en getInfoPlaca:", error);
+     return {
+       success: false,
+       message: "Ocurrió un error al registrar",
+       error: error.message
+     };
+   
+   }
+   
+}
+export const Save_Actions_Date = async (data) => {
    const {codDestinatario,codTipoDoc,docNo,fecha,accion,usuario} = data
    fecha = new Date().toISOString();
-   try {
+    try {
       const response = await  Save_Action_Date(codDestinatario,codTipoDoc,docNo,fecha,accion,usuario);
     
      if (!response || response.length === 0) {
@@ -320,4 +349,95 @@ export const HoraFinAlistamiento = async(data) => {
      };
    
    }
+   
+}
+export const Save_Actions_Employee = async (data) => {
+   const {codDestinatario,codTipoDoc,docNo,empleado,accion,usuario} = data
+    try {
+      const response = await  Save_Action_Employee(codDestinatario,codTipoDoc,docNo,empleado,accion,usuario);
+    
+     if (!response || response.length === 0) {
+       return {
+         success: false,
+         message: "registro fallido",
+         data: null
+       };
+     }
+ 
+     return {
+       success: true,
+       message: "registro exitoso",
+       data: response
+     };
+
+   } catch (error) {
+     //console.error("Error en getInfoPlaca:", error);
+     return {
+       success: false,
+       message: "Ocurrió un error al registrar",
+       error: error.message
+     };
+   
+   }
+   
+}
+export const Save_Actions_List_Value = async (data) => {
+   const {codDestinatario,codTipoDoc,docNo,opcion,accion,usuario} = data
+    try {
+      const response = await  Save_Action_List_Value(codDestinatario,codTipoDoc,docNo,opcion,accion,usuario);
+    
+     if (!response || response.length === 0) {
+       return {
+         success: false,
+         message: "registro fallido",
+         data: null
+       };
+     }
+ 
+     return {
+       success: true,
+       message: "registro exitoso",
+       data: response
+     };
+
+   } catch (error) {
+     //console.error("Error en getInfoPlaca:", error);
+     return {
+       success: false,
+       message: "Ocurrió un error al registrar",
+       error: error.message
+     };
+   
+   }
+   
+}
+export const Save_Actions_List_every_Value = async (data) => {
+   const {codDestinatario,codTipoDoc,docNo,opcion,accion,usuario,insertar} = data
+    try {
+      const response = await  Save_Action_List_every_Value(codDestinatario,codTipoDoc,docNo,opcion,accion,usuario,insertar);
+    
+     if (!response || response.length === 0) {
+       return {
+         success: false,
+         message: "registro fallido",
+         data: null
+       };
+     }
+ 
+     return {
+       success: true,
+       message: "registro exitoso",
+       data: response
+     };
+
+   } catch (error) {
+     //console.error("Error en getInfoPlaca:", error);
+     return {
+       success: false,
+       message: "Ocurrió un error al registrar",
+       error: error.message
+     };
+   
+   }
+   
 }

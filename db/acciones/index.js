@@ -68,7 +68,7 @@ async function getPool() {
     }
   };
 
-  export const Save_Action_Employe = async (codDestinatario,codTipoDoc,docNo,empleado,accion,usuario) => {
+  export const Save_Action_Employee = async (codDestinatario,codTipoDoc,docNo,empleado,accion,usuario) => {
     try {
       const pool = await getPool();
       const result = await pool.request()

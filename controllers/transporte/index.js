@@ -1,4 +1,5 @@
 
+import { Save_Action_Date } from '../../db/acciones/index.js'
 import { listaEntregaUsuario, RegistraVehiculo} from '../../db/transporte/index.js'
 import { DespTransportador_model, InfoTransportador_model, ValidarTransportador_model } from '../../db/transporte/index.js'
 import { InfoCliente_xEntrega_model } from '../../db/transporte/index.js'
@@ -258,3 +259,15 @@ export const putActualizar_EstadoEntrega =  async(data)=>{
    return response;
 } 
 
+export const HoraInicioAlistamiento = async(data) => {
+   const {codDestinatario,codTipoDoc,docNo,fecha,accion,usuario} = data
+   fecha = new Date().toISOString();
+   const response = Save_Action_Date(codDestinatario,codTipoDoc,docNo,fecha,accion,usuario);
+   return response;
+}
+export const HoraFinAlistamiento = async(data) => {
+   const {codDestinatario,codTipoDoc,docNo,fecha,accion,usuario} = data
+   fecha = new Date().toISOString();
+   const response = Save_Action_Date(codDestinatario,codTipoDoc,docNo,fecha,accion,usuario);
+   return response;
+}

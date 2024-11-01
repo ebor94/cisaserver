@@ -202,8 +202,65 @@ router.post(process.env.RUTA_ACTIONS_VALUE, async (req, res) => {
   res.send(response);
 });
 
+/**
+ * @swagger
+ * /transporte/grabarAccionFecha:
+ *   post:
+ *     summary: Accion Graba Fecha y Hora
+ *     description: graba los datos de fecha y hora en las acciones segun sea el caso (eje. hora inicio alistamiento)
+ *     tags:
+ *       - Gestion Acciones
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               codDestinatario:
+ *                 type: string
+ *                 example: BORTEGA
+ *               codTipoDoc:
+ *                 type: string
+ *                 example: ""
+ *               docNo:
+ *                 type: string
+ *                 example: ""
+ *               fecha:
+ *                 type: string
+ *                 example: ""
+ *               accion:
+ *                 type: string
+ *                 example: ""
+ *               usuario:
+ *                 type: string
+ *                 example: ""
+ *     responses:
+ *       200:
+ *         description: Respuesta exitosa
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: validacion exitosa 
+ *                 message:
+ *                   type: string
+ *                   description: Mensaje de éxito
+ *                 data:
+ *                    type: array
+ *       400:
+ *         description: Solicitud incorrecta (Bad Request)
+ *       401:
+ *         description: Autenticación fallida (Unauthorized)
+ */
+
+
+
 router.post(process.env.RUTA_ACTIONS_DATE, async (req, res) => {
-  const response = await Save_Actions_Date(req, res);
+  const response = await Save_Actions_Date(req.body);
   res.send(response);
 });
 router.post(process.env.RUTA_SAVE_ACTIONS_EMPLOYEE, async (req, res) => {

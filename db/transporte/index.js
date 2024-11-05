@@ -95,8 +95,7 @@ export const listaEntregaUsuario = async(user)=>{
         const pool = await getPool();
         const result = await pool.request()
         .input('usuario', sql.VarChar, user)
-        .execute('lista_Entrega_Usuario')
-        
+        .execute('lista_Entrega_Usuario')        
         return result.recordset;
       } catch (err) {
         console.error('Error en listaEntregaUsuario:', err);

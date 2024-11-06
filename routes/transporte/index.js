@@ -219,22 +219,25 @@ router.post(process.env.RUTA_ACTIONS_VALUE, async (req, res) => {
  *             properties:
  *               codDestinatario:
  *                 type: string
- *                 example: BORTEGA
+ *                 example: A1
  *               codTipoDoc:
  *                 type: string
- *                 example: ""
+ *                 example: EN
  *               docNo:
  *                 type: string
- *                 example: ""
+ *                 example: 60618721
  *               fecha:
  *                 type: string
- *                 example: ""
+ *                 example: 2024-11-06
+ *               hora:
+ *                 type: string
+ *                 example: 08:00
  *               accion:
  *                 type: string
- *                 example: ""
+ *                 example: 00003
  *               usuario:
  *                 type: string
- *                 example: ""
+ *                 example: 9979
  *     responses:
  *       200:
  *         description: Respuesta exitosa

@@ -48,15 +48,16 @@ async function getPool() {
       throw err;
     }
   };
-  export const Save_Action_Date = async (codDestinatario,codTipoDoc,docNo,fecha,accion,usuario) => {
-    //const fecha = new Date().toISOString();
+  export const Save_Action_Date = async (codDestinatario,codTipoDoc,docNo,fecha,accion,usuario,hora) => {
+    
     try {
       const pool = await getPool();
       const result = await pool.request()
         .input('CodDestinatario', sql.VarChar, codDestinatario)
         .input('CodTipoDoc', sql.VarChar, codTipoDoc)
         .input('DocNo', sql.VarChar, docNo)
-        .input('fecha', sql.DateTime, fecha)
+        .input('fecha', sql.VarChar, fecha)
+        .input('hora', sql.VarChar, hora)
         .input('accion', sql.VarChar, accion)
         .input('usuario', sql.VarChar, usuario)
         .execute('Grabar_Accion_Fecha');

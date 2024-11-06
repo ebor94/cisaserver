@@ -2,6 +2,8 @@ import  axios from 'axios';
 import dotenv from 'dotenv'
 dotenv.config()
 
+const sapDomain = "https://itaprd.ceramicaitalia.com:44301/sap/bc/rest/"
+
 export const loginWm = (usuario, contraseña, bandera) => {
     let data = JSON.stringify({
         "IUSUARIO": usuario,
@@ -150,5 +152,31 @@ export const Wm_confirm_ot = (entrega, ot, posicion)=>{
 
     return response;  
     
+}
+
+export const GetEnteragaDetails = (entrega) =>{  
+   
+    let config = {
+  
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `${sapDomain}z_alistamiento?sap-client=310&ord=${entrega}`,
+        headers: { 
+            'Content-Type': 'application/json', 
+            'Authorization': process.env.SESSIONWM_AUTORIZATION , 
+            'Cookie': process.env.SESSIONWM_COOKIE
+        },
+      };
+      
+      const response =   axios.request(config)
+      .then((response) => {
+          return response.data;
+      })
+      .catch((error) => {
+          return JSON.stringify(error);
+      });
+  
+      return response; 
+
 }
 

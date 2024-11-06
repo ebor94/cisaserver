@@ -234,7 +234,7 @@ router.post(process.env.RUTA_ACTIONS_VALUE, async (req, res) => {
  *                 example: 08:00
  *               accion:
  *                 type: string
- *                 example: 00003
+ *                 example: "00003"
  *               usuario:
  *                 type: string
  *                 example: 9979

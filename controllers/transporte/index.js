@@ -323,7 +323,7 @@ export const Save_Actions_Value   = async (data) => {
    
 }
 export const Save_Actions_Date = async (data) => {
-   const {codDestinatario,codTipoDoc,docNo,fecha,accion,usuario} = data
+   let {codDestinatario,codTipoDoc,docNo,fecha,accion,usuario} = data
    fecha = new Date().toISOString();
     try {
       const response = await  Save_Action_Date(codDestinatario,codTipoDoc,docNo,fecha,accion,usuario);

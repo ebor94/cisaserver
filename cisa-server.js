@@ -72,6 +72,7 @@ import Save_Actions_Date from "./routes/transporte/index.js";
 import Save_Actions_Employee from "./routes/transporte/index.js";
 import Save_Actions_List_Value from "./routes/transporte/index.js";
 import Save_Actions_List_every_Value from "./routes/transporte/index.js";
+import GetAlistamientoAcumulado from "./routes/transporte/wm.js";
 
 const app = Express();
 const port = process.env.PORT;
@@ -159,6 +160,7 @@ app.post(process.env.RUTA_SAVE_ACTIONS_EMPLOYEE, Save_Actions_Employee);
 app.post(process.env.RUTA_SAVE_ACTIONS_LIST_VALUE, Save_Actions_List_Value);
 app.post(process.env.RUTA_ACTIONS_LIST_EVERY_VALUE,Save_Actions_List_every_Value);
 app.get('/transporte/detalleEntrega/:entrega', GetEntregaDetailWm)
+app.get('/transporte/alistamientoAcumulado/:entrega/:posot/:ot',GetAlistamientoAcumulado)
 
 //appDespacho
 app.get(process.env.RUTA_GET_DESPACHO_XCC, getDespTransportador);

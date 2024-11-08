@@ -1,4 +1,4 @@
-import {GetEnteragaDetails, loginWm, Wm_confirm_ot, wm_Kpi_Alistamiento, wmGetOtOrder, wmLt22} from '../../services/sap/wm.js'
+import {AlistamientoAcumulado, GetEnteragaDetails, loginWm, Wm_confirm_ot, wm_Kpi_Alistamiento, wmGetOtOrder, wmLt22} from '../../services/sap/wm.js'
 
 
  export  const  SessionWm = async ({usuario, contraseña, bandera})=>{
@@ -43,6 +43,37 @@ export const Confirm_Ot = async ({entrega, ot, posicion}) =>{
 export const GetEntregaDetailWm = async (entrega) =>{
     const response = await GetEnteragaDetails(entrega)
        return response;
+
+}
+
+export const GetAlistamientoAcumulado = async (entrega,posOt,ot) =>{
+
+
+       try {
+        let response =  await AlistamientoAcumulado(entrega,posOt,ot)
+      response[0].acumulado = response[0].acumulado.trim()
+ 
+      
+       if (!response || response.length === 0) {
+         return {
+           success: false,           
+           data: null
+         };
+       }
+   
+       return {
+         success: true,        
+         data: response
+       };
+  
+     } catch (error) {
+       //console.error("Error en getInfoPlaca:", error);
+       return {
+         success: false,         
+         error: error.message
+       };
+     
+     }
 
 }
 

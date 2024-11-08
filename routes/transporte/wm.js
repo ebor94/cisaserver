@@ -1,5 +1,5 @@
 import  express  from "express";
-import {Kpi_Alistamiento, listOtwithOrder, SessionWm, listLt22, Confirm_Ot, GetEntregaDetailWm} from '../../controllers/transporte/wm.js'
+import {Kpi_Alistamiento, listOtwithOrder, SessionWm, listLt22, Confirm_Ot, GetEntregaDetailWm, GetAlistamientoAcumulado} from '../../controllers/transporte/wm.js'
 import dotenv from 'dotenv'
 dotenv.config()
 const router = express.Router();
@@ -81,6 +81,74 @@ router.get('/transporte/detalleEntrega/:entrega' ,async(req, res )=>{
   const  entrega = req.params.entrega;
   
   const  response  = await GetEntregaDetailWm(entrega);
+  res.send(response);
+});
+
+/**
+ * @swagger
+ *
+ * /transporte/alistamientoAcumulado/{entrega}/{posot}/{ot}:
+ *   get:
+ *     summary: This API obtains the details of the picking acumulate by ot 
+ *     tags:
+ *       - WM Alistamiento
+ *     parameters:
+ *       - in: path
+ *         name: entrega    # Se agregó el campo name que es requerido
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: delivery number
+ *         example: "70335960" 
+  *       - in: path
+ *         name: posot    # Se agregó el campo name que es requerido
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: position order transfer
+ *         example: "3"
+  *       - in: path
+ *         name: ot    # Se agregó el campo name que es requerido
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: order transfer number
+ *         example: "294202"   
+ *     responses:
+ *       200:
+ *         description: acumulate
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: array
+ *                   items:     # Se agregó la definición de items para el array
+ *                     type: object
+ *                     properties:  # Aquí puedes definir las propiedades de los objetos en el array
+ *                       # ejemplo:
+ *                       # id:
+ *                       #   type: string
+ *                       # status:
+ *                       #   type: string
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Delivery not found
+ *       500:
+ *         description: Internal server error
+ */
+
+router.get('/transporte/alistamientoAcumulado/:entrega/:posot/:ot' ,async(req, res )=>{
+ 
+  const  {entrega, posot, ot } = req.params;
+  
+  const  response  = await GetAlistamientoAcumulado(entrega, posot, ot);
   res.send(response);
 });
 

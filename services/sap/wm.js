@@ -179,4 +179,28 @@ export const GetEnteragaDetails = (entrega) =>{
       return response; 
 
 }
+export const AlistamientoAcumulado = (entrega, posot, ot) =>{  
+   
+    let config = {
+        
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `${sapDomain}zws_alistacum?sap-client=310&ord=${entrega}&posot=${posot}&ot=${ot}`,
+        headers: { 
+            'Content-Type': 'application/json', 
+            'Authorization': process.env.SESSIONWM_AUTORIZATION , 
+            'Cookie': process.env.SESSIONWM_COOKIE
+        },
+      };
+      
+      const response =   axios.request(config)
+      .then((response) => {
+          return response.data;
+      })
+      .catch((error) => {
+          return JSON.stringify(error);
+      });
+  
+      return response; 
 
+}

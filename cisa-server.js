@@ -44,6 +44,7 @@ import listaEntregasUsuario from "./routes/transporte/index.js";
 import listOtwithOrder from "./routes/transporte/wm.js";
 import listLt22 from "./routes/transporte/wm.js";
 import GetEntregaDetailWm from "./routes/transporte/wm.js";
+import  getZwmLt01  from "./routes/transporte/wm.js";
 import Confirm_Ot from "./routes/transporte/wm.js";
 import GetEmpleado from "./routes/corporativo/empleado.js";
 import GetInfoPlacaEmpl from "./routes/corporativo/porteria.js";
@@ -161,6 +162,7 @@ app.post(process.env.RUTA_SAVE_ACTIONS_LIST_VALUE, Save_Actions_List_Value);
 app.post(process.env.RUTA_ACTIONS_LIST_EVERY_VALUE,Save_Actions_List_every_Value);
 app.get('/transporte/detalleEntrega/:entrega', GetEntregaDetailWm)
 app.get('/transporte/alistamientoAcumulado/:entrega/:posot/:ot',GetAlistamientoAcumulado)
+app.get('/transporte/alistamientoWm/:ubicacionOrigen/:almacen/:ubicacionDestino/:centro/:cantidad/:material/:lote/:pallet/:bandera/:loteDestino/:usuario',getZwmLt01)
 
 //appDespacho
 app.get(process.env.RUTA_GET_DESPACHO_XCC, getDespTransportador);

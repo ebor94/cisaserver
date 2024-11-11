@@ -1,4 +1,4 @@
-import {AlistamientoAcumulado, GetEnteragaDetails, loginWm, Wm_confirm_ot, wm_Kpi_Alistamiento, wmGetOtOrder, wmLt22} from '../../services/sap/wm.js'
+import {AlistamientoAcumulado, GetEnteragaDetails, loginWm, Wm_confirm_ot, wm_Kpi_Alistamiento, wmGetOtOrder, wmLt22, zwmlt01} from '../../services/sap/wm.js'
 
 
  export  const  SessionWm = async ({usuario, contraseña, bandera})=>{
@@ -75,5 +75,34 @@ export const GetAlistamientoAcumulado = async (entrega,posOt,ot) =>{
      
      }
 
+}
+
+export const getZwmLt01 = async ({ubicacionOrigen,almacen,ubicacionDestino,centro,cantidad,material,lote,pallet,bandera,loteDestino,usuario}) => {
+  
+
+    try {
+      let response =  await zwmlt01(ubicacionOrigen,almacen,ubicacionDestino,centro,cantidad,material,lote,pallet,bandera,loteDestino,usuario)
+  
+    
+     if (!response || response.length === 0) {
+       return {
+         success: false,           
+         data: null
+       };
+     }
+ 
+     return {
+       success: true,        
+       data: response
+     };
+    
+  } catch (error) {
+    return {
+      success: false,         
+      error: error.message
+    };
+  }
+  
+  
 }
 

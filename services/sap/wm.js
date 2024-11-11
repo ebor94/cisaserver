@@ -204,3 +204,29 @@ export const AlistamientoAcumulado = (entrega, posot, ot) =>{
       return response; 
 
 }
+
+export const zwmlt01 = (ubicacionOrigen,almacen,ubicacionDestino,centro,cantidad,material,lote,pallet,bandera,loteDestino,usuario) =>{  
+   
+    let config = {
+        
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `${sapDomain}zwm_lt01?sap-client=310&ubicacionOrigen=${ubicacionOrigen}&almacen=${almacen}&ubicacionDestino=${ubicacionDestino}&centro=${centro}&cantidad=${cantidad}&material=${material}&lote=${lote}&pallet=${pallet}&bandera=${bandera}&loteDestino=${loteDestino}&usuario=${usuario}`,
+        headers: { 
+            'Content-Type': 'application/json', 
+            'Authorization': process.env.SESSIONWM_AUTORIZATION , 
+            'Cookie': process.env.SESSIONWM_COOKIE
+        },
+      };
+      
+      const response =   axios.request(config)
+      .then((response) => {
+          return response.data;
+      })
+      .catch((error) => {
+          return JSON.stringify(error);
+      });
+  
+      return response; 
+
+}

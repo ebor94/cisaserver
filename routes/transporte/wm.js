@@ -1,5 +1,5 @@
 import  express  from "express";
-import {Kpi_Alistamiento, listOtwithOrder, SessionWm, listLt22, Confirm_Ot, GetEntregaDetailWm, GetAlistamientoAcumulado} from '../../controllers/transporte/wm.js'
+import {Kpi_Alistamiento, listOtwithOrder, SessionWm, listLt22, Confirm_Ot, GetEntregaDetailWm, GetAlistamientoAcumulado, getZwmLt01} from '../../controllers/transporte/wm.js'
 import dotenv from 'dotenv'
 dotenv.config()
 const router = express.Router();
@@ -153,11 +153,118 @@ router.get('/transporte/alistamientoAcumulado/:entrega/:posot/:ot' ,async(req, r
 });
 
 
-
-
-
-
-
-
-
+/**
+ * @swagger
+ *
+ * /transporte/alistamientoWm/{ubicacionOrigen}/{almacen}/{ubicacionDestino}/{centro}/{cantidad}/{material}/{lote}/{pallet}/{bandera}/{loteDestino}/{usuario}:
+ *   get:
+ *     summary: This API obtains the details information wm zwmlt01
+ *     tags:
+ *       - WM Alistamiento
+ *     parameters:
+ *       - in: path
+ *         name: ubicacionOrigen  
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: from location
+ *       - in: path
+ *         name: almacen    
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: store
+ *         example: "1101"
+ *       - in: path
+ *         name: ubicacionDestino    
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: location to
+ *       - in: path
+ *         name: centro    
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: location to get inventory
+ *       - in: path
+ *         name: cantidad  
+ *         schema:
+ *           type: number
+ *         required: false
+ *         description: quantity
+ *       - in: path
+ *         name: material    
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: material
+ *       - in: path
+ *         name: lote    
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: batch
+ *       - in: path
+ *         name: pallet  
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: pallet number
+ *       - in: path
+ *         name: bandera    
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: flag
+ *       - in: path
+ *         name: loteDestino    
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: batch to
+ *       - in: path
+ *         name: usuario    
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: user action
+ *     responses:
+ *       200:
+ *         description: acumulate
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: string
+ *                       material:
+ *                         type: string
+ *                       cantidad:
+ *                         type: number
+ *                       ubicacionOrigen:
+ *                         type: string
+ *                       ubicacionDestino:
+ *                         type: string
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Delivery not found
+ *       500:
+ *         description: Internal server error
+ */
+router.get('/transporte/alistamientoWm/:ubicacionOrigen/:almacen/:ubicacionDestino/:centro/:cantidad/:material/:lote/:pallet/:bandera/:loteDestino/:usuario' ,async(req, res )=>{
+  const  response  = await getZwmLt01(req.params);
+  res.send(response);
+});
 export default router

@@ -1,4 +1,4 @@
-import {AlistamientoAcumulado, GetEnteragaDetails, loginWm, Wm_confirm_ot, wm_Kpi_Alistamiento, wmGetOtOrder, wmLt22, zwmlt01} from '../../services/sap/wm.js'
+import {AlistamientoAcumulado, GetEnteragaDetails, loginWm, RegistraPickingsService, Wm_confirm_ot, wm_Kpi_Alistamiento, wmGetOtOrder, wmLt22, zwmlt01} from '../../services/sap/wm.js'
 
 
  export  const  SessionWm = async ({usuario, contraseña, bandera})=>{
@@ -106,3 +106,24 @@ export const getZwmLt01 = async ({ubicacionOrigen,almacen,ubicacionDestino,centr
   
 }
 
+
+export const  registraPicking = async  ({entrega ,posicion ,material,lote,consestib,cantbuena,cantrotura,UMBASE ,usuario,bandera,IDX,POSOT,OT}) => {
+  try {
+    let response = await RegistraPickingsService(entrega ,posicion ,material,lote,consestib,cantbuena,cantrotura,UMBASE ,usuario,bandera,IDX,POSOT,OT);
+    if (!response || response.length === 0) {
+      return {
+        success: false,           
+        data: null
+      };
+    }
+    return {
+      success: true,        
+      data: response
+    };
+  } catch (error) {
+    return {
+      success: false,         
+      error: error.message
+    };
+  }
+}

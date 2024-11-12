@@ -1,5 +1,5 @@
 import  express  from "express";
-import {Kpi_Alistamiento, listOtwithOrder, SessionWm, listLt22, Confirm_Ot, GetEntregaDetailWm, GetAlistamientoAcumulado, getZwmLt01} from '../../controllers/transporte/wm.js'
+import {Kpi_Alistamiento, listOtwithOrder, SessionWm, listLt22, Confirm_Ot, GetEntregaDetailWm, GetAlistamientoAcumulado, getZwmLt01, registraPicking} from '../../controllers/transporte/wm.js'
 import dotenv from 'dotenv'
 dotenv.config()
 const router = express.Router();
@@ -267,4 +267,100 @@ router.get('/transporte/alistamientoWm/:ubicacionOrigen/:almacen/:ubicacionDesti
   const  response  = await getZwmLt01(req.params);
   res.send(response);
 });
+
+/** 
+ * @swagger
+ * /transporte/Registraalistamiento:
+ *   post:
+ *     summary:  picking
+ *     description: save data  picking for pallet 
+ *     tags:
+ *       - WM Alistamiento
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               entrega:
+ *                 type: string
+ *                 example: 70336085
+ *               posicion:
+ *                 type: string
+ *                 example: 90
+ *               material:
+ *                 type: string
+ *                 example: 230021
+ *               lote:
+ *                 type: string
+ *                 example: 0000015650
+ *               consestib:
+ *                 type: string
+ *                 example: 1986064
+ *               cantbuena:
+ *                 type: string
+ *                 example: 55.890
+ *               cantrotura:
+ *                 type: string
+ *                 example: 0
+ *               UMBASE:
+ *                 type: string
+ *                 example: M2
+ *               usuario:
+ *                 type: string
+ *                 example: 9464
+ *               bandera:
+ *                 type: string
+ *                 example: 1
+ *               IDX:
+ *                 type: string
+ *                 example: 00035794
+ *               POSOT:
+ *                 type: string
+ *                 example: 7
+ *               OT:
+ *                 type: string
+ *                 example: 300953
+ *     responses:
+ *       200:
+ *         description: Respuesta exitosa
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: validacion exitosa 
+ *                 message:
+ *                   type: string
+ *                   description: Mensaje de éxito
+ *                 data:
+ *                    type: array
+ *       400:
+ *         description: Solicitud incorrecta (Bad Request)
+ *       401:
+ *         description: Autenticación fallida (Unauthorized)
+ */
+router.post('/transporte/Registraalistamiento/', async(req, res)=>{
+  const response = await registraPicking(req.body)
+  res.send(response);
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export default router

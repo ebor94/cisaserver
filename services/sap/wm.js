@@ -230,3 +230,44 @@ export const zwmlt01 = (ubicacionOrigen,almacen,ubicacionDestino,centro,cantidad
       return response; 
 
 }
+
+export const RegistraPickingsService = (entrega, posEnterga, material, lote, pallet, cantidadBuena,CantidadRota, um, usuario, bandera, id,posOt, ot) =>{
+
+
+    let config = {
+        method: 'POST',
+        maxBodyLength: Infinity,
+        url: `${sapDomain}/z_alist_post?sap-client=310`,
+        headers: { 
+            'Content-Type': 'application/json', 
+            'Authorization':  process.env.SESSIONWM_AUTORIZATION  ,
+            'Cookie': process.env.SESSIONWM_COOKIE
+        },
+        data : {
+            entrega   : entrega,
+            posicion  : posEnterga,
+            material  : material,
+            lote      : lote,
+            consestiba: pallet,
+            cantbuena : cantidadBuena,
+            cantrotura: CantidadRota,
+            UMBASE    : um,
+            usuario   : usuario,
+            bandera   : bandera,
+            IDX       : id,
+            POSOT     : posOt,
+            OT        : ot,
+        }
+
+        };   
+        
+    const response =   axios.request(config)
+    .then((response) => {
+        return response.data;
+    })
+    .catch((error) => {
+        return error;
+    });
+
+    return response;  
+}

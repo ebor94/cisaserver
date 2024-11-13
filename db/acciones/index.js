@@ -49,7 +49,7 @@ async function getPool() {
     }
   };
   export const Save_Action_Date = async (codDestinatario,codTipoDoc,docNo,fecha,accion,usuario,hora) => {
-    
+    console.log (codDestinatario,codTipoDoc,docNo,fecha,accion,usuario,hora)
     try {
       const pool = await getPool();
       const result = await pool.request()

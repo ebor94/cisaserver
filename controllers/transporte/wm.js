@@ -107,9 +107,9 @@ export const getZwmLt01 = async ({ubicacionOrigen,almacen,ubicacionDestino,centr
 }
 
 
-export const  registraPicking = async  ({entrega ,posicion ,material,lote,consestib,cantbuena,cantrotura,UMBASE ,usuario,bandera,IDX,POSOT,OT}) => {
+export const  registraPicking = async  ({entrega ,posicion ,material,lote,consestib,cantbuena,cantrotura,UMBASE ,usuario,bandera,IDX,POSOT,OT,TPLECTURA}) => {
   try {
-    let response = await RegistraPickingsService(entrega ,posicion ,material,lote,consestib,cantbuena,cantrotura,UMBASE ,usuario,bandera,IDX,POSOT,OT);
+    let response = await RegistraPickingsService(entrega ,posicion ,material,lote,consestib,cantbuena,cantrotura,UMBASE ,usuario,bandera,IDX,POSOT,OT,TPLECTURA);
     if (!response || response.length === 0) {
       return {
         success: false,           

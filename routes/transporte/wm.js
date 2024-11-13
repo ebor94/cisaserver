@@ -268,12 +268,12 @@ router.get('/transporte/alistamientoWm/:ubicacionOrigen/:almacen/:ubicacionDesti
   res.send(response);
 });
 
-/** 
+/**
  * @swagger
  * /transporte/Registraalistamiento:
  *   post:
- *     summary:  picking
- *     description: save data  picking for pallet 
+ *     summary: Registro de picking
+ *     description: Guarda datos de picking para pallet
  *     tags:
  *       - WM Alistamiento
  *     requestBody:
@@ -282,49 +282,52 @@ router.get('/transporte/alistamientoWm/:ubicacionOrigen/:almacen/:ubicacionDesti
  *         application/json:
  *           schema:
  *             type: object
+ *             required: [entrega, posicion, material, lote, consestib, cantbuena, cantrotura, UMBASE, usuario, bandera, IDX, POSOT, OT, TPLECTURA]
  *             properties:
  *               entrega:
  *                 type: string
- *                 example: 70336085
+ *                 example: "70336085"
  *               posicion:
  *                 type: string
- *                 example: 90
+ *                 example: "90"
  *               material:
  *                 type: string
- *                 example: 230021
+ *                 example: "230021"
  *               lote:
  *                 type: string
- *                 example: 0000015650
+ *                 example: "0000015650"
  *               consestib:
  *                 type: string
- *                 example: 1986064
+ *                 example: "1986064"
  *               cantbuena:
- *                 type: string
+ *                 type: number
+ *                 format: float
  *                 example: 55.890
  *               cantrotura:
- *                 type: string
+ *                 type: number
+ *                 format: float
  *                 example: 0
  *               UMBASE:
  *                 type: string
- *                 example: M2
+ *                 example: "M2"
  *               usuario:
  *                 type: string
- *                 example: 9464
+ *                 example: "9464"
  *               bandera:
  *                 type: string
- *                 example: 1
+ *                 example: "1"
  *               IDX:
  *                 type: string
- *                 example: 00035794
+ *                 example: "00035794"
  *               POSOT:
  *                 type: string
- *                 example: 7
+ *                 example: "7"
  *               OT:
  *                 type: string
- *                 example: 300953
- *              TPLECTURA:
+ *                 example: "300953"
+ *               TPLECTURA:
  *                 type: string
- *                 example: A 
+ *                 example: "A"
  *     responses:
  *       200:
  *         description: Respuesta exitosa
@@ -335,16 +338,39 @@ router.get('/transporte/alistamientoWm/:ubicacionOrigen/:almacen/:ubicacionDesti
  *               properties:
  *                 success:
  *                   type: boolean
- *                   description: validacion exitosa 
+ *                   description: Indica si la operación fue exitosa
  *                 message:
  *                   type: string
- *                   description: Mensaje de éxito
+ *                   description: Mensaje descriptivo del resultado
  *                 data:
- *                    type: array
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                   description: Array con los datos de respuesta
  *       400:
  *         description: Solicitud incorrecta (Bad Request)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
  *       401:
  *         description: Autenticación fallida (Unauthorized)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
  */
 router.post('/transporte/Registraalistamiento/', async(req, res)=>{
   const response = await registraPicking(req.body)

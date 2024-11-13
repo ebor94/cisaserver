@@ -231,7 +231,7 @@ export const zwmlt01 = (ubicacionOrigen,almacen,ubicacionDestino,centro,cantidad
 
 }
 
-export const RegistraPickingsService = (entrega, posEnterga, material, lote, pallet, cantidadBuena,CantidadRota, um, usuario, bandera, id,posOt, ot) =>{
+export const RegistraPickingsService = (entrega, posEnterga, material, lote, pallet, cantidadBuena,CantidadRota, um, usuario, bandera, id,posOt, ot,TPLECTURA) =>{
 
 
     let config = {
@@ -257,6 +257,7 @@ export const RegistraPickingsService = (entrega, posEnterga, material, lote, pal
             IDX       : id,
             POSOT     : posOt,
             OT        : ot,
+            TPLECTURA : TPLECTURA 
         }
 
         };   

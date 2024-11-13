@@ -322,6 +322,9 @@ router.get('/transporte/alistamientoWm/:ubicacionOrigen/:almacen/:ubicacionDesti
  *               OT:
  *                 type: string
  *                 example: 300953
+ *              TPLECTURA:
+ *                 type: string
+ *                 example: A 
  *     responses:
  *       200:
  *         description: Respuesta exitosa

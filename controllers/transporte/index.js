@@ -1,5 +1,5 @@
 
-import { actionsTextSave, Save_Action_Date,  Save_Action_Employee, Save_Action_List_every_Value, Save_Action_List_Value, Save_Action_Value } from '../../db/acciones/index.js'
+import { actionsTextSave, List_actions, Save_Action_Date,  Save_Action_Employee, Save_Action_List_every_Value, Save_Action_List_Value, Save_Action_Value } from '../../db/acciones/index.js'
 import { listaEntregaUsuario, RegistraVehiculo} from '../../db/transporte/index.js'
 import { DespTransportador_model, InfoTransportador_model, ValidarTransportador_model } from '../../db/transporte/index.js'
 import { InfoCliente_xEntrega_model } from '../../db/transporte/index.js'
@@ -442,4 +442,31 @@ export const Save_Actions_List_every_Value = async (data) => {
    
    }
    
+}
+
+export const GetListActions = async (data) => {
+  const {codDestinatario,codTipoDoc,ordNo, campoLibre4, campoLibre2} = data;
+  try {
+    const response =  await List_actions(codDestinatario,codTipoDoc,ordNo, campoLibre4, campoLibre2);
+    if (!response || response.length === 0) {
+      return {
+        success: false,
+        message: "fallido",
+        data: null
+      };
+    }
+
+    return {
+      success: true,
+      message: "exitoso",
+      data: response
+    };
+    
+  } catch (error) {
+    return {
+      success: false,
+      message: "Ocurrió un error al registrar",
+      error: error.message
+    };
+  }
 }

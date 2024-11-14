@@ -1,6 +1,7 @@
 import express from "express";
 import {
   actions_Text_Save,
+  GetListActions,
   listaEntregasUsuario,
   regVehiculo,
   Save_Actions_Date,
@@ -259,26 +260,78 @@ router.post(process.env.RUTA_ACTIONS_VALUE, async (req, res) => {
  *       401:
  *         description: Autenticación fallida (Unauthorized)
  */
-
-
-
 router.post(process.env.RUTA_ACTIONS_DATE, async (req, res) => {
   const response = await Save_Actions_Date(req.body);
   res.send(response);
 });
 router.post(process.env.RUTA_SAVE_ACTIONS_EMPLOYEE, async (req, res) => {
-  const response = await Save_Actions_Employee(req, res);
+  const response = await Save_Actions_Employee(req.body);
   res.send(response);
 });
 router.post(process.env.RUTA_SAVE_ACTIONS_LIST_VALUE, async (req, res) => {
-  const response = await Save_Actions_List_Value(req, res);
+  const response = await Save_Actions_List_Value(req.body);
   res.send(response);
 });
 router.post(process.env.RUTA_ACTIONS_LIST_EVERY_VALUE, async (req, res) => {
-  const response = await Save_Actions_List_every_Value(req, res);
+  const response = await Save_Actions_List_every_Value(req.body);
   res.send(response);
 });
 
+/**
+ * @swagger
+ * /transporte/listaAcciones/:
+ *   post:
+ *     summary: Lista las acciones
+ *     description: Lista las acciones segun los filtros
+ *     tags:
+ *       - Gestion Acciones
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               codDestinatario:
+ *                 type: string
+ *                 example: A1
+ *               codTipoDoc:
+ *                 type: string
+ *                 example: EN
+ *               ordNo:
+ *                 type: string
+ *                 example: 60618721
+ *               campoLibre4:
+ *                 type: string
+ *                 example: null
+ *               campoLibre2:
+ *                 type: string
+ *                 example: null
+ *     responses:
+ *       200:
+ *         description: Respuesta exitosa
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: validacion exitosa 
+ *                 message:
+ *                   type: string
+ *                   description: Mensaje de éxito
+ *                 data:
+ *                    type: array
+ *       400:
+ *         description: Solicitud incorrecta (Bad Request)
+ *       401:
+ *         description: Autenticación fallida (Unauthorized)
+ */
+router.post('/transporte/listaAcciones/', async (req, res) => {
+  const response = await GetListActions(req.body);
+  res.send(response);
+});
 
 
 export default router;

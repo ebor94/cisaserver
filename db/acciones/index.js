@@ -128,6 +128,25 @@ async function getPool() {
     }
   };
 
+  export const List_actions = async (codDestinatario,codTipoDoc,ordNo, campoLibre4, campoLibre2) =>{
+    try {
+      const pool = await getPool();
+      const result = await pool.request()
+      .input('coddestinatario', sql.VarChar, codDestinatario)
+      .input('cod_tipo_doc', sql.VarChar, codTipoDoc)
+      .input('ord_no', sql.VarChar, ordNo)
+      .input('campolibre4', sql.VarChar, campoLibre4)
+      .input('campolibre2', sql.VarChar, campoLibre2)
+      .execute('lista_acciones');
+      return result.recordset;
+      
+    } catch (err) {
+      console.error('Error en List_actions', err);
+      throw err;
+    }
+
+  }
+
 
 
 

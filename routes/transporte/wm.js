@@ -26,11 +26,80 @@ router.post(process.env.RUTA_LT22,async(req, res )=>{
   res.send(response);
 });
 
-router.post(process.env.RUTA_CONFIRM_OT ,async(req, res )=>{
- 
+/**
+ * @swagger
+ * /transporte/apruebaOt/:
+ *   post:
+ *     summary: Confirmacion Orden de transporte
+ *     description: Confirmacion Orden de transporte
+ *     tags:
+ *       - WM Alistamiento
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [entrega, ot, posicion]
+ *             properties:
+ *               entrega:
+ *                 type: string
+ *                 example: "60621697"
+ *               ot:
+ *                 type: string
+ *                 example: "302407"
+ *               posicion:
+ *                 type: string
+ *                 example: ""
+ *     responses:
+ *       200:
+ *         description: Respuesta exitosa
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Indica si la operación fue exitosa
+ *                 message:
+ *                   type: string
+ *                   description: Mensaje descriptivo del resultado
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                   description: Array con los datos de respuesta
+ *       400:
+ *         description: Solicitud incorrecta (Bad Request)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *       401:
+ *         description: Autenticación fallida (Unauthorized)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ */
+router.post('/transporte/apruebaOt/' ,async(req, res )=>{ 
   const  response  = await Confirm_Ot(req.body);
   res.send(response);
 });
+
 /**
  * @swagger
  *
@@ -376,20 +445,4 @@ router.post('/transporte/Registraalistamiento/', async(req, res)=>{
   const response = await registraPicking(req.body)
   res.send(response);
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export default router

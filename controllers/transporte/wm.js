@@ -85,17 +85,25 @@ export const getZwmLt01 = async ({ubicacionOrigen,almacen,ubicacionDestino,centr
       let response =  await zwmlt01(ubicacionOrigen,almacen,ubicacionDestino,centro,cantidad,material,lote,pallet,bandera,loteDestino,usuario)
       
        if(bandera == '6'){
-        response = await Promise.all(
-        response.datos
-          .filter(item => item.matnr > 1)
-          .map(async (item) => {
-            const [nameData] = await GetName(item.matnr, 'S')
-            return {
-              ...item,
-              name: nameData.eMaktx
-            }
-          })
-      )
+        const updatedResponse = {
+          mensaje: response.mensaje,
+          ots: response.ots,
+          totalubica: response.totalubica,
+          disponibleubica: response.disponibleubica,
+          datos: await Promise.all(
+            response.datos
+              .filter(item => item.matnr > 1)
+              .map(async (item) => {
+                const [nameData] = await GetName(item.matnr, 'S')
+                return {
+                  ...item,
+                  name: nameData.eMaktx
+                }
+              })
+          )
+        }
+        
+        response = updatedResponse
     }
      
      if (!response || response.length === 0) {

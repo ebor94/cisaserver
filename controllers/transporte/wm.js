@@ -1,3 +1,4 @@
+import { GetName } from '../../services/sap/product.js';
 import {AlistamientoAcumulado, GetEnteragaDetails, loginWm, RegistraPickingsService, Wm_confirm_ot, wm_Kpi_Alistamiento, wmGetOtOrder, wmLt22, zwmlt01} from '../../services/sap/wm.js'
 
 
@@ -82,8 +83,21 @@ export const getZwmLt01 = async ({ubicacionOrigen,almacen,ubicacionDestino,centr
 
     try {
       let response =  await zwmlt01(ubicacionOrigen,almacen,ubicacionDestino,centro,cantidad,material,lote,pallet,bandera,loteDestino,usuario)
-  
-    
+      
+       if(bandera == '6'){
+        response = await Promise.all(
+        response.datos
+          .filter(item => item.matnr > 1)
+          .map(async (item) => {
+            const [nameData] = await GetName(item.matnr, 'S')
+            return {
+              ...item,
+              name: nameData.eMaktx
+            }
+          })
+      )
+    }
+     
      if (!response || response.length === 0) {
        return {
          success: false,           

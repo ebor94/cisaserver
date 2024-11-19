@@ -84,7 +84,7 @@ export const getZwmLt01 = async ({ubicacionOrigen,almacen,ubicacionDestino,centr
     try {
       let response =  await zwmlt01(ubicacionOrigen,almacen,ubicacionDestino,centro,cantidad,material,lote,pallet,bandera,loteDestino,usuario)
       
-       if(bandera == '6'){
+       if(bandera == '6' || bandera == '10'){
         const updatedResponse = {
           mensaje: response.mensaje,
           ots: response.ots,

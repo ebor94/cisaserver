@@ -102,16 +102,16 @@ export const listaEntregasUsuario = async(data) =>{
          acc[item.Despacho_no] = {
              Despacho_no: item.Despacho_no,
              ordenes: [],
-             Fecha_Requerida: item.Fecha_Requerida
-            
+             Fecha_Requerida: item.Fecha_Requerida,
+             despachoVerificado : item.despachoverificado  
              
 
          };
-     }
+     } 
      
      // Agregamos el ord_no al array de ordenes
      acc[item.Despacho_no].ordenes.push({entrega : item.ord_no, accion : item.Accion , placa: item.placa,
-      cte : item.cus_name});
+      cte : item.cus_name, estadoEntrega : item.EntregaVerificada });
      
      return acc;
 

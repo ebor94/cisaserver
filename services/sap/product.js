@@ -1,7 +1,7 @@
 import  axios from 'axios';
 import dotenv from 'dotenv'
 dotenv.config()
-
+const sapDomain = "https://itaprd.ceramicaitalia.com:44301/sap/bc/rest/"
 export const  GetName  =  (Codsap,Lang )=>{
    console.log(Codsap,Lang )
     let data = JSON.stringify({
@@ -100,5 +100,31 @@ export const SamplePortfolio = (bp) => {
 
   return response;
 
+
+}
+
+export const infoPallet = (pallet,lote,material) => {
+
+  let config = {
+    method: 'get',
+    maxBodyLength: Infinity,
+    url: `${sapDomain}zgetinfopallet?sap-client=310&pallet=${pallet}&lote=${lote}&material=${material}`,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': process.env.GETNAME_AUTORIZATION,
+      'Cookie': process.env.GETNAME_COOKIE
+    },
+  
+  };
+  const response = axios.request(config)
+    .then((response) => {
+      //console.log(response.data)
+      return response.data;
+    })
+    .catch((error) => {
+      return JSON.stringify(error);
+    });
+
+  return response;
 
 }

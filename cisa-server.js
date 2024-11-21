@@ -76,6 +76,7 @@ import Save_Actions_Employee from "./routes/transporte/index.js";
 import Save_Actions_List_Value from "./routes/transporte/index.js";
 import Save_Actions_List_every_Value from "./routes/transporte/index.js";
 import GetAlistamientoAcumulado from "./routes/transporte/wm.js";
+import getInfoPallet from "./routes/producto/product.js"
 
 const app = Express();
 const port = process.env.PORT;
@@ -167,6 +168,7 @@ app.get('/transporte/alistamientoAcumulado/:entrega/:posot/:ot',GetAlistamientoA
 app.get('/transporte/alistamientoWm/:ubicacionOrigen/:almacen/:ubicacionDestino/:centro/:cantidad/:material/:lote/:pallet/:bandera/:loteDestino/:usuario',getZwmLt01)
 app.post('/transporte/Registraalistamiento/',registraPicking)
 app.post('/transporte/listaAcciones/',GetListActions)
+app.get('/producto/infopallet/:pallet/:lote/:material',getInfoPallet)
 
 //appDespacho
 app.get(process.env.RUTA_GET_DESPACHO_XCC, getDespTransportador);

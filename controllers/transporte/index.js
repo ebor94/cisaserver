@@ -263,6 +263,7 @@ export const putActualizar_EstadoEntrega =  async(data)=>{
 
 
 export const actions_Text_Save  = async (data) => {
+  
    const {codDestinatario,codTipoDoc,docNo,texto,accion,usuario} = data
     try {
       const response = await  actionsTextSave(codDestinatario,codTipoDoc,docNo,texto,accion,usuario);

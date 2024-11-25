@@ -20,7 +20,7 @@ async function getPool() {
         .input('accion', sql.VarChar, accion)
         .input('usuario', sql.VarChar, usuario)
         .execute('Grabar_Accion_TEXTO');
-      
+   
       return result.recordset;
     } catch (err) {
       console.error('Error en getEmpleadoDb:', err);

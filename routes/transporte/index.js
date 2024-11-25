@@ -192,14 +192,67 @@ router.put(process.env.RUTA_PUT_ACTUALIZAR_ENTREGA, async (req, res) => {
   const response = await putActualizar_EstadoEntrega(req.body);
   res.send(response);
 });
-
+/**
+ * @swagger
+ * /transporte/grabarAccionTexto:
+ *   post:
+ *     summary: Accion Graba Fecha y Hora
+ *     description: graba los datos de texto en las acciones segun sea el caso (eje. novedades de la entrega)
+ *     tags:
+ *       - Gestion Acciones
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               codDestinatario:
+ *                 type: string
+ *                 example: A1
+ *               codTipoDoc:
+ *                 type: string
+ *                 example: EN
+ *               docNo:
+ *                 type: string
+ *                 example: 60618721
+ *               texto:
+ *                 type: string
+ *                 example: prueba de novedad de una entrega
+ *               accion:
+ *                 type: string
+ *                 example: "00160"
+ *               usuario:
+ *                 type: string
+ *                 example: 9979
+ *     responses:
+ *       200:
+ *         description: Respuesta exitosa
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: validacion exitosa 
+ *                 message:
+ *                   type: string
+ *                   description: Mensaje de éxito
+ *                 data:
+ *                    type: array
+ *       400:
+ *         description: Solicitud incorrecta (Bad Request)
+ *       401:
+ *         description: Autenticación fallida (Unauthorized)
+ */
 router.post(process.env.RUTA_ACTIONS_TEXT_SAVE, async (req, res) => {
-  const response = await actions_Text_Save(req, res);
+  const response = await actions_Text_Save(req.body);
   res.send(response);
 });
 
 router.post(process.env.RUTA_ACTIONS_VALUE, async (req, res) => {
-  const response = await Save_Actions_Value(req, res);
+  const response = await Save_Actions_Value(req.body);
   res.send(response);
 });
 

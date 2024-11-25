@@ -196,7 +196,7 @@ router.put(process.env.RUTA_PUT_ACTUALIZAR_ENTREGA, async (req, res) => {
  * @swagger
  * /transporte/grabarAccionTexto:
  *   post:
- *     summary: Accion Graba Fecha y Hora
+ *     summary: Accion Grabar tipo texto 
  *     description: graba los datos de texto en las acciones segun sea el caso (eje. novedades de la entrega)
  *     tags:
  *       - Gestion Acciones

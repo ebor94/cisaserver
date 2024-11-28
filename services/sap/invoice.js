@@ -2,6 +2,8 @@ import axios from 'axios';
 import dotenv from 'dotenv'
 dotenv.config()
 
+const domain = 'https://itaprd.ceramicaitalia.com:44301/sap/bc/rest/';
+
 
 export const GetInvoice = (LCODIGO, LTIPO, TPROCESO, PCODSOLICITANTE, PHANDLE, FECHAINI, FECHAFIN) => {
 
@@ -282,3 +284,28 @@ export const GetCentroCiudad = (data) => {
   return response;
 }
 
+export const contabilizarEntrega = (entrega, bandera)=>{
+  
+
+  let config = {
+    method: 'get',
+    maxBodyLength: Infinity,
+    url: `${domain}zcontab_entrega?sap-client=310&entrega=${entrega}&bandera=${bandera}`,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': process.env.GETINVOICE_AUTORIZATION,
+      'Cookie': process.env.GETINVOICE_COOKIE
+    },
+  };
+
+  const response = axios.request(config)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return JSON.stringify(error);
+    });
+
+
+  return response 
+}

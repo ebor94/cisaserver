@@ -52,6 +52,7 @@ import GetRoturaController from "./routes/producto/product.js";
 import RecordPlateObservation from "./routes/corporativo/porteria.js";
 import registraPicking from "./routes/transporte/wm.js";
 import GetListActions from "./routes/transporte/index.js"
+import ContabilizarEntrega from "./routes/transporte/index.js"
 //---------------------------------------------------------------
 //App Despacho
 import getDespTransportador from "./routes/transporte/index.js";
@@ -169,6 +170,7 @@ app.get('/transporte/alistamientoWm/:ubicacionOrigen/:almacen/:ubicacionDestino/
 app.post('/transporte/Registraalistamiento/',registraPicking)
 app.post('/transporte/listaAcciones/',GetListActions)
 app.get('/producto/infopallet/:pallet/:lote/:material',getInfoPallet)
+app.get('/transporte/contab-entrega/:entrega/:bandera/',ContabilizarEntrega)
 
 //appDespacho
 app.get(process.env.RUTA_GET_DESPACHO_XCC, getDespTransportador);

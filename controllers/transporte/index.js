@@ -15,6 +15,7 @@ import { DetalleNovedad_xCodNovedad_model } from '../../db/transporte/index.js'
 
 import { Consultar_fechaServer_model } from '../../db/transporte/index.js'
 import { Actualizar_EstadoEntrega_model } from '../../db/transporte/index.js'
+import { contabilizarEntrega } from '../../services/sap/invoice.js'
 
 
 
@@ -470,4 +471,29 @@ export const GetListActions = async (data) => {
       error: error.message
     };
   }
+}
+export const  ContabilizarEntrega = async ({entrega, bandera}) => {
+  try {
+
+      let response = await contabilizarEntrega(entrega,bandera)
+      
+      if (!response || response.length === 0) {
+          return {
+            success: false,           
+            data: null
+          };
+        }
+    
+        return {
+          success: true,        
+          data: response
+        };
+   
+      } catch (error) {
+         return {
+          success: false,         
+          error: error.message
+        };
+      
+      }
 }

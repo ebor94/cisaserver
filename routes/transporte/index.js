@@ -1,6 +1,7 @@
 import express from "express";
 import {
   actions_Text_Save,
+  ContabilizarEntrega,
   GetListActions,
   listaEntregasUsuario,
   regVehiculo,
@@ -383,6 +384,64 @@ router.post(process.env.RUTA_ACTIONS_LIST_EVERY_VALUE, async (req, res) => {
  */
 router.post('/transporte/listaAcciones/', async (req, res) => {
   const response = await GetListActions(req.body);
+  res.send(response);
+});
+
+/**
+ * @swagger
+ *
+ * /transporte/contab-entrega/{entrega}/{bandera}:
+ *   get:
+ *     summary: This API assess order
+ *     tags:
+ *       - WM Alistamiento
+ *     parameters:
+ *       - in: path
+ *         name: entrega    # Se agregó el campo name que es requerido
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: delivery number
+ *         example: "70335960"  # Cambiado value por example
+  *       - in: path
+ *         name: bandera    # Se agregó el campo name que es requerido
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: flag for validate picking send X
+ *         example: "x"  # Cambiado value por example
+ *     responses:
+ *       200:
+ *         description: Data employed
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: array
+ *                   items:     # Se agregó la definición de items para el array
+ *                     type: object
+ *                     properties:  # Aquí puedes definir las propiedades de los objetos en el array
+ *                       # ejemplo:
+ *                       # id:
+ *                       #   type: string
+ *                       # status:
+ *                       #   type: string
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Delivery not found
+ *       500:
+ *         description: Internal server error
+ */
+router.get('/transporte/contab-entrega/:entrega/:bandera/', async (req, res) => {
+  const { entrega , bandera} = req.params;
+  const response = await ContabilizarEntrega(entrega , bandera);
   res.send(response);
 });
 

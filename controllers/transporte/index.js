@@ -472,7 +472,7 @@ export const GetListActions = async (data) => {
     };
   }
 }
-export const  ContabilizarEntrega = async ({entrega, bandera}) => {
+export const  ContabilizarEntrega = async (entrega, bandera) => {
   try {
 
       let response = await contabilizarEntrega(entrega,bandera)

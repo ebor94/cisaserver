@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "ft-ceramia",
+  "private_key_id": "897a520b7b5adad5c27ce06b288e46af11a9df93",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDT1Xs8e2GcFnZ1\n5YY9pRnZXLtbM/PonrtcEvGV35wbdE78BIyU2XEpQu1DD+ocl6WFnom3DOqMalKn\nql+1pTdVdNP+MoJ4V+cdkVNSCV2uOhBlmN9Xtb3/byJp0DCxeVpUkHH/nh9+F6Yq\nMjgpLkL6c1XXu8sABTHNpJ4pJUcj6ZOlThk90MJJ4UhoevcOLf4BEczXOCaPrPiZ\nrZQGcjYnprdWcvwvPjw90SMeNtf08hI7YxddXYJ4t6ytURfJwmck9SNN3pLsVBR1\neKLW8HJXYXferGnqtZpkw4Hxr/8gcuHruLq2ilD9FFfSDoivfxPXPTd+g8wzctyV\nKwwLWsPFAgMBAAECggEAFjxUM4jS+easuBrn8KwWLsgKXZwyN+KDkbpmVABVG1el\n29PhatV5SKa/D3lJ7obnh8NYutd2/lbBxto+Miu9x3FcOFRWeCnn92VUDOoxRHLR\nWkzF8ue/oiKpBtjk55gwqGxCHx4auapjVY4QcZgqzS3SnrLWb/HbpLWpKXIBie4P\nh0bMOoixywlNZ18zaICI+tNAUIe/L5sLsyLUXUr4J1YV2+/YRxwEgZOEJGCiMPJs\nteVLE6bYbq2IeuRvfyPJB0X7x8bK4EmtrDdts5Hf/1H3Xx6WSaGo18nOnebEWA/N\n0cwxYnuRQxxMHW7l7h8HOIo/8eLZ6/+j4G99sU5i+QKBgQD3unIgD0R01b9KiIK+\nZmjxDRb9Hwx6cemMCQOGUATiWtPuSEjPI1qPu+ogiy56TAF3tZn/+Z/Vc8LWQnRr\nU02ulBj5g5jeLNhl98OFwARAOXk/3scn+5HI1waE73agAfxuaWt0kZupPYnMhsQx\neLXlHmOcQA6WxAR0FpkL7/owPQKBgQDa6DbbhQ2pocC33FskgY3AkYqzcgVosO7/\ntZHMu8hczbxKu9dZgkEJsgvcnIMHIGZU3aorB/A+5RWd3X3ZT7JxPojI4tu53KDj\nGvelFfiJ7t7q5k24CoytbkTNT9/FcYk4cDTWLmxmPv6mlN65h+5fs50Dqz12AYwX\nKWv5EAPSKQKBgApadXiXisHjSQphaC1y9EHWzTYo/QmFB0C+A7KyV3HqX98ekERv\n8tH9BYz0pC2iTZFmOphzI1X1b5gq0NjHc4CvWdfbwyDN+QFR+I73dnYEsOeVdPdb\n0Tz2l6QoqemIC7fFmiMWDs5k7wRoQXzb0aZQvdMC7lkouhLr+tt/3RH1AoGAArqc\nXHY3KmMy1NfxZu4ah0kJMp18RcbW4+cujx/UKpwB+eiHkb0W9Hj8vt5Qn9kejXZJ\n9clejFosv9AQDpJ4xgKij+aMGLAQbWRbq/ovJAEPVFxUobO39z2FrA2P25VDwalc\nb0Ma5NdqM0dt02BHb3f8wBv1YzA3v94rU2qIsakCgYAROOXSqbl1HPAqVVqVxQCb\nwvF+ZZWETBM6Zo1CjnxAnZsc2UipkYf2i+IFgH208RClwDJfcee3xB4ahiVVDURH\nIZWmQitNKRjNPrkXCjXLx0FbXwUd0mo4bcflPuyk3kavZcG3SKHo64teN/ZtCEeS\nwZwhdBVY3WJkvFFlukTaJw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "ft-cermia@ft-ceramia.iam.gserviceaccount.com",
+  "client_id": "102804324080891246166",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ft-cermia%40ft-ceramia.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

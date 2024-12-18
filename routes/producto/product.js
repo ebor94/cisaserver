@@ -25,7 +25,7 @@ router.post(process.env.RUTA_PRODUCT_SAMPLE, (req, res) => {
 /**
  * @swagger
  *
- * /producto/rotura/{centro}/{mov1}/{mov2}/{fechaini}/{fechafin}:
+ * /producto/rotura/{centro}/{mov1}/{mov2}/{fechaini}/{fechafin}/{bandera}:
  *   get:
  *     summary: Get indicator product break only warehouse and type transaction between date's
  *     tags:

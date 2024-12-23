@@ -272,3 +272,30 @@ export const RegistraPickingsService = (entrega, posEnterga, material, lote, pal
 
     return response;  
 }
+
+
+export const GetWeightDelivery = (entrega) =>{  
+   
+    let config = {
+        
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `${sapDomain}zmm_peso_entreg?sap-client=310&entrega=${entrega}`,
+        headers: { 
+            'Content-Type': 'application/json', 
+            'Authorization': process.env.SESSIONWM_AUTORIZATION , 
+            'Cookie': process.env.SESSIONWM_COOKIE
+        },
+      };
+      
+      const response =   axios.request(config)
+      .then((response) => {
+          return response.data;
+      })
+      .catch((error) => {
+          return JSON.stringify(error);
+      });
+  
+      return response; 
+
+}

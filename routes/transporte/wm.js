@@ -1,5 +1,5 @@
 import  express  from "express";
-import {Kpi_Alistamiento, listOtwithOrder, SessionWm, listLt22, Confirm_Ot, GetEntregaDetailWm, GetAlistamientoAcumulado, getZwmLt01, registraPicking} from '../../controllers/transporte/wm.js'
+import {Kpi_Alistamiento, listOtwithOrder, SessionWm, listLt22, Confirm_Ot, GetEntregaDetailWm, GetAlistamientoAcumulado, getZwmLt01, registraPicking, WeightDelivery} from '../../controllers/transporte/wm.js'
 import dotenv from 'dotenv'
 dotenv.config()
 const router = express.Router();
@@ -213,10 +213,8 @@ router.get('/transporte/detalleEntrega/:entrega' ,async(req, res )=>{
  *         description: Internal server error
  */
 
-router.get('/transporte/alistamientoAcumulado/:entrega/:posot/:ot' ,async(req, res )=>{
- 
-  const  {entrega, posot, ot } = req.params;
-  
+router.get('/transporte/alistamientoAcumulado/:entrega/:posot/:ot' ,async(req, res )=>{ 
+  const  {entrega, posot, ot } = req.params;  
   const  response  = await GetAlistamientoAcumulado(entrega, posot, ot);
   res.send(response);
 });
@@ -445,4 +443,54 @@ router.post('/transporte/Registraalistamiento/', async(req, res)=>{
   const response = await registraPicking(req.body)
   res.send(response);
 })
+/**
+ * @swagger
+ *
+ * /transporte/pesoentrega/{entrega}/:
+ *   get:
+ *     summary: This API obtains weight of delivery 
+ *     tags:
+ *       - WM Alistamiento
+ *     parameters:
+ *       - in: path
+ *         name: entrega    # Se agregó el campo name que es requerido
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: delivery number
+ *         example: "60629596" 
+  *     responses:
+ *       200:
+ *         description: acumulate
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: array
+ *                   items:     # Se agregó la definición de items para el array
+ *                     type: object
+ *                     properties:  # Aquí puedes definir las propiedades de los objetos en el array
+ *                       # ejemplo:
+ *                       # id:
+ *                       #   type: string
+ *                       # status:
+ *                       #   type: string
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Delivery not found
+ *       500:
+ *         description: Internal server error
+ */
+router.get('/transporte/pesoentrega/:entrega',async(req, res )=>{
+  const  {entrega } = req.params;
+  const response  = await WeightDelivery(entrega);
+  res.send(response);
+});
 export default router

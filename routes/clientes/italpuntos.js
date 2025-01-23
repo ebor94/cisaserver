@@ -1,7 +1,10 @@
-import { getCuponList, getCuponList } from "../../controllers/clientes/italpuntos"
+import { getCuponList } from "../../controllers/clientes/italpuntos.js";
+import express  from "express";
+const router = express.Router();
+
 /**
  * @swagger
- * /italpuntos/CuponList/:
+ * /clientes/italpuntos/CuponList/:
  *   post:
  *     summary: lista de cupones de italpuntos
  *     description: obtiene la lista de cupones de italpuntos atraves de la api de apprecio

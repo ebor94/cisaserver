@@ -1,4 +1,4 @@
-import { cuponList } from "../../services/appPrecio"
+import { cuponList } from "../../services/appPrecio/index.js"
 
 
 export const  getCuponList = async  () => {

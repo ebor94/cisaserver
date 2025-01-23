@@ -27,7 +27,7 @@ import { getCuponList, getCuponList } from "../../controllers/clientes/italpunto
  *                     type: object
  *                   description: Array con los datos de respuesta
  */
-router.post('italpuntos/CuponList' , async(req,res)=>{    
+router.post('/clientes/italpuntos/CuponList/' , async(req,res)=>{    
    let response  = await  getCuponList();
    res.send(response); 
 });

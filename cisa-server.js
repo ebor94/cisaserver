@@ -79,6 +79,7 @@ import Save_Actions_List_Value from "./routes/transporte/index.js";
 import Save_Actions_List_every_Value from "./routes/transporte/index.js";
 import GetAlistamientoAcumulado from "./routes/transporte/wm.js";
 import getInfoPallet from "./routes/producto/product.js"
+import getCuponList from "./routes/clientes/italpuntos.js"
 
 const app = Express();
 const port = process.env.PORT;
@@ -173,6 +174,7 @@ app.post('/transporte/listaAcciones/',GetListActions)
 app.get('/producto/infopallet/:pallet/:lote/:material',getInfoPallet)
 app.get('/transporte/contab-entrega/:entrega/:bandera/',ContabilizarEntrega)
 app.get('/transporte/pesoentrega/:entrega',WeightDelivery)
+app.post('/clientes/italpuntos/CuponList/',getCuponList)
 
 //appDespacho
 app.get(process.env.RUTA_GET_DESPACHO_XCC, getDespTransportador);

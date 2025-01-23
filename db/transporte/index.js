@@ -112,7 +112,7 @@ export const listaEntregaUsuario = async(user)=>{
       .execute('IndicadorDespachoFechaActual')        
       return result.recordset;
     } catch (err) {
-      console.error('Error en listaEntregaUsuario:', err);
+      console.error('Error en IndicadorDespacho:', err);
       throw err;
     }finally{
       await poolx.close();
@@ -120,10 +120,6 @@ export const listaEntregaUsuario = async(user)=>{
       }
     
 }
-
-
-
-
 
  // Función para cerrar la conexión cuando la aplicación se cierre
 export const closePool = async () => {

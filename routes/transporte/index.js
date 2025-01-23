@@ -2,6 +2,7 @@ import express from "express";
 import {
   actions_Text_Save,
   ContabilizarEntrega,
+  GetIndicadorDespacho,
   GetListActions,
   listaEntregasUsuario,
   regVehiculo,
@@ -445,5 +446,47 @@ router.get('/transporte/contab-entrega/:entrega/:bandera/', async (req, res) => 
   res.send(response);
 });
 
+/**
+ * @swagger
+ * /transporte/indicadorDespacho/{ptoExp}:
+ *   get:
+ *     summary: extreae el indicador de despacho
+ *     description: extrae el indicador de despacho segun el puesto de expedicion
+ *     tags:
+ *       - Gestion Acciones
+  *     parameters:
+ *       - in: path
+ *         name: ptoExp    # Se agregó el campo name que es requerido
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: puesto de expedicion
+ *         example: "1100"  # Cambiado value por example
+ *     responses:
+ *       200:
+ *         description: Respuesta exitosa
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: validacion exitosa 
+ *                 message:
+ *                   type: string
+ *                   description: Mensaje de éxito
+ *                 data:
+ *                    type: array
+ *       400:
+ *         description: Solicitud incorrecta (Bad Request)
+ *       401:
+ *         description: Autenticación fallida (Unauthorized)
+ */
+router.get('/transporte/indicadorDespacho/:ptoExp/', async (req, res) => {
+  const { ptoExp } = req.params;
+  const response = await GetIndicadorDespacho(ptoExp);
+  res.send(response);
+});
 
 export default router;

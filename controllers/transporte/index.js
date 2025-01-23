@@ -498,9 +498,9 @@ export const  ContabilizarEntrega = async (entrega, bandera) => {
       }
 }
 
-export const  GetIndicadorDespacho = async (data) => {
+export const  GetIndicadorDespacho = async (ptoExp) => {
   try {
-      let {ptoExp} = data;
+     
       let response = await IndicadorDespacho(ptoExp)
       
       if (!response || response.length === 0) {

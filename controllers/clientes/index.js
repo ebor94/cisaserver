@@ -1,11 +1,8 @@
-import { cuponList } from "../../services/appPrecio/index.js"
 
-
-
-
-export const  getCuponList = async  () => {
+import { Cliente } from "../../services/sap/clientes.js";
+export const GetCliente = async (cc)=>{
     try {
-        const response = await cuponList();
+        const response = await Cliente.getinfo(cc);
         if (!response || response.length === 0) {
             return {
               success: false,           
@@ -24,4 +21,3 @@ export const  getCuponList = async  () => {
 
     }
 }
-

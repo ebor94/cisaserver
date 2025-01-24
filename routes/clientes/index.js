@@ -1,5 +1,6 @@
 import express  from "express";
-import { Cliente } from "../../services/sap/clientes";
+import { GetCliente } from "../../controllers/clientes/index.js";
+
 const router = express.Router();
 
 
@@ -43,6 +44,8 @@ const router = express.Router();
  *                   description: Array con los datos de respuesta
  */
 router.post('/clientes/getcliente/' , async(req,res)=>{    
-    let response  = await  Cliente.getinfo(req.body.cc);
+    let response  = await  GetCliente(req.body.cc);
     res.send(response); 
  });
+
+ export default router;

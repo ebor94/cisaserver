@@ -7,7 +7,7 @@ const domain = process.env.ITAPRD_DOMAIN_REST;
 ITAQAS_DOMAIN_REST */
 
 
-export const cliente = {
+export const Cliente = {
     async getinfo(cc){
 
         let data = JSON.stringify({

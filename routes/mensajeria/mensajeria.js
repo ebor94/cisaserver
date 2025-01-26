@@ -1,5 +1,5 @@
 import  express  from "express";
-import {sendMessage, sendMessageChatGoogle} from "../../controllers/mensajeria/mensajeria.js"
+import {sendMessage, sendMessageChatGoogle, SendSms} from "../../controllers/mensajeria/mensajeria.js"
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -22,6 +22,13 @@ router.post(process.env.RUTA_MENSAJERIA ,  (req,res) => {
      res.send(response);
    });
   });
+
+  router.post('/mensajeria/sms/', (req,res)=>{
+    const data = req.body;   
+    SendSms(data).then((response)=>{ 
+      res.send(response);
+    });
+   });
   
 
 

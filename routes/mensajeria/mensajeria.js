@@ -36,12 +36,12 @@ router.post(process.env.RUTA_MENSAJERIA ,  (req,res) => {
  *         application/json:
  *           schema:
  *             type: object
- *             required: [numero sms]
+ *             required: [phoneNumber message]
  *             properties:
- *               numero:
+ *               phoneNumber:
  *                 type: string
  *                 example: "3165217418"
- *               sms:
+ *               message:
  *                 type: string
  *                 example: "prueba sms"
  *     responses:

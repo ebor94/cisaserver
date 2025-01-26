@@ -22,13 +22,16 @@ export const Claro = {
           data : data
         };
         
-        axios.request(config)
-        .then((response) => {
-          return(JSON.stringify(response.data));
+       const response =  axios.request(config)
+        .then((response) => {  
+          const result = qs.parse(response.data);             
+          return(result);
         })
         .catch((error) => {
           return(error);
         });
+
+        return response;
         
     }
 }

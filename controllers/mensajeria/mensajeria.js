@@ -20,7 +20,7 @@ export const sendMessageChatGoogle = async ({message,param1,key ,token})=>{
 
 export const SendSms = async ({phoneNumber, message}) =>{
     try {
-        let response = await  Claro.sendSms(phoneNumber,message);
+        let response = await  Claro.sendSms(phoneNumber,message);       
         if (!response || response.length === 0) {
           return {
             success: false,           

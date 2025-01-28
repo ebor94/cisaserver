@@ -81,6 +81,7 @@ import Save_Actions_List_every_Value from "./routes/transporte/index.js";
 import GetAlistamientoAcumulado from "./routes/transporte/wm.js";
 import getInfoPallet from "./routes/producto/product.js"
 import getCuponList from "./routes/clientes/italpuntos.js"
+import getGiftCard from "./routes/clientes/italpuntos.js" 
 import GetIndicadorDespacho from "./routes/transporte/index.js"
 import GetCliente from "./routes/clientes/index.js"
 
@@ -181,6 +182,7 @@ app.get('/transporte/pesoentrega/:entrega',WeightDelivery)
 app.post('/clientes/italpuntos/CuponList/',getCuponList)
 app.get('/transporte/indicadorDespacho/:ptoExp/',GetIndicadorDespacho)
 app.post('/clientes/getcliente/',GetCliente)
+app.post('/clientes/italpuntos/getGiftCard/',getGiftCard)
 
 //appDespacho
 app.get(process.env.RUTA_GET_DESPACHO_XCC, getDespTransportador);

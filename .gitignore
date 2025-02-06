@@ -2,12 +2,9 @@
 node_modules
 .vscode
 key
-<<<<<<<<< Temporary merge branch 1
-=========
 Gpc
 
 # Expo
 .expo/
 dist/
 web-build/
->>>>>>>>> Temporary merge branch 2

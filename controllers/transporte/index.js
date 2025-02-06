@@ -3,6 +3,7 @@ import { actionsTextSave, List_actions, Save_Action_Date,  Save_Action_Employee,
 import { IndicadorDespacho, listaEntregaUsuario, RegistraVehiculo} from '../../db/transporte/index.js'
 import { DespTransportador_model, InfoTransportador_model, ValidarTransportador_model } from '../../db/transporte/index.js'
 import { InfoCliente_xEntrega_model } from '../../db/transporte/index.js'
+import { InfoTransportador_xEntrega_model } from '../../db/transporte/index.js'
 import { Consultar_documentoEntrega_model } from '../../db/transporte/index.js'
 import { Grabar_documentoEntrega_model } from '../../db/transporte/index.js'
 import { Lista_TiposNovedadDespacho_model } from '../../db/transporte/index.js'
@@ -167,6 +168,14 @@ export const getInfoCliente_xEntrega =  async(entrega)=>{
    const infoCliente= await InfoCliente_xEntrega_model(num_entrega)
    //res.json(infoDespTransportador); //este no usar
    return infoCliente;
+}   
+
+export const getInfoTransportador_xEntrega =  async(entrega)=>{
+  const num_entrega = entrega;
+  
+  const infoTrans= await InfoTransportador_xEntrega_model(num_entrega)
+  //res.json(infoDespTransportador); //este no usar
+  return infoTrans;
 }   
 
 //bd app_despacho

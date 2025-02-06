@@ -244,6 +244,31 @@ export const InfoCliente_xEntrega_model = async(entrega)=>{
      return infoClinte;
 }   
 
+/**
+ * Consultar Transportador por numero de entrega
+ * @param - entrega: numero de entrega
+ */
+export const InfoTransportador_xEntrega_model = async(entrega)=>{
+  //console.log('en modelo', cc)
+  
+  const infoTrans =  sql.connect(configVselect).then(pool => {
+      return pool.request()
+      .input('TIPO', sql.VarChar, 'TRANSPORTADOR_X_ENTREGA')
+      .input('VALOR', sql.VarChar, entrega)
+      .execute('ConsultasTransportador')
+    }) .then(result => {
+      // console.log(result)
+      let response = result.recordset
+      sql.close()   
+      return response
+   }).catch(err => {
+       //console.log(err)
+       return err
+   })
+   return infoTrans;
+}  
+
+
 
 /**
  * Consultar los documentos (foto) que se han subido a la bd, consulta por numero de entrega

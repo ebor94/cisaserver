@@ -16,7 +16,7 @@ import {
 import { getLista_NovedadDespacho_xDespacho , getLista_NovedadDespachoDetalle_xDespacho , getDetalleNovedad_xCodNovedad,
          postGrabar_LocalizacionDespacho , postGrabar_NovedadDespacho,  postGrabar_ImagenNovedadDespacho, getConsultar_fechaServer,
           putActualizar_EstadoEntrega, getDespTransportador, getInfoTransportador , getLista_TiposNovedadDespacho ,getValidarTransportador
-          ,getInfoCliente_xEntrega, getConsultar_documentoEntrega, postGrabar_documentoEntrega} from "../../controllers/transporte/index.js";
+          ,getInfoCliente_xEntrega,getInfoTransportador_xEntrega, getConsultar_documentoEntrega, postGrabar_documentoEntrega} from "../../controllers/transporte/index.js";
 
 
 import dotenv from "dotenv";
@@ -57,6 +57,14 @@ router.get(process.env.RUTA_GET_CLIENTE_XENTREGA, async (req, res) => {
   const response = await getInfoCliente_xEntrega(entrega);
   res.send(response);
 });
+
+router.get(process.env.RUTA_GET_TRANSPORTADOR_XENTREGA, async (req, res) => {
+  const { entrega } = req.params;
+  console.log('pasando por routes',entrega)
+  const response = await getInfoTransportador_xEntrega(entrega);
+  res.send(response);
+});
+
 
 router.get(process.env.RUTA_GET_DOCUMENTO_XENTREGA, async (req, res) => {
   const { entrega } = req.params;

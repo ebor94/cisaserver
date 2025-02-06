@@ -60,7 +60,6 @@ router.get(process.env.RUTA_GET_CLIENTE_XENTREGA, async (req, res) => {
 
 router.get(process.env.RUTA_GET_TRANSPORTADOR_XENTREGA, async (req, res) => {
   const { entrega } = req.params;
-  console.log('pasando por routes',entrega)
   const response = await getInfoTransportador_xEntrega(entrega);
   res.send(response);
 });

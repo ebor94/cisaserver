@@ -1,4 +1,4 @@
-import { GetInvoice, GetInfoSeller, GetHeadQuote, CreateOrderReference, CreateConsecutive, CreateDetail, GetDetail, DelPosDetail, FinishSales, GetCentroCiudad } from "../../services/sap/invoice.js"
+import { GetInvoice, GetInfoSeller, GetHeadQuote, CreateOrderReference, CreateConsecutive, CreateDetail, GetDetail, DelPosDetail, FinishSales, GetCentroCiudad} from "../../services/sap/invoice.js"
 import { GetPrice } from '../../services/sap/product.js'
 
 export const GetInvoiceController = async (data) => {
@@ -109,7 +109,3 @@ export const GetCentroCiudadController = async (data) => {
     const response = await GetCentroCiudad(data);
     return response;
 }
-
-
-
-

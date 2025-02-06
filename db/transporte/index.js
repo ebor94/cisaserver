@@ -85,7 +85,7 @@ export const RegistraVehiculo = async (tipo,
    async function getPool() {
      if (!poolx) {
        poolx = await new sql.ConnectionPool(configVselect).connect();
-     }
+     }     
      return poolx;
    }   
 
@@ -95,14 +95,31 @@ export const listaEntregaUsuario = async(user)=>{
         const pool = await getPool();
         const result = await pool.request()
         .input('usuario', sql.VarChar, user)
-        .execute('lista_Entrega_Usuario')
-        
+        .execute('lista_Entrega_Usuario')        
         return result.recordset;
       } catch (err) {
         console.error('Error en listaEntregaUsuario:', err);
         throw err;
       }
  }
+
+ export const IndicadorDespacho = async(PtoExp)=>{
+
+  try {
+      const pool = await getPool();
+      const result = await pool.request()
+      .input('PtoExp', sql.VarChar, PtoExp)
+      .execute('IndicadorDespachoFechaActual')        
+      return result.recordset;
+    } catch (err) {
+      console.error('Error en IndicadorDespacho:', err);
+      throw err;
+    }finally{
+      await poolx.close();
+      poolx = null;
+      }
+    
+}
 
  // Función para cerrar la conexión cuando la aplicación se cierre
 export const closePool = async () => {

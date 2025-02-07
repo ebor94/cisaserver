@@ -86,9 +86,11 @@ import getGiftCard from "./routes/clientes/italpuntos.js"
 import  buyGiftCard from "./routes/clientes/italpuntos.js" 
 import GetIndicadorDespacho from "./routes/transporte/index.js"
 import GetCliente from "./routes/clientes/index.js"
+import loginRoutes from "./routes/login/index.js";
 
 const app = Express();
 const port = process.env.PORT;
+
 
 const swaggerOptions = {
   definition: {
@@ -126,6 +128,33 @@ app.use((req, res, next) => {
   console.log(`IP: ${ip}`);
   next();
 });
+
+// Deshabilitar x-powered-by  
+app.disable('x-powered-by');  
+  
+// Deshabilitar etag  
+app.set('etag', false);
+app.use((req, res, next) => {  
+  res.removeHeader('x-powered-by');  
+  res.removeHeader('connection');  
+  res.removeHeader('keep-alive');  
+  res.removeHeader('date');  
+    
+  res.removeHeader('access-control-allow-methods'); 
+  res.removeHeader('access-control-allow-origin'); 
+  res.removeHeader('content-length'); 
+  res.removeHeader('content-type'); 
+
+
+  const originalSend = res.send;  
+  res.send = function(body) {  
+    res.removeHeader('x-powered-by');  
+    return originalSend.call(this, body);  
+  };  
+    
+  next();  
+});
+app.use('/auth', loginRoutes);
 
 app.post(process.env.RUTA_LISTAR_SALAS, listarSalas);
 app.post(process.env.RUTA_LISTAR_HORARIOS, listarHorarios);
@@ -186,6 +215,7 @@ app.get('/transporte/indicadorDespacho/:ptoExp/',GetIndicadorDespacho)
 app.post('/clientes/getcliente/',GetCliente)
 app.post('/clientes/italpuntos/getGiftCard/',getGiftCard)
 app.post('/clientes/italpuntos/buygifcard/',buyGiftCard)
+
 
 //appDespacho
 app.get(process.env.RUTA_GET_DESPACHO_XCC, getDespTransportador);

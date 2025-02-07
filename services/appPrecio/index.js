@@ -4,16 +4,16 @@ import dotenv from 'dotenv'
 import { generateHash } from '../../helpers/index.js';
 dotenv.config()
 const urlApprecio = 'https://apiv2.apprecio.com.co/api';
-
+const { timestamp, hash } = generateHash(process.env.public_token_apprecio, process.env.Private_Token_apprecio);
 export const cuponList =  {
 
   async getCupon(){
-    let data = new FormData();
+    let data = new FormData();    
     data.append('accion', 'getListadoGiftcard');
-    data.append('ts', '123456');
+    data.append('ts', timestamp);
     data.append('tipo', 'json');
     data.append('public_token', process.env.public_token_apprecio);
-    data.append('hash', 'd725e14f5cb3900a38fe74ed82b821ed');
+    data.append('hash', hash);
 
     
     let config = {
@@ -37,13 +37,13 @@ export const cuponList =  {
     return response;
   }, 
 
-  async getGiftCard(id){
+  async getGiftCard(id){   
     let data = new FormData();
     data.append('accion', 'getStockGc');
-    data.append('ts', '123456');
+    data.append('ts', timestamp);
     data.append('tipo', 'json');
     data.append('public_token', process.env.public_token_apprecio);
-    data.append('hash', 'd725e14f5cb3900a38fe74ed82b821ed');
+    data.append('hash', hash);
     data.append('idGiftcard', id);
 
     
@@ -67,10 +67,8 @@ export const cuponList =  {
 
     return response;
   },
-  async buyGiftCard(idGiftcard, valor, userCode, userName){
-     
-      // Generar hash
-      const { timestamp, hash } = generateHash(process.env.public_token_apprecio, process.env.Private_Token_apprecio);
+  async buyGiftCard(idGiftcard, valor, userCode, userName){    
+      // Generar hash  
     let data = new FormData();
     data.append('accion', 'reedemGifCard');
     data.append('ts', timestamp);

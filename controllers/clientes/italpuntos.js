@@ -1,6 +1,7 @@
 import { cuponList } from "../../services/appPrecio/index.js";
 import { GetCliente } from "./index.js";
 
+
 export const getCuponList = async () => {
   try {
     const response = await cuponList.getCupon();
@@ -43,10 +44,11 @@ export const getGiftCard = async (id) => {
   }
 };
 
-export const buyGiftCard = async (idGiftcard, userCode, bpCode, userName, hash, valorgif) => {
+export const buyGiftCard = async (idGiftcard, userCode, bpCode, userName, valorgif) => {
   // Configuración del hash (considerar mover a variables de entorno)
-  hash = "88fed48f46e8d46ffff74df9daeca42e";
-  
+
+
+
   try {
     // Validación del cliente
     const clienteBP = await GetCliente(userCode);
@@ -75,10 +77,8 @@ export const buyGiftCard = async (idGiftcard, userCode, bpCode, userName, hash, 
     }
 
     // Validación de stock y valor
-    const valorDisponible = giftCard.data.stocks?.find(
-      stock => stock.valor === valorgif && stock.stock === true
-    );
-
+    let valoresGif = giftCard.data.stocks;
+    let valorDisponible =  valoresGif.find((stock) => stock.valor == valorgif);
     if (!valorDisponible) {
       return {
         success: false,
@@ -87,8 +87,7 @@ export const buyGiftCard = async (idGiftcard, userCode, bpCode, userName, hash, 
     }
 
     // Procesar la compra
-    const compraResult = await cuponList.buyGiftCard(
-      HASH_VALUE,
+    const compraResult = await cuponList.buyGiftCard(     
       idGiftcard,
       valorDisponible.valor,
       userCode,

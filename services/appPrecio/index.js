@@ -1,6 +1,7 @@
 import axios from 'axios';
 import FormData from 'form-data';
 import dotenv from 'dotenv'
+import { generateHash } from '../../helpers/index.js';
 dotenv.config()
 const urlApprecio = 'https://apiv2.apprecio.com.co/api';
 
@@ -66,10 +67,13 @@ export const cuponList =  {
 
     return response;
   },
-  async buyGiftCard(hash, idGiftcard, valor, userCode, userName){
+  async buyGiftCard(idGiftcard, valor, userCode, userName){
+     
+      // Generar hash
+      const { timestamp, hash } = generateHash(process.env.public_token_apprecio, process.env.Private_Token_apprecio);
     let data = new FormData();
     data.append('accion', 'reedemGifCard');
-    data.append('ts', '123456');
+    data.append('ts', timestamp);
    // data.append('tipo', 'json');
     data.append('public_token', process.env.public_token_apprecio);
     data.append('hash', hash);

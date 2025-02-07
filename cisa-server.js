@@ -129,31 +129,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// Deshabilitar x-powered-by  
-app.disable('x-powered-by');  
-  
-// Deshabilitar etag  
-app.set('etag', false);
-app.use((req, res, next) => {  
-  res.removeHeader('x-powered-by');  
-  res.removeHeader('connection');  
-  res.removeHeader('keep-alive');  
-  res.removeHeader('date');  
-    
-  res.removeHeader('access-control-allow-methods'); 
-  res.removeHeader('access-control-allow-origin'); 
-  res.removeHeader('content-length'); 
-  res.removeHeader('content-type'); 
 
-
-  const originalSend = res.send;  
-  res.send = function(body) {  
-    res.removeHeader('x-powered-by');  
-    return originalSend.call(this, body);  
-  };  
-    
-  next();  
-});
 app.use('/auth', loginRoutes);
 
 app.post(process.env.RUTA_LISTAR_SALAS, listarSalas);

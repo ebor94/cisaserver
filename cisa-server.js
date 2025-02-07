@@ -82,6 +82,7 @@ import GetAlistamientoAcumulado from "./routes/transporte/wm.js";
 import getInfoPallet from "./routes/producto/product.js"
 import getCuponList from "./routes/clientes/italpuntos.js"
 import getGiftCard from "./routes/clientes/italpuntos.js" 
+import  buyGiftCard from "./routes/clientes/italpuntos.js" 
 import GetIndicadorDespacho from "./routes/transporte/index.js"
 import GetCliente from "./routes/clientes/index.js"
 
@@ -183,6 +184,7 @@ app.post('/clientes/italpuntos/CuponList/',getCuponList)
 app.get('/transporte/indicadorDespacho/:ptoExp/',GetIndicadorDespacho)
 app.post('/clientes/getcliente/',GetCliente)
 app.post('/clientes/italpuntos/getGiftCard/',getGiftCard)
+app.post('/clientes/italpuntos/buygifcard/',buyGiftCard)
 
 //appDespacho
 app.get(process.env.RUTA_GET_DESPACHO_XCC, getDespTransportador);

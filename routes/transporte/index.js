@@ -16,7 +16,7 @@ import {
 import { getLista_NovedadDespacho_xDespacho , getLista_NovedadDespachoDetalle_xDespacho , getDetalleNovedad_xCodNovedad,
          postGrabar_LocalizacionDespacho , postGrabar_NovedadDespacho,  postGrabar_ImagenNovedadDespacho, getConsultar_fechaServer,
           putActualizar_EstadoEntrega, getDespTransportador, getInfoTransportador , getLista_TiposNovedadDespacho ,getValidarTransportador
-          ,getInfoCliente_xEntrega, getConsultar_documentoEntrega, postGrabar_documentoEntrega} from "../../controllers/transporte/index.js";
+          ,getInfoCliente_xEntrega,getInfoTransportador_xEntrega, getConsultar_documentoEntrega, postGrabar_documentoEntrega} from "../../controllers/transporte/index.js";
 
 
 import dotenv from "dotenv";
@@ -57,6 +57,63 @@ router.get(process.env.RUTA_GET_CLIENTE_XENTREGA, async (req, res) => {
   const response = await getInfoCliente_xEntrega(entrega);
   res.send(response);
 });
+
+
+/**
+ * @swagger
+ *
+ * /transporte/info_transportador_xentrega/{entrega}: 
+ *   get:
+ *     summary: información de transportador por numero de entrega
+ *     tags:
+ *       - APP Despacho # Categoría o sección donde aparecerá esta ruta
+ *     parameters:
+ *       - in: path
+ *         name: entrega
+ *         required: true
+ *         value: '60639162'
+ *         description: numero de entrega
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Datos de transportador por entrega
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 transportadora:
+ *                   type: string
+ *                   example: "TRANSMULTIMAC LTDA"
+ *                 DesTipoVehiculo:
+ *                   type: string
+ *                   example: "TURBO"
+ *                 Transportador:
+ *                   type: string
+ *                   example: "JEYSON CONTRERAS"
+ *                 cedula:
+ *                   type: string
+ *                   example: "1093413203" 
+ *                 placa:
+ *                   type: string
+ *                   example: "XMD863" 
+ *                 No_celular:
+ *                   type: string
+ *                   example: "3104843155" 
+ *                 entrega:
+ *                   type: string
+ *                   example: "60639162"
+ *                 despacho:
+ *                   type: string
+ *                   example: "00141053"  
+ */
+router.get(process.env.RUTA_GET_TRANSPORTADOR_XENTREGA, async (req, res) => {
+  const { entrega } = req.params;
+  const response = await getInfoTransportador_xEntrega(entrega);
+  res.send(response);
+});
+
 
 router.get(process.env.RUTA_GET_DOCUMENTO_XENTREGA, async (req, res) => {
   const { entrega } = req.params;
@@ -107,12 +164,12 @@ router.post(
  *
  * /transporte/lista_novedaddespacho/{despacho}:
  *   get:
- *     summary: Get data employed of synergy sending cc
+ *     summary: lista de novedades de un despacho
  *     tags:
  *       - APP Despacho # Categoría o sección donde aparecerá esta ruta
  *     parameters:
  *       - in: path
- *         despacho: despacho
+ *         name: despacho
  *         required: true
  *         value: '137899'
  *         description: numero de despacho
@@ -120,50 +177,36 @@ router.post(
  *           type: string
  *     responses:
  *       200:
- *         description: Data employed
+ *         description: Datos de novedades
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 cedula:
+ *                 codNovedadDesp:
+ *                   type: number
+ *                   example: 53
+ *                 Despacho:
  *                   type: string
- *                 nombre:
+ *                   example: "137899"
+ *                 Entrega:
  *                   type: string
- *                 success:
- *                   type: boolean
- *                 message:
+ *                   example: "60616967" 
+ *                 observacion:
  *                   type: string
- *                 data:
- *                   type: array
- *                   items:
- *                      type: object
- *                      properties:
- *                          CodSynergy:
- *                              type: number
- *                          NombreEmpleado:
- *                              type: string
- *                          CedulaEmpleado:
- *                              type: string
- *                          TelCorpEmpleado:
- *                              type: number
- *                          CelCorpEmpleado:
- *                              type: string
- *                          EmailCorpEmpleado:
- *                              type: string
- *                          Enfoque:
- *                              type: string
- *                          Cargo:
- *                              type: string
- *                          GrupoTrabajo:
- *                              type: string
- *                          Funcion:
- *                              type: string
- *                          Nivel:
- *                              type: string
- *                          JefeInmediato:
- *                              type: string
+ *                   example: "observación..." 
+ *                 fechaActualizacion:
+ *                   type: string
+ *                   format: date-time
+ *                   example: "2024-10-22T10:46:24.893Z" 
+ *                 CodTipoNovedadDesp:
+ *                   type: number
+ *                   example: 1
+ *                 DesTipoNovedadDesp:
+ *                   type: string
+ *                   example: "PROBLEMA MECANICO"  
  */
+
 router.get(process.env.RUTA_GET_LISTA_NOVDESP_XDESP, async (req, res) => {
   const { despacho } = req.params;
   const response = await getLista_NovedadDespacho_xDespacho(despacho);

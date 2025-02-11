@@ -74,7 +74,7 @@ export const GetInfoSeller = (seller) => {
 }
 
 
-export const GetHeadQuote = ({ BANDERA, OFERTA, MARGENALIADO, MARGENINTERNO, TOKEN, RESPUESTAWP, USUARIOAPROB, FILTRO }) => {
+export const GetHeadQuote = ({ BANDERA, OFERTA, MARGENALIADO, MARGENINTERNO, TOKEN, RESPUESTAWP, USUARIOAPROB, FILTRO , CODBP}) => {
   let data = JSON.stringify({
 
     "BANDERA": BANDERA,
@@ -84,14 +84,15 @@ export const GetHeadQuote = ({ BANDERA, OFERTA, MARGENALIADO, MARGENINTERNO, TOK
     "TOKEN": TOKEN,
     "RESPUESTAWP": RESPUESTAWP,
     "USUARIOAPROB": USUARIOAPROB,
-    "FILTRO": FILTRO
+    "FILTRO": FILTRO,
+    "CODBP" : CODBP
 
   });
 
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: process.env.GET_HEAD_QUOTE_URL,
+    url: `${domain}/zws_cotizacion`,
     headers: {
       'Content-Type': 'application/json',
       'Authorization': process.env.GETINVOICE_AUTORIZATION,

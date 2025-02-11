@@ -92,7 +92,7 @@ export const GetHeadQuote = ({ BANDERA, OFERTA, MARGENALIADO, MARGENINTERNO, TOK
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: `${domain}/zws_cotizacion`,
+    url: process.env.GET_HEAD_QUOTE_URL,
     headers: {
       'Content-Type': 'application/json',
       'Authorization': process.env.GETINVOICE_AUTORIZATION,

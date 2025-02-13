@@ -88,6 +88,7 @@ import GetIndicadorDespacho from "./routes/transporte/index.js"
 import GetCliente from "./routes/clientes/index.js"
 import loginRoutes from "./routes/login/index.js";
 import RegistrarItalPuntos from "./routes/clientes/italpuntos.js" 
+import addGiftCardBought from "./routes/clientes/italpuntos.js" 
 
 
 const app = Express();
@@ -194,6 +195,7 @@ app.post('/clientes/getcliente/',GetCliente)
 app.post('/clientes/italpuntos/getGiftCard/',getGiftCard)
 app.post('/clientes/italpuntos/buygifcard/',buyGiftCard)
 app.post('/clientes/italpuntos/registrar/',RegistrarItalPuntos)
+app.post('/clientes/italpuntos/registrarGiftCard/',addGiftCardBought)
 
 
 //appDespacho

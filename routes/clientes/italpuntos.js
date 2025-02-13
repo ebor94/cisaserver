@@ -240,7 +240,7 @@ router.post('/clientes/italpuntos/registrar/', async(req,res)=>{
  *     summary: Registra una nueva gift card en el sistema
  *     description: Endpoint para registrar gift cards con información detallada
  *     tags:
- *       - Gift Cards
+ *       - ItalPuntos
  *     requestBody:
  *       required: true
  *       content:

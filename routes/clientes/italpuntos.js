@@ -1,4 +1,4 @@
-import { buyGiftCard, getCuponList, getGiftCard, RegistrarItalPuntos } from "../../controllers/clientes/italpuntos.js";
+import { addGiftCardBought, buyGiftCard, getCuponList, getGiftCard, RegistrarItalPuntos } from "../../controllers/clientes/italpuntos.js";
 import express  from "express";
 const router = express.Router();
 
@@ -230,6 +230,137 @@ router.post('/clientes/italpuntos/registrar/', async(req,res)=>{
    let { consecutivo,pedido,codBp} = req.body
     let response  = await  RegistrarItalPuntos(consecutivo,pedido,codBp);
     res.send(response);  
+ })
+
+
+/**
+ * @swagger
+ * /clientes/italpuntos/registrarGiftCard:
+ *   post:
+ *     summary: Registra una nueva gift card en el sistema
+ *     description: Endpoint para registrar gift cards con información detallada
+ *     tags:
+ *       - Gift Cards
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - clave
+ *               - codTarjeta
+ *               - empresa
+ *               - fechaExpiracionTicket
+ *               - nombreEmpresa
+ *               - status
+ *               - userCode
+ *               - valor
+ *             properties:
+ *               bandera:
+ *                 type: string
+ *                 description: Campo auxiliar
+ *                 example: '1'
+ *               clave:
+ *                 type: string
+ *                 description: Clave única de la gift card
+ *                 example: "GC123456"
+ *               codTarjeta:
+ *                 type: string
+ *                 description: Código de la tarjeta
+ *                 example: "TARJ789"
+ *               empresa:
+ *                 type: string
+ *                 description: Nombre de la empresa emisora
+ *                 example: "Empresa SA"
+ *               fechaExpiracionTicket:
+ *                 type: string
+ *                 format: date
+ *                 description: Fecha de expiración de la gift card
+ *                 example: "2024-12-31"
+ *               hashPdf:
+ *                 type: string
+ *                 description: Hash del PDF asociado
+ *                 example: "abc123def456"
+ *               idGiftcard:
+ *                 type: string
+ *                 description: Identificador único de la gift card
+ *                 example: "GFT123"
+ *               nombreEmpresa:
+ *                 type: string
+ *                 description: Nombre completo de la empresa
+ *                 example: "Empresa Servicios SA"
+ *               status:
+ *                 type: string
+ *                 description: Estado actual de la gift card
+ *                 example: "activo"
+ *               url:
+ *                 type: string
+ *                 description: URL asociada a la gift card
+ *                 example: "https://ejemplo.com/giftcard/123"
+ *               userCode:
+ *                 type: string
+ *                 description: Código del usuario
+ *                 example: "1093771589"
+ *               valor:
+ *                 type: number
+ *                 description: Valor monetario de la gift card
+ *                 example: 1000
+ *               codigo:
+ *                 type: string
+ *                 description: Código adicional de la gift card
+ *                 example: "COD456"
+ *     responses:
+ *       200:
+ *         description: Gift card registrada exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   description: Datos de la gift card registrada
+ *                 message:
+ *                   type: string
+ *                   example: "Gift card guardada exitosamente"
+ *       400:
+ *         description: Error en los datos proporcionados
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 data:
+ *                   type: null
+ *                 message:
+ *                   type: string
+ *                   example: "Error en los datos proporcionados"
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 data:
+ *                   type: null
+ *                 message:
+ *                   type: string
+ *                   example: "Error interno del servidor"
+ */
+ router.post('/clientes/italpuntos/registrarGiftCard/',async(req, res)=>{
+   const response = await addGiftCardBought(req.body)
+   res.send(response);  
  })
  
 

@@ -1,3 +1,4 @@
+import { saveGiftCardBought } from "../../db/clientes/italpuntos.js";
 import { cuponList } from "../../services/appPrecio/index.js";
 import { GetHeadQuote, GetInvoice } from "../../services/sap/invoice.js";
 import { GetCliente } from "./index.js";
@@ -133,7 +134,7 @@ export const RegistrarItalPuntos = async (consecutivo, pedido, codBp) => {
       CODBP: codBp,
     };
     const headQuote = await GetHeadQuote(data);
-    
+
     if (!headQuote || !headQuote.length) {
       return {
         success: false,
@@ -151,43 +152,42 @@ export const RegistrarItalPuntos = async (consecutivo, pedido, codBp) => {
         comision: 0,
       };
     }
-  
-    if (consecutivoApi == consecutivo) {    
-        let invoice = await GetInvoice(pedido, "C", "S", "", "", "", "");
-        // Validar respuesta de GetInvoice
-        if (!invoice || !invoice.length) {
-          return {
-            success: false,
-            error: "No se encontraron datos de factura",
-            comision: 0,
-          };
-        }
-        const totalNeto = invoice.reduce((sum, item) => sum + item.vneto, 0);
-        const comision = totalNeto * 0.01; // 1%
-        let raw = {
-          BANDERA: "03",
-          OFERTA: pedido,
-          MARGENALIADO:comision,
-          MARGENINTERNO: "",
-          TOKEN: "",
-          RESPUESTAWP: "",
-          USUARIOAPROB: "",
-          FILTRO: "",
-          CODBP: codBp,
-        };
-        const regPuntos = await GetHeadQuote(raw);
-        if (!regPuntos || !regPuntos.length) {
-          return {
-            success: false,
-            error: "No se encontró la cotización",
-            comision: 0,
-          };
-        }
+
+    if (consecutivoApi == consecutivo) {
+      let invoice = await GetInvoice(pedido, "C", "S", "", "", "", "");
+      // Validar respuesta de GetInvoice
+      if (!invoice || !invoice.length) {
         return {
-          comision: comision,
-          quote: regPuntos
+          success: false,
+          error: "No se encontraron datos de factura",
+          comision: 0,
         };
-      
+      }
+      const totalNeto = invoice.reduce((sum, item) => sum + item.vneto, 0);
+      const comision = totalNeto * 0.01; // 1%
+      let raw = {
+        BANDERA: "03",
+        OFERTA: pedido,
+        MARGENALIADO: comision,
+        MARGENINTERNO: "",
+        TOKEN: "",
+        RESPUESTAWP: "",
+        USUARIOAPROB: "",
+        FILTRO: "",
+        CODBP: codBp,
+      };
+      const regPuntos = await GetHeadQuote(raw);
+      if (!regPuntos || !regPuntos.length) {
+        return {
+          success: false,
+          error: "No se encontró la cotización",
+          comision: 0,
+        };
+      }
+      return {
+        comision: comision,
+        quote: regPuntos,
+      };
     } else {
       return {
         comision: 0,
@@ -196,6 +196,34 @@ export const RegistrarItalPuntos = async (consecutivo, pedido, codBp) => {
   } catch (error) {
     return {
       error: error,
+    };
+  }
+};
+
+export const addGiftCardBought = async ({clave, codTarjeta,empresa,fechaExpiracionTicket,hashPdf,idGiftcard,nombreEmpresa,status,url,userCode,valor,bandera,codigo}) => {
+    try {
+    const result = await saveGiftCardBought(clave, codTarjeta,empresa,fechaExpiracionTicket,hashPdf,idGiftcard,nombreEmpresa,status,url,userCode,valor,bandera,codigo);
+    // Verificar resultado
+    if (!result.success) {
+      return {
+        success: false,
+        data: null,
+        message: result.message || "Error al guardar la gift card",
+      };
+    }
+
+    // Respuesta exitosa
+    return {
+      success: true,
+      data: result.data,
+      message: "Gift card guardada exitosamente",
+    };
+  } catch (error) {
+    console.error("Error en addGiftCardBought:", error);
+    return {
+      success: false,
+      data: null,
+      message: error.message || "Error interno del servidor",
     };
   }
 };

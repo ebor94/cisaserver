@@ -1,5 +1,6 @@
 
-
+import axios from 'axios';
+import qs from 'qs';
 export const labsmobile = {
     
     async sendSms (message,numero){

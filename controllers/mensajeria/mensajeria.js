@@ -33,7 +33,9 @@ export const SendSms = async ({phoneNumber, message}) =>{
         }
 
         if(response.resultCode !== '0'){
+          console.log("diferente de 0")
           let response = await labsmobile.sendSms(message,phoneNumber )
+          console.log(response)
           if(response.code == '0'){
             envio = true
             return {

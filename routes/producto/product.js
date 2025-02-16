@@ -3,6 +3,7 @@ import {
   GetPorductPrice,
   GetRoturaController,
   GetSamples,
+  infoEtiqueta,
 } from "../../controllers/producto/producto.js";
 import express from "express";
 import dotenv from "dotenv";
@@ -149,5 +150,96 @@ router.get('/producto/infopallet/:pallet/:lote/:material', async (req,res)=>{
   const response = await getInfoPallet(pallet,lote,material);
   res.send(response);
 })
+/**
+ * @swagger
+ * /producto/etiqueta/{pallet}:
+ *   get:
+ *     summary: Obtiene información de etiqueta por número de pallet
+ *     description: Retorna la información detallada de una etiqueta basada en el número de pallet proporcionado
+ *     tags: 
+ *       - Etiquetas
+ *     parameters:
+ *       - in: path
+ *         name: pallet
+ *         required: true
+ *         description: Número de pallet de 10 dígitos
+ *         schema:
+ *           type: string
+ *           pattern: '^\d{10}$'
+ *           example: '0002015457'
+ *     responses:
+ *       200:
+ *         description: Información de etiqueta recuperada exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 status:
+ *                   type: integer
+ *                   example: 200
+ *                 message:
+ *                   type: string
+ *                   example: 'Información de etiqueta recuperada exitosamente'
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       ubicacion:
+ *                         type: string
+ *                         example: 'UBICACION-A1'
+ *                         maxLength: 15
+ *                       cantidad:
+ *                         type: number
+ *                         format: decimal
+ *                         example: 100.000
+ *                       lote:
+ *                         type: string
+ *                         example: 'LOTE123'
+ *                         maxLength: 10
+ *                       codigoSap:
+ *                         type: string
+ *                         example: 'SAP001'
+ *                         maxLength: 18
+ *                       pallet:
+ *                         type: string
+ *                         example: '0002015457'
+ *                         maxLength: 10
+ *                       material:
+ *                         type: string
+ *                         example: 'MATERIAL-001'
+ *                         maxLength: 100
+ *       400:
+ *         description: Error de validación
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 status:
+ *                   type: integer
+ *                   example: 400
+ *                 message:
+ *                   type: string
+ *                   example: 'Formato de pallet inválido. Debe ser numérico de 10 dígitos'
+ *       404:
+ *         description: Pallet no encontrado
+ *       500:
+ *         description: Error interno del servidor
+ */
+router.get('/producto/etiqueta/:pallet', async (req, res) => {  
+  const { pallet } = req.params;  
+    
+  const result = await infoEtiqueta(pallet);  
+    
+  res.status(result.status).json(result);  
+});
 
 export default router;

@@ -1,6 +1,6 @@
 
 import { actionsTextSave, List_actions, Save_Action_Date,  Save_Action_Employee, Save_Action_List_every_Value, Save_Action_List_Value, Save_Action_Value } from '../../db/acciones/index.js'
-import { IndicadorDespacho, listaEntregaUsuario, RegistraVehiculo} from '../../db/transporte/index.js'
+import { basculaGuardarPeso, IndicadorDespacho, listaEntregaUsuario, RegistraVehiculo} from '../../db/transporte/index.js'
 import { DespTransportador_model, InfoTransportador_model, ValidarTransportador_model } from '../../db/transporte/index.js'
 import { InfoCliente_xEntrega_model } from '../../db/transporte/index.js'
 import { InfoTransportador_xEntrega_model } from '../../db/transporte/index.js'
@@ -531,4 +531,31 @@ export const  GetIndicadorDespacho = async (ptoExp) => {
         };
       
       }
+}
+
+export const grabarPesoBascula = async ( nombreMaquina, peso, contador) => {
+
+  try {
+     
+    let response = await basculaGuardarPeso( nombreMaquina, peso, contador)
+    
+    if (!response || response.length === 0) {
+        return {
+          success: false,           
+          data: null
+        };
+      }
+  
+      return {
+        success: true,        
+        data: response
+      };
+ 
+    } catch (error) {
+       return {
+        success: false,         
+        error: error.message
+      };
+    
+    }
 }

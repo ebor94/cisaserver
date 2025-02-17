@@ -4,6 +4,7 @@ import {
   ContabilizarEntrega,
   GetIndicadorDespacho,
   GetListActions,
+  grabarPesoBascula,
   listaEntregasUsuario,
   regVehiculo,
   Save_Actions_Date,
@@ -530,6 +531,88 @@ router.get('/transporte/indicadorDespacho/:ptoExp/', async (req, res) => {
   const { ptoExp } = req.params;
   const response = await GetIndicadorDespacho(ptoExp);
   res.send(response);
+});
+
+/**
+ * @swagger
+ * /transporte/grabaPeso/:
+ *   post:
+ *     summary: Guarda el peso en la báscula.
+ *     description: Este endpoint recibe el nombre de la máquina, el peso y el contador, y guarda los datos en la base de datos.
+ *     tags:
+ *       - Báscula
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nombreMaquina:
+ *                 type: string
+ *                 description: Nombre de la máquina.
+ *                 example: "Máquina1"
+ *               peso:
+ *                 type: number
+ *                 format: float
+ *                 description: Peso registrado.
+ *                 example: 100.5
+ *               contador:
+ *                 type: integer
+ *                 description: Contador de la máquina.
+ *                 example: 1
+ *     responses:
+ *       200:
+ *         description: Peso guardado exitosamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         example: 1
+ *                       nombreMaquina:
+ *                         type: string
+ *                         example: "Máquina1"
+ *                       peso:
+ *                         type: number
+ *                         format: float
+ *                         example: 100.5
+ *                       contador:
+ *                         type: integer
+ *                         example: 1
+ *                 message:
+ *                   type: string
+ *                   example: "Operación exitosa"
+ *       500:
+ *         description: Error al procesar la solicitud.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 data:
+ *                   type: null
+ *                 message:
+ *                   type: string
+ *                   example: "Error al procesar la solicitud"
+ */
+router.post('/transporte/grabaPeso/', async (req, res) => {
+  const { nombreMaquina, peso, contador } = req.body;
+  const response = await grabarPesoBascula(nombreMaquina, peso, contador);
+  res.json(response);
 });
 
 export default router;

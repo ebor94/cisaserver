@@ -90,6 +90,7 @@ import loginRoutes from "./routes/login/index.js";
 import RegistrarItalPuntos from "./routes/clientes/italpuntos.js" 
 import addGiftCardBought from "./routes/clientes/italpuntos.js" 
 import infoEtiqueta from "./routes/producto/product.js"
+import grabarPesoBascula from "./routes/transporte/index.js"
 
 
 const app = Express();
@@ -198,6 +199,7 @@ app.post('/clientes/italpuntos/buygifcard/',buyGiftCard)
 app.post('/clientes/italpuntos/registrar/',RegistrarItalPuntos)
 app.post('/clientes/italpuntos/registrarGiftCard/',addGiftCardBought)
 app.get('/producto/etiqueta/:pallet',infoEtiqueta)
+app.post('/transporte/grabaPeso/',grabarPesoBascula)
 
 
 //appDespacho

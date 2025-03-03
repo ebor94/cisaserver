@@ -55,6 +55,9 @@ import registraPicking from "./routes/transporte/wm.js";
 import GetListActions from "./routes/transporte/index.js"
 import ContabilizarEntrega from "./routes/transporte/index.js"
 import WeightDelivery from "./routes/transporte/wm.js"
+import  getInfoMt from "./routes/transporte/wm.js"
+import registrarIngresoMt from "./routes/transporte/wm.js"
+import getInfoIngresoMt from "./routes/transporte/wm.js"
 //---------------------------------------------------------------
 //App Despacho
 import getDespTransportador from "./routes/transporte/index.js";
@@ -200,6 +203,16 @@ app.post('/clientes/italpuntos/registrar/',RegistrarItalPuntos)
 app.post('/clientes/italpuntos/registrarGiftCard/',addGiftCardBought)
 app.get('/producto/etiqueta/:pallet',infoEtiqueta)
 app.post('/transporte/grabaPeso/',grabarPesoBascula)
+app.get('/transporte/ingreso-mt/:entrega/:centro',getInfoMt)
+app.post('/transporte/ingreso-mt-reg/', registrarIngresoMt)
+app.post('/transporte/ingreso-mt-info/:consecutivo/:estado/:centro/:almacen/:entrega',getInfoMt)
+/**
+ * /transporte/ingreso-mt-reg/
+ *  registrarIngresoMt
+ * /transporte/ingreso-mt-info/:consecutivo/:estado/:centro/:almacen/:entrega
+ * getInfoIngresoMt
+ * 
+ */
 
 
 //appDespacho

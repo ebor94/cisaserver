@@ -1,5 +1,5 @@
 import  express  from "express";
-import {Kpi_Alistamiento, listOtwithOrder, SessionWm, listLt22, Confirm_Ot, GetEntregaDetailWm, GetAlistamientoAcumulado, getZwmLt01, registraPicking, WeightDelivery} from '../../controllers/transporte/wm.js'
+import {Kpi_Alistamiento, listOtwithOrder, SessionWm, listLt22, Confirm_Ot, GetEntregaDetailWm, GetAlistamientoAcumulado, getZwmLt01, registraPicking, WeightDelivery, getInfoMt, getInfoIngresoMt, registrarIngresoMt} from '../../controllers/transporte/wm.js'
 import dotenv from 'dotenv'
 dotenv.config()
 const router = express.Router();
@@ -493,4 +493,253 @@ router.get('/transporte/pesoentrega/:entrega',async(req, res )=>{
   const response  = await WeightDelivery(entrega);
   res.send(response);
 });
+
+/**  
+ * @swagger  
+ * /transporte/ingreso-mt/{entrega}/{centro}:  
+ *   get:
+ *     tags:
+ *       - WM Alistamiento  
+ *     summary: Obtener información de transporte e ingreso MT  
+ *     description: Recupera información relacionada con el transporte y el ingreso MT basado en los parámetros de entrega y centro.  
+ *     parameters:  
+ *       - name: entrega  
+ *         in: path  
+ *         required: true  
+ *         description: Número de entrega.
+ *         example: "0070334079"  
+ *         schema:  
+ *           type: string  
+ *       - name: centro  
+ *         in: path  
+ *         required: true  
+ *         description: Código del centro.
+ *         example: "1200"  
+ *         schema:  
+ *           type: string  
+ *     responses:  
+ *       200:  
+ *         description: Respuesta exitosa con la información solicitada.  
+ *         content:  
+ *           application/json:  
+ *             schema:  
+ *               type: object  
+ *               properties:  
+ *                 success:  
+ *                   type: boolean  
+ *                   description: Indica si la operación fue exitosa.  
+ *                 data:  
+ *                   type: array  
+ *                   items:  
+ *                     type: object  
+ *                     properties:  
+ *                       VBELN:  
+ *                         type: string  
+ *                         description: Número de entrega.  
+ *                       MATNR:  
+ *                         type: string  
+ *                         description: Número de material.  
+ *                       CHARG:  
+ *                         type: string  
+ *                         description: Número de lote.  
+ *                       CENTRO_ING:  
+ *                         type: string  
+ *                         description: Centro de ingreso.  
+ *                       LGORT:  
+ *                         type: string  
+ *                         description: Almacén.  
+ *                       POS_ENTREGA:  
+ *                         type: string  
+ *                         description: Posición de entrega.  
+ *                       CANTIDAD:  
+ *                         type: string  
+ *                         description: Cantidad.  
+ *       400:  
+ *         description: Solicitud inválida (parámetros faltantes o incorrectos).  
+ *       500:  
+ *         description: Error interno del servidor.  
+ */
+router.get('/transporte/ingreso-mt/:entrega/:centro',async(req, res)=>{
+  const {entrega, centro} = req.params;
+  const response = await getInfoMt(entrega, centro);
+  res.send(response);
+
+})
+
+/**  
+ * @swagger  
+ * /:  
+ *   get:  
+ *     summary: Obtener información de ingreso MT  
+ *     description: Recupera información relacionada con el ingreso MT basado en los parámetros proporcionados.  
+ *     tags:  
+ *       - WM Alistamiento  
+ *     parameters:  
+ *       - name: consecutivo  
+ *         in: query  
+ *         required: false  
+ *         description: Número de consecutivo.
+ *         example: "0001901524"  
+ *         schema:  
+ *           type: string  
+ *       - name: estado  
+ *         in: query  
+ *         required: false  
+ *         description: Estado del ingreso.
+ *         example: "L"  
+ *         schema:  
+ *           type: string  
+ *       - name: centro  
+ *         in: query  
+ *         required: false  
+ *         description: Código del centro.
+ *         example: "1200"  
+ *         schema:  
+ *           type: string  
+ *       - name: almacen  
+ *         in: query  
+ *         required: false  
+ *         description: Código del almacén.
+ *         example: "1201"   
+ *         schema:  
+ *           type: string  
+ *       - name: entrega  
+ *         in: query  
+ *         required: false  
+ *         description: Número de entrega.
+ *         example: "0070334079"   
+ *         schema:  
+ *           type: string  
+ *     responses:  
+ *       200:  
+ *         description: Respuesta exitosa con la información solicitada.  
+ *         content:  
+ *           application/json:  
+ *             schema:  
+ *               type: object  
+ *               properties:  
+ *                 success:  
+ *                   type: boolean  
+ *                   description: Indica si la operación fue exitosa.  
+ *                 data:  
+ *                   type: array  
+ *                   items:  
+ *                     type: object  
+ *                     properties:  
+ *                       Consecutivo:  
+ *                         type: string  
+ *                         description: Número de pallet.  
+ *                       Estado:  
+ *                         type: string  
+ *                         description: Estado del pallet.  
+ *                       Centro:  
+ *                         type: string  
+ *                         description: Código del centro.  
+ *                       Almacen:  
+ *                         type: string  
+ *                         description: Código del almacén.  
+ *                       Entrega:  
+ *                         type: string  
+ *                         description: Número de entrega.  
+ *       400:  
+ *         description: Solicitud inválida (parámetros faltantes o incorrectos).  
+ *       500:  
+ *         description: Error interno del servidor.  
+ */
+router.get('/transporte/ingreso-mt-info/:consecutivo/:estado/:centro/:almacen/:entrega',async (req, res) => {
+  const {consecutivo, estado, centro, almacen, entrega} = req.params;
+  const response = await getInfoIngresoMt(consecutivo, estado, centro, almacen, entrega);
+  res.send(response);
+
+})
+
+/**  
+ * @swagger  
+ * /transporte/ingreso-mt-reg/:  
+ *   post:  
+ *     summary: Registrar ingreso MT  
+ *     description: Registra un ingreso MT por pallet.  
+ *     tags:  
+ *       - WM Alistamiento  
+ *     requestBody:  
+ *       required: true  
+ *       content:  
+ *         application/json:  
+ *           schema:  
+ *             type: object  
+ *             properties:  
+ *               VBELN:  
+ *                 type: string  
+ *                 description: Número de entrega.  
+ *                 example: "0070334079"  
+ *               MATNR:  
+ *                 type: string  
+ *                 description: Número de material.  
+ *                 example: "000000000000203033"  
+ *               CHARG:  
+ *                 type: string  
+ *                 description: Número de lote.  
+ *                 example: "0000008067"  
+ *               PALLET:  
+ *                 type: string  
+ *                 description: Número de pallet.  
+ *                 example: "0001901524"  
+ *               CENTRO_ING:  
+ *                 type: string  
+ *                 description: Centro de ingreso.  
+ *                 example: "1200"  
+ *               LGORT:  
+ *                 type: string  
+ *                 description: Almacén.  
+ *                 example: "1201"  
+ *               UBICACION1:  
+ *                 type: string  
+ *                 description: Primera ubicación.  
+ *                 example: "U001"  
+ *               UBICACION2:  
+ *                 type: string  
+ *                 description: Segunda ubicación.  
+ *                 example: "U002"  
+ *               POS_ENTREGA:  
+ *                 type: string  
+ *                 description: Posición de entrega.  
+ *                 example: "900003"  
+ *               CANTIDAD:  
+ *                 type: number  
+ *                 description: Cantidad.  
+ *                 example: 38.8  
+ *               COD_USUARIO:  
+ *                 type: string  
+ *                 description: Código del usuario.  
+ *                 example: "9979"  
+ *               BANDERA:  
+ *                 type: string  
+ *                 description: Bandera de control.  
+ *                 example: "1"  
+ *     responses:  
+ *       200:  
+ *         description: Respuesta exitosa con los datos registrados.  
+ *         content:  
+ *           application/json:  
+ *             schema:  
+ *               type: object  
+ *               properties:  
+ *                 success:  
+ *                   type: boolean  
+ *                   description: Indica si la operación fue exitosa.  
+ *                 data:  
+ *                   type: object  
+ *                   description: Datos registrados.  
+ *       400:  
+ *         description: Solicitud inválida (datos faltantes o incorrectos).  
+ *       500:  
+ *         description: Error interno del servidor.  
+ */
+router.post('/transporte/ingreso-mt-reg/',async(req, res )=>{
+  const  response  = await registrarIngresoMt(req.body);
+  res.send(response);
+})
+
+
+
 export default router

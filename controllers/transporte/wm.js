@@ -1,5 +1,5 @@
 import { GetName } from '../../services/sap/product.js';
-import {AlistamientoAcumulado, GetEnteragaDetails, GetWeightDelivery, loginWm, RegistraPickingsService, Wm_confirm_ot, wm_Kpi_Alistamiento, wmGetOtOrder, wmLt22, zwmlt01} from '../../services/sap/wm.js'
+import {AlistamientoAcumulado, GetEnteragaDetails, GetWeightDelivery, loginWm, mt, RegistraPickingsService, Wm_confirm_ot, wm_Kpi_Alistamiento, wmGetOtOrder, wmLt22, zwmlt01} from '../../services/sap/wm.js'
 
 
  export  const  SessionWm = async ({usuario, contraseña, bandera})=>{
@@ -169,4 +169,81 @@ export const WeightDelivery = async (entrega) => {
       error: error.message
     };
   }
+}
+
+
+export const getInfoMt = async (entrega, centro) => {
+  try {
+    let response = await mt.getInfoMT(entrega, centro)
+    if (!response || response.length === 0) {
+      return {
+        success: false,           
+        data: null
+      };
+    }
+    return {
+      success: true,        
+      data: response
+    };
+  } catch (error) {
+    return {
+      success: false,         
+      error: error.message
+    };
+  }
+}
+
+export const registrarIngresoMt = async(data) => {
+
+  try {
+    const requiredFields = ['VBELN', 'MATNR', 'CHARG', 'CENTRO_ING', 'LGORT', 'POS_ENTREGA', 'CANTIDAD'];  
+    const missingFields = requiredFields.filter((field) => !data[field] || (field === 'CANTIDAD' && parseFloat(data[field]) <= 0));  
+    
+    if (missingFields.length > 0) {  
+      return {  
+        success: false,  
+        error: `Los siguientes campos son inválidos o están vacíos: ${missingFields.join(', ')}`,  
+      };  
+    }
+
+    let response = await mt.registrarIngreso(data)
+    if (!response || response.length === 0) {
+      return {
+        success: false,           
+        data: null
+      };
+    }
+    return {
+      success: true,        
+      data: response
+    };
+  } catch (error) {
+    return {
+      success: false,         
+      error: error.message
+    };
+  }
+ 
+}
+
+export const getInfoIngresoMt = async (consecutivo,estado, centro, almacen, entrega) => {
+  try {
+    let response = await mt.getInfoIngreso(consecutivo,estado, centro, almacen, entrega);
+    if (!response || response.length === 0) {
+      return {
+        success: false,           
+        data: null
+      };
+    }
+    return {
+      success: true,        
+      data: response
+    };
+  } catch (error) {
+    return {
+      success: false,         
+      error: error.message
+    };
+  }
+
 }

@@ -1,9 +1,109 @@
 import  express  from "express";
 import {Kpi_Alistamiento, listOtwithOrder, SessionWm, listLt22, Confirm_Ot, GetEntregaDetailWm, GetAlistamientoAcumulado, getZwmLt01, registraPicking, WeightDelivery, getInfoMt, getInfoIngresoMt, registrarIngresoMt} from '../../controllers/transporte/wm.js'
 import dotenv from 'dotenv'
+import { validateToken } from "../../services/jwt/index.js";
 dotenv.config()
 const router = express.Router();
 
+/**
+ * @swagger
+ * /transporte/sesionwm:
+ *   post:
+ *     summary: Iniciar sesión en WM
+ *     description: Autentica un usuario y devuelve un token JWT para acceder a las rutas protegidas
+ *     tags:
+ *       - Autenticación
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - usuario
+ *               - contraseña
+ *               - bandera
+ *             properties:
+ *               usuario:
+ *                 type: string
+ *                 description: Nombre de usuario
+ *                 example: "usuario123"
+ *               contraseña:
+ *                 type: string
+ *                 description: Contraseña del usuario
+ *                 example: "clave123"
+ *               bandera:
+ *                 type: string
+ *                 description: Valor de control para el tipo de autenticación
+ *                 example: "1"
+ *     responses:
+ *       200:
+ *         description: Autenticación exitosa
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Indica si la operación fue exitosa
+ *                   example: true
+ *                 token:
+ *                   type: string
+ *                   description: Token JWT para autenticación
+ *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *                 usuario:
+ *                   type: object
+ *                   description: Información del usuario autenticado
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       description: Identificador del usuario
+ *                       example: "9979"
+ *                     nombre:
+ *                       type: string
+ *                       description: Nombre del usuario
+ *                       example: "Juan Pérez"
+ *       400:
+ *         description: Datos incompletos o inválidos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Faltan datos requeridos"
+ *       401:
+ *         description: Credenciales inválidas
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Usuario o contraseña incorrectos"
+ *       500:
+ *         description: Error del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Error interno del servidor"
+ */
 router.post(process.env.RUTA_LOGINWM, async (req,res) => {
     const response  = await SessionWm(req.body);    
      res.send(response); 
@@ -568,12 +668,14 @@ router.get('/transporte/ingreso-mt/:entrega/:centro',async(req, res)=>{
 
 /**  
  * @swagger  
- * /:  
+ * /transporte/ingreso-mt-info/: 
  *   get:  
  *     summary: Obtener información de ingreso MT  
  *     description: Recupera información relacionada con el ingreso MT basado en los parámetros proporcionados.  
  *     tags:  
  *       - WM Alistamiento  
+ *     security:
+ *       - bearerAuth: [] 
  *     parameters:  
  *       - name: consecutivo  
  *         in: query  
@@ -646,8 +748,8 @@ router.get('/transporte/ingreso-mt/:entrega/:centro',async(req, res)=>{
  *       500:  
  *         description: Error interno del servidor.  
  */
-router.get('/transporte/ingreso-mt-info/:consecutivo/:estado/:centro/:almacen/:entrega',async (req, res) => {
-  const {consecutivo, estado, centro, almacen, entrega} = req.params;
+router.get('/transporte/ingreso-mt-info/', validateToken,async (req, res) => {
+  const {consecutivo, estado, centro, almacen, entrega} = req.query;
   const response = await getInfoIngresoMt(consecutivo, estado, centro, almacen, entrega);
   res.send(response);
 
@@ -705,9 +807,9 @@ router.get('/transporte/ingreso-mt-info/:consecutivo/:estado/:centro/:almacen/:e
  *                 description: Posición de entrega.  
  *                 example: "900003"  
  *               CANTIDAD:  
- *                 type: number  
+ *                 type: string  
  *                 description: Cantidad.  
- *                 example: 38.8  
+ *                 example: "90.72"  
  *               COD_USUARIO:  
  *                 type: string  
  *                 description: Código del usuario.  

@@ -370,9 +370,12 @@ export const mt = {
         response.data.d.results &&
         response.data.d.results.length > 0
       ) {
-        const { __metadata, AlistamientoIngreso, ...datosLimpios } =
-          response.data.d.results[0];
-        return datosLimpios; // Retornar los datos limpios
+        const cleanedResults = JSON.parse(JSON.stringify(response.data.d.results));
+        cleanedResults.forEach(item => {
+          delete item.__metadata;
+          delete item.AlistamientoIngreso;
+        });
+        return cleanedResults; // Retornar los datos limpios
       } else {
         throw new Error("No se encontraron datos en la respuesta.");
       }

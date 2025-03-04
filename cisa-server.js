@@ -108,6 +108,16 @@ const swaggerOptions = {
       version: "1.0.0",
       description: "Docs Server APIS lilix",
     },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+          description: "Ingresa tu token JWT para autenticarte"
+        }
+      }
+    },
   },
   apis: ["./routes/**/*.js"],
 };
@@ -205,7 +215,7 @@ app.get('/producto/etiqueta/:pallet',infoEtiqueta)
 app.post('/transporte/grabaPeso/',grabarPesoBascula)
 app.get('/transporte/ingreso-mt/:entrega/:centro',getInfoMt)
 app.post('/transporte/ingreso-mt-reg/', registrarIngresoMt)
-app.post('/transporte/ingreso-mt-info/:consecutivo/:estado/:centro/:almacen/:entrega',getInfoMt)
+app.get('/transporte/ingreso-mt-info/',getInfoMt)
 /**
  * /transporte/ingreso-mt-reg/
  *  registrarIngresoMt

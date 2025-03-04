@@ -599,7 +599,9 @@ router.get('/transporte/pesoentrega/:entrega',async(req, res )=>{
  * /transporte/ingreso-mt/{entrega}/{centro}:  
  *   get:
  *     tags:
- *       - WM Alistamiento  
+ *       - WM Alistamiento
+  *     security:
+ *       - bearerAuth: []   
  *     summary: Obtener información de transporte e ingreso MT  
  *     description: Recupera información relacionada con el transporte y el ingreso MT basado en los parámetros de entrega y centro.  
  *     parameters:  
@@ -659,7 +661,7 @@ router.get('/transporte/pesoentrega/:entrega',async(req, res )=>{
  *       500:  
  *         description: Error interno del servidor.  
  */
-router.get('/transporte/ingreso-mt/:entrega/:centro',async(req, res)=>{
+router.get('/transporte/ingreso-mt/:entrega/:centro',validateToken,async(req, res)=>{
   const {entrega, centro} = req.params;
   const response = await getInfoMt(entrega, centro);
   res.send(response);
@@ -762,7 +764,9 @@ router.get('/transporte/ingreso-mt-info/', validateToken,async (req, res) => {
  *     summary: Registrar ingreso MT  
  *     description: Registra un ingreso MT por pallet.  
  *     tags:  
- *       - WM Alistamiento  
+ *       - WM Alistamiento
+ *     security:
+ *       - bearerAuth: []   
  *     requestBody:  
  *       required: true  
  *       content:  
@@ -837,7 +841,7 @@ router.get('/transporte/ingreso-mt-info/', validateToken,async (req, res) => {
  *       500:  
  *         description: Error interno del servidor.  
  */
-router.post('/transporte/ingreso-mt-reg/',async(req, res )=>{
+router.post('/transporte/ingreso-mt-reg/',validateToken,async(req, res )=>{
   const  response  = await registrarIngresoMt(req.body);
   res.send(response);
 })

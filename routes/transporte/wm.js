@@ -27,15 +27,15 @@ const router = express.Router();
  *               usuario:
  *                 type: string
  *                 description: Nombre de usuario
- *                 example: "usuario123"
+ *                 example: "9979"
  *               contraseña:
  *                 type: string
  *                 description: Contraseña del usuario
- *                 example: "clave123"
+ *                 example: "9979"
  *               bandera:
  *                 type: string
  *                 description: Valor de control para el tipo de autenticación
- *                 example: "1"
+ *                 example: "SESSION"
  *     responses:
  *       200:
  *         description: Autenticación exitosa

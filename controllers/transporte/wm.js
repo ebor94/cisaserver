@@ -1,10 +1,29 @@
+import { generateToken } from '../../services/jwt/index.js';
 import { GetName } from '../../services/sap/product.js';
 import {AlistamientoAcumulado, GetEnteragaDetails, GetWeightDelivery, loginWm, mt, RegistraPickingsService, Wm_confirm_ot, wm_Kpi_Alistamiento, wmGetOtOrder, wmLt22, zwmlt01} from '../../services/sap/wm.js'
 
 
  export  const  SessionWm = async ({usuario, contraseña, bandera})=>{
-    const response   = await loginWm(usuario, contraseña, bandera);
-    return response;
+    try {
+        let response =  await loginWm(usuario, contraseña, bandera)
+        if (!response || response.length === 0  || response[0].nombre === '') {
+          return {
+            success: false,           
+            data: null
+          };
+        }
+        return {          
+          success: true,        
+          data: response,
+          token: generateToken(response[0].nombre),
+        };
+      }
+      catch (error) {
+        return {
+          success: false,         
+          error: error.message
+        };
+      }
 
 }
 
@@ -205,8 +224,9 @@ export const registrarIngresoMt = async(data) => {
         error: `Los siguientes campos son inválidos o están vacíos: ${missingFields.join(', ')}`,  
       };  
     }
-
-    let response = await mt.registrarIngreso(data)
+    let token = await mt.GetToken(data)
+    
+    let response = await mt.registrarIngreso(data, token)
     if (!response || response.length === 0) {
       return {
         success: false,           
